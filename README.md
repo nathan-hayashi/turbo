@@ -148,6 +148,14 @@ Walk me through the Turbo setup. Read SETUP.md from the tobihagemann/turbo repo 
 
 Claude will install the skills, configure your environment, and walk you through each step interactively.
 
+### Updating
+
+```bash
+npx skills update
+```
+
+As long as there are no breaking changes (skills being added or removed), updates are safe to apply anytime. Otherwise, re-run the [install skills](#1-install-skills) command below.
+
 ### Manual Setup
 
 See [SETUP.md](SETUP.md) for the full guide, or follow the steps below.
@@ -158,7 +166,7 @@ See [SETUP.md](SETUP.md) for the full guide, or follow the steps below.
 npx skills add tobihagemann/turbo --skill '*' --agent claude-code -y -g
 ```
 
-Install all skills. Many depend on each other (e.g., `/finalize` orchestrates `/simplify-plus`, `/codex`, `/evaluate-findings`, and more), so installing them individually will leave gaps in the workflows. Update regularly with `npx skills update`. See [skills.sh/docs](https://skills.sh/docs) for more on the skills CLI.
+Install all skills. Many depend on each other (e.g., `/finalize` orchestrates `/simplify-plus`, `/peer-review`, `/evaluate-findings`, and more), so installing them individually will leave gaps in the workflows. See [skills.sh/docs](https://skills.sh/docs) for more on the skills CLI.
 
 #### 2. Add `.turbo` to Global Gitignore
 

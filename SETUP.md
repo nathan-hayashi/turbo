@@ -26,11 +26,7 @@ Install all skills. Many depend on each other, so installing only a subset will 
 
 Verify skills are available by trying a command like `/finalize`. It should be recognized (don't run it yet, just check it's there).
 
-Update regularly to stay compatible with the latest Claude Code version:
-
-```bash
-npx skills update
-```
+Update by re-running the same command to pick up new, changed, or removed skills.
 
 ## Step 2: Add `.turbo` to Global Gitignore
 
