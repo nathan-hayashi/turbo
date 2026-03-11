@@ -39,7 +39,19 @@ Create `~/.turbo/config.json` if it doesn't exist. Merge the `excludeSkills` key
 
 ## Step 3: Install
 
-If there are excluded skills (from config or user choice), build a specific skill list:
+First, fetch the current Turbo skill list from the repo:
+
+```bash
+gh api repos/tobihagemann/turbo/contents/skills --jq '.[].name'
+```
+
+Compare against the currently installed Turbo skills (from the lock file or symlinks identified in Step 2's conflict check). If there are **no new or removed skills** and **no exclusions**, use the fast path:
+
+```bash
+npx skills update -y
+```
+
+Otherwise (new skills to add, skills removed, or exclusions apply), use the full install. If there are excluded skills (from config or user choice), build a specific skill list:
 
 ```bash
 npx skills add tobihagemann/turbo --skill 'skill1' --skill 'skill2' ... --agent claude-code -y -g
