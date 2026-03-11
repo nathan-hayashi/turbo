@@ -305,59 +305,59 @@ Each session handles one prompt. This keeps context focused and avoids running o
 
 | Skill | What it does |
 |---|---|
-| `/finalize` | Post-implementation QA: test, simplify, review, commit, PR |
-| `/review-feature-branch` | Full branch review: code review + evaluation + optional finalization |
-| `/review-pr` | Full PR review: code review + PR comments + evaluation + optional finalization |
+| [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: test, simplify, review, commit, PR |
+| [`/review-feature-branch`](skills/review-feature-branch/SKILL.md) | Full branch review: code review + evaluation + optional finalization |
+| [`/review-pr`](skills/review-pr/SKILL.md) | Full PR review: code review + PR comments + evaluation + optional finalization |
 
 ### Planning
 
 | Skill | What it does |
 |---|---|
-| `/create-spec` | Guided discussion that produces a spec at `.turbo/spec.md` |
-| `/plan-implementation` | Decompose work into sized, ordered implementation units |
-| `/create-prompt-plan` | Break a spec into context-sized implementation prompts |
-| `/pick-next-prompt` | Pick the next prompt from `.turbo/prompts.md` and plan it |
+| [`/create-spec`](skills/create-spec/SKILL.md) | Guided discussion that produces a spec at `.turbo/spec.md` |
+| [`/plan-implementation`](skills/plan-implementation/SKILL.md) | Decompose work into sized, ordered implementation units |
+| [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts |
+| [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it |
 
 ### Code Quality
 
 | Skill | What it does |
 |---|---|
-| `/code-style` | Enforce mirror, reuse, and symmetry principles |
-| `/simplify-plus` | Multi-agent review for reuse, quality, efficiency, clarity |
-| `/code-review` | AI code review + findings evaluation (reusable core) |
-| `/peer-review` | AI code review interface that delegates to `/codex` by default |
-| `/codex` | AI code review and task execution via codex CLI |
-| `/evaluate-findings` | Confidence-based triage of review feedback |
-| `/find-dead-code` | Identify unused code via parallel analysis |
+| [`/code-style`](skills/code-style/SKILL.md) | Enforce mirror, reuse, and symmetry principles |
+| [`/simplify-plus`](skills/simplify-plus/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity |
+| [`/code-review`](skills/code-review/SKILL.md) | AI code review + findings evaluation (reusable core) |
+| [`/peer-review`](skills/peer-review/SKILL.md) | AI code review interface that delegates to `/codex` by default |
+| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI |
+| [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback |
+| [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis |
 
 ### Git & GitHub
 
 | Skill | What it does |
 |---|---|
-| `/stage-commit` | Stage files and commit in one step |
-| `/commit-staged` | Commit already-staged files with good message |
-| `/create-pr` | Draft and create a GitHub PR |
-| `/update-pr` | Update existing PR title and description |
-| `/fetch-pr-comments` | Read-only summary of unresolved PR comments |
-| `/resolve-pr-comments` | Evaluate, fix, and reply to PR comments |
+| [`/stage-commit`](skills/stage-commit/SKILL.md) | Stage files and commit in one step |
+| [`/commit-staged`](skills/commit-staged/SKILL.md) | Commit already-staged files with good message |
+| [`/create-pr`](skills/create-pr/SKILL.md) | Draft and create a GitHub PR |
+| [`/update-pr`](skills/update-pr/SKILL.md) | Update existing PR title and description |
+| [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md) | Read-only summary of unresolved PR comments |
+| [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments |
 
 ### Debugging
 
 | Skill | What it does |
 |---|---|
-| `/investigate` | Systematic root cause analysis for bugs and failures |
-| `/smoke-test` | Launch the app and verify changes manually |
-| `/oracle` | Consult ChatGPT when completely stuck (requires setup) |
+| [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures |
+| [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually |
+| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) |
 
 ### Knowledge & Maintenance
 
 | Skill | What it does |
 |---|---|
-| `/self-improve` | Extract session learnings to CLAUDE.md, memory, or skills |
-| `/note-improvement` | Capture out-of-scope improvement ideas for later |
-| `/create-skill` | Create or update a skill with proper structure |
-| `/update-npm-deps` | Smart npm dependency upgrades with breaking change research |
-| `/update-turbo` | Update Turbo skills with conflict detection and cleanup |
+| [`/self-improve`](skills/self-improve/SKILL.md) | Extract session learnings to CLAUDE.md, memory, or skills |
+| [`/note-improvement`](skills/note-improvement/SKILL.md) | Capture out-of-scope improvement ideas for later |
+| [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure |
+| [`/update-npm-deps`](skills/update-npm-deps/SKILL.md) | Smart npm dependency upgrades with breaking change research |
+| [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills with conflict detection and cleanup |
 
 ## License
 
