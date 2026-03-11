@@ -1,6 +1,6 @@
 ---
 name: plan-implementation
-description: This skill should be used when the user asks to "plan this implementation", "break this into steps", "help me plan the work", "decompose this into tasks", "create an implementation plan", "how should I break down this project", "size this work", or wants methodology for decomposing work into well-sized, well-ordered units and planning each one thoroughly.
+description: Decompose work into well-sized, well-ordered implementation units and plan each one thoroughly. Use when the user asks to "plan this implementation", "break this into steps", "help me plan the work", "decompose this into tasks", "create an implementation plan", "how should I break down this project", or "size this work".
 ---
 
 # Plan Implementation

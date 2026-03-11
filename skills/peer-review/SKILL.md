@@ -1,6 +1,6 @@
 ---
 name: peer-review
-description: This skill should be used when the user asks to "review my code", "peer review", "review changes", "review the diff", "review uncommitted changes", "review against main", or wants AI-powered code review of their changes.
+description: Run AI-powered code review of changes by delegating to codex in review mode. Use when the user asks to "review my code", "peer review", "review changes", "review the diff", "review uncommitted changes", or "review against main".
 ---
 
 # Peer Review

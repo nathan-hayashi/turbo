@@ -1,6 +1,6 @@
 ---
 name: update-npm-deps
-description: This skill should be used when the user asks to "update dependencies", "upgrade npm packages", "check for updates", "update npm deps", or wants to intelligently upgrade npm dependencies with breaking change research.
+description: Intelligently upgrade npm dependencies with breaking change research for major version updates. Use when the user asks to "update dependencies", "upgrade npm packages", "check for updates", or "update npm deps".
 argument-hint: [package-filter]
 ---
 

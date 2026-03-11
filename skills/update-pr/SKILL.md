@@ -1,6 +1,6 @@
 ---
 name: update-pr
-description: This skill should be used when the user asks to "update the PR", "update PR description", "update PR title", "refresh PR description", "sync PR with changes", or wants to update an existing GitHub pull request's title and description to reflect the current state of the branch.
+description: Update an existing GitHub pull request's title and description to reflect the current state of the branch. Use when the user asks to "update the PR", "update PR description", "update PR title", "refresh PR description", or "sync PR with changes".
 ---
 
 # Update PR Title and Description

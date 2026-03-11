@@ -1,6 +1,6 @@
 ---
 name: commit-staged
-description: This skill should be used when the user asks to "commit staged changes", "commit what's staged", "create a commit from staging", or wants to commit already-staged files without staging new ones.
+description: Commit already-staged changes with a message matching existing commit style. Use when the user asks to "commit staged changes", "commit what's staged", or "create a commit from staging".
 ---
 
 # Commit Staged Changes

@@ -1,6 +1,6 @@
 ---
 name: distill-session
-description: This skill should be used when the user asks to "distill this session", "save learnings", "update CLAUDE.md with what we learned", "capture session insights", "remember this for next time", "extract lessons", "update skills from session", "what did we learn", or wants to extract lessons from the current session and route them to the appropriate knowledge layer (project AGENTS.md, auto memory, existing skills, or new skills).
+description: Extract lessons from the current session and route them to the appropriate knowledge layer (project AGENTS.md, auto memory, existing skills, or new skills). Use when the user asks to "distill this session", "save learnings", "update CLAUDE.md with what we learned", "capture session insights", "remember this for next time", "extract lessons", "update skills from session", or "what did we learn".
 ---
 
 # Distill Session

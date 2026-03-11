@@ -1,6 +1,6 @@
 ---
 name: create-spec
-description: This skill should be used when the user asks to "create a spec", "write a spec", "discuss a project plan", "spec out a project", "design a system", "let's plan this project", "help me scope this", "architect a solution", "let's discuss before building", or wants a guided collaborative discussion that produces a comprehensive specification document at .turbo/spec.md.
+description: Guide a collaborative discussion that produces a comprehensive specification document at .turbo/spec.md. Use when the user asks to "create a spec", "write a spec", "discuss a project plan", "spec out a project", "design a system", "let's plan this project", "help me scope this", "architect a solution", or "let's discuss before building".
 ---
 
 # Create Spec

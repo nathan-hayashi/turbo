@@ -1,6 +1,6 @@
 ---
 name: pick-next-prompt
-description: This skill should be used when the user asks to "pick next prompt", "next prompt", "continue prompt plan", "what's next", "next implementation step", "continue with the plan", or wants to pick the next prompt from .turbo/prompts.md and plan its implementation.
+description: Pick the next prompt from .turbo/prompts.md and plan its implementation. Use when the user asks to "pick next prompt", "next prompt", "continue prompt plan", "what's next", "next implementation step", or "continue with the plan".
 ---
 
 # Pick Next Prompt

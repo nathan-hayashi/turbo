@@ -1,6 +1,6 @@
 ---
 name: create-prompt-plan
-description: This skill should be used when the user asks to "create a prompt plan", "break spec into prompts", "decompose spec into sessions", "plan prompts for spec", "generate prompts from spec", "make prompts from spec", or wants to decompose a specification file into context-sized implementation prompts.
+description: Decompose a specification file into context-sized implementation prompts. Use when the user asks to "create a prompt plan", "break spec into prompts", "decompose spec into sessions", "plan prompts for spec", "generate prompts from spec", or "make prompts from spec".
 ---
 
 # Create Prompt Plan

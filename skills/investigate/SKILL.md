@@ -1,6 +1,6 @@
 ---
 name: investigate
-description: This skill should be used when the user asks to "investigate this bug", "debug this", "figure out why this fails", "find the root cause", "why is this broken", "troubleshoot this", "diagnose the issue", "what's causing this error", "look into this failure", "why is this test failing", "track down this bug", or wants a systematic methodology for investigating bugs, test failures, build errors, performance issues, or unexpected behavior.
+description: Systematically investigate bugs, test failures, build errors, performance issues, or unexpected behavior by cycling through characterize-isolate-hypothesize-test phases. Use when the user asks to "investigate this bug", "debug this", "figure out why this fails", "find the root cause", "why is this broken", "troubleshoot this", "diagnose the issue", "what's causing this error", "look into this failure", "why is this test failing", or "track down this bug".
 argument-hint: "[problem description or error message]"
 ---
 

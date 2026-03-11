@@ -1,6 +1,6 @@
 ---
 name: find-dead-code
-description: This skill should be used when the user asks to "find dead code", "find unused code", "find unused exports", "find unreferenced functions", "clean up dead code", "what code is unused", or wants to identify code that can be safely removed. Finds dead code using parallel subagent analysis and optional CLI tools. Treats code only referenced from tests as dead. Analysis-only — does not modify or delete code.
+description: Find dead code using parallel subagent analysis and optional CLI tools, treating code only referenced from tests as dead. Use when the user asks to "find dead code", "find unused code", "find unused exports", "find unreferenced functions", "clean up dead code", or "what code is unused". Analysis-only — does not modify or delete code.
 ---
 
 # Find Dead Code

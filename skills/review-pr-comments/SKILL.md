@@ -1,6 +1,6 @@
 ---
 name: review-pr-comments
-description: This skill should be used when the user asks to "review PR comments", "show PR comments", "check PR for unresolved comments", "list review comments", "what comments are on the PR", "show unresolved threads", "summarize PR feedback", or wants to see a summary of unresolved GitHub PR review comments without making changes.
+description: Fetch and summarize unresolved GitHub PR review comments without making changes. Use when the user asks to "review PR comments", "show PR comments", "check PR for unresolved comments", "list review comments", "what comments are on the PR", "show unresolved threads", or "summarize PR feedback".
 ---
 
 # Review PR Comments

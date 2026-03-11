@@ -1,6 +1,6 @@
 ---
 name: stage-commit
-description: This skill should be used when the user asks to "stage and commit", "commit these changes", "commit my changes", "make a commit", or wants to stage files and create a commit in one step.
+description: Stage files and create a commit in one step with a message matching existing commit style. Use when the user asks to "stage and commit", "commit these changes", "commit my changes", or "make a commit".
 ---
 
 # Stage and Commit Changes

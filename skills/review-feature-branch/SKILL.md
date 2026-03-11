@@ -1,6 +1,6 @@
 ---
 name: review-feature-branch
-description: This skill should be used when the user asks to "review feature branch", "review branch against main", "run full review", "check my branch before merging", "review everything on this branch", or wants a comprehensive feature branch review that combines AI code review (peer review), PR comment analysis, findings evaluation, and optional implementation finishing.
+description: Orchestrate a comprehensive feature branch review that combines AI code review (peer review), PR comment analysis, findings evaluation, and optional implementation finishing. Use when the user asks to "review feature branch", "review branch against main", "run full review", "check my branch before merging", or "review everything on this branch".
 ---
 
 # Reviewing Feature Branch

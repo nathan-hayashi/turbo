@@ -1,6 +1,6 @@
 ---
 name: finalize
-description: This skill should be used when the user asks to "finalize implementation", "finalize changes", "wrap up implementation", "finish up", "ready to commit", "run QA workflow", "ship it", or wants to run the post-implementation quality assurance workflow including tests, code simplification, review, and commit.
+description: Run the post-implementation quality assurance workflow including tests, code simplification, review, and commit. Use when the user asks to "finalize implementation", "finalize changes", "wrap up implementation", "finish up", "ready to commit", "run QA workflow", or "ship it".
 ---
 
 # Finalize Implementation

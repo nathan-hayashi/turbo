@@ -1,6 +1,6 @@
 ---
 name: create-pr
-description: This skill should be used when the user asks to "create a PR", "create a pull request", "open a PR", "submit a PR", or wants to create a GitHub pull request with a drafted title and description.
+description: Create a GitHub pull request with a drafted title and description. Use when the user asks to "create a PR", "create a pull request", "open a PR", or "submit a PR".
 ---
 
 # Create Pull Request
