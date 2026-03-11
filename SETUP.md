@@ -19,7 +19,7 @@ At the start, use `TaskCreate` to create a task for each step:
 ## Step 1: Install Turbo Skills
 
 ```bash
-npx skills add tobihagemann/turbo --skill '*' --agent claude-code
+npx skills add tobihagemann/turbo --skill '*' --agent claude-code -y -g
 ```
 
 Install all skills. Many depend on each other, so installing only a subset will leave gaps in orchestrator workflows like `/finalize`.

@@ -155,7 +155,7 @@ See [SETUP.md](SETUP.md) for the full guide, or follow the steps below.
 #### 1. Install Skills
 
 ```bash
-npx skills add tobihagemann/turbo --skill '*' --agent claude-code
+npx skills add tobihagemann/turbo --skill '*' --agent claude-code -y -g
 ```
 
 Install all skills. Many depend on each other (e.g., `/finalize` orchestrates `/simplify-plus`, `/codex`, `/evaluate-findings`, and more), so installing them individually will leave gaps in the workflows. Update regularly with `npx skills update`. See [skills.sh/docs](https://skills.sh/docs) for more on the skills CLI.
