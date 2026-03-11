@@ -18,11 +18,50 @@ At the start, use `TaskCreate` to create a task for each step:
 
 ## Step 1: Install Turbo Skills
 
+Before installing, check for two things:
+
+### Excluded Skills
+
+Read `~/.turbo/config.json` and check for an `excludeSkills` array. If it exists, those skills should be excluded from installation. Example config:
+
+```json
+{
+  "excludeSkills": ["codex", "oracle"]
+}
+```
+
+### Conflict Detection
+
+Check if the user has existing non-symlinked skills in `~/.claude/skills/` that share names with Turbo skills. The install command overwrites existing skills with the same name.
+
+```bash
+for skill in $(gh api repos/tobihagemann/turbo/contents/skills --jq '.[].name'); do
+  target="$HOME/.claude/skills/$skill"
+  if [ -e "$target" ] && [ ! -L "$target" ]; then
+    echo "WARNING: $target exists and is not a symlink (will be overwritten)"
+  fi
+done
+```
+
+If any warnings appear, use `AskUserQuestion` to alert the user. For each conflicting skill, offer three options:
+1. **Overwrite** — proceed with installation
+2. **Exclude** — add the skill to `excludeSkills` in `~/.turbo/config.json` and skip it
+
+### Install
+
+If there are excluded skills (from config or user choice), build a specific skill list and pass it to `--skill`:
+
+```bash
+npx skills add tobihagemann/turbo --skill 'skill1' --skill 'skill2' ... --agent claude-code -y -g
+```
+
+If no exclusions, install all:
+
 ```bash
 npx skills add tobihagemann/turbo --skill '*' --agent claude-code -y -g
 ```
 
-Install all skills. Many depend on each other, so installing only a subset will leave gaps in orchestrator workflows like `/finalize`.
+Many skills depend on each other, so installing only a subset will leave gaps in orchestrator workflows like `/finalize`.
 
 Verify skills are available by trying a command like `/finalize`. It should be recognized (don't run it yet, just check it's there).
 
