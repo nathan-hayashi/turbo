@@ -7,7 +7,7 @@ description: Critically assess external feedback (code reviews, AI reviewers, PR
 
 Confidence-based framework for evaluating external feedback (code reviews, AI suggestions, PR comments). Spawn a Devil's Advocate subagent to critically challenge non-trivial claims using research tools. Triage and classify findings — do not apply fixes. Return results for the main agent to act on.
 
-## Process
+## Step 1: Assess Each Finding
 
 For each finding:
 
@@ -21,7 +21,7 @@ For each finding:
 | **Medium** (50-80%) | Likely valid but involves judgment calls or unclear project intent | Accept with caveats |
 | **Low** (<50%) | Subjective preference, requires domain knowledge, might break things, reviewer may be wrong | Skip |
 
-## Devil's Advocate
+## Step 2: Devil's Advocate
 
 After the initial assessment, spawn a subagent to critically challenge findings from a different angle using research tools.
 
@@ -60,7 +60,7 @@ The subagent returns per finding:
 - **Disputed** — found counter-evidence (with source and explanation)
 - **Inconclusive** — no definitive evidence either way
 
-## Reconciliation
+## Step 3: Reconciliation
 
 Merge subagent results with the initial assessment:
 
@@ -70,17 +70,9 @@ Merge subagent results with the initial assessment:
 
 Findings not investigated by the subagent keep their original assessment unchanged.
 
-## Accepted Findings (high/medium confidence)
+For accepted findings (high/medium confidence), document what the issue is and where. For medium confidence, note assumptions and risks. For skipped findings (low confidence), document why the suggestion was not accepted and what additional context would be needed to reconsider.
 
-1. Document what the issue is and where
-2. For medium confidence, note assumptions and risks
-
-## Skipped Findings (low confidence)
-
-1. Document why the suggestion was not accepted
-2. Note what additional context would be needed to reconsider
-
-## Presenting Results
+## Step 4: Present Results
 
 Present a summary table.
 

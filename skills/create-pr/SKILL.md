@@ -7,14 +7,17 @@ description: Create a GitHub pull request with a drafted title and description. 
 
 Draft a concise and descriptive title and a short paragraph for a PR. Explain the purpose of the changes, the problem they solve, and the general approach taken. When the changes involve clear runtime flows or state transitions, include Mermaid diagrams.
 
-## Process
+## Step 1: Analyze Changes
 
-1. If git is in a feature branch, examine all commit messages and the full diff to understand the overall changes
-2. Analyze the diff for diagram opportunities (see Diagrams section below)
-3. Draft a title and description, embedding any diagrams in the body
-4. Output the drafted title and description as chat text so the user can review it
-5. Use `AskUserQuestion` for confirmation only
-6. Create the PR with `gh pr create`
+If git is in a feature branch, examine all commit messages and the full diff to understand the overall changes. Analyze the diff for diagram opportunities (see Diagrams section below).
+
+## Step 2: Draft Title and Description
+
+Draft a title and description, embedding any diagrams in the body. Output the drafted title and description as chat text so the user can review it.
+
+## Step 3: Confirm and Create
+
+Use `AskUserQuestion` for confirmation only. Create the PR with `gh pr create`.
 
 ## Diagrams
 

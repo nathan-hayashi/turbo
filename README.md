@@ -55,7 +55,8 @@ graph TD
         direction TB
 
         subgraph p1 ["Phase 1 — Stage & Test"]
-            stage(["Stage changes & run tests"]):::git
+            stage["1. Stage changes
+2. Write missing tests"]:::git
         end
 
         subgraph p2 ["Phase 2 — Simplify Code"]
@@ -63,7 +64,9 @@ graph TD
         end
 
         subgraph p3 ["Phase 3 — Code Review"]
-            code-review([/code-review]):::review
+            cr["1. Run /code-review
+2. Simplify review fixes
+3. Test and lint"]:::review
         end
 
         subgraph p4 ["Phase 4 — Self-Improve"]
@@ -75,62 +78,88 @@ graph TD
         end
 
         subgraph p6 ["Phase 6 — Pull Request"]
-            create-pr([/create-pr / /update-pr]):::git --> resolve-pr-comments([/resolve-pr-comments]):::git
+            pr["1. /create-pr or /update-pr
+2. /resolve-pr-comments"]:::git
         end
 
         stage --> simplify-plus
-        simplify-plus --> code-review
-        code-review --> self-improve
+        simplify-plus --> cr
+        cr --> self-improve
         self-improve --> commit-staged
-        commit-staged --> create-pr
+        commit-staged --> pr
     end
 
+    %% Simplify (multi-agent review)
+    subgraph simplifyplus ["/simplify-plus — Multi-Agent Review"]
+        sp-steps["1. Determine diff command
+2. Launch 4 review agents
+3. Fix issues"]:::review
+    end
+
+    simplify-plus -. "runs review" .-> sp-steps
+
     %% Code review (reusable core)
-    code-review --> peer-review([/peer-review]):::review
-    code-review --> evaluate-findings([/evaluate-findings]):::review
+    subgraph codereview ["/code-review — Reusable Review Core"]
+        cr-peer([/peer-review]):::review -. "runs review" .-> codex([/codex]):::review --> cr-eval([/evaluate-findings]):::review
+    end
 
-    %% Review orchestrators
-    review-feature-branch([/review-feature-branch]):::review --> code-review
-    review-pr([/review-pr]):::review --> code-review
-    review-pr --> fetch-pr-comments([/fetch-pr-comments]):::review
+    cr -. "runs review" .-> cr-peer
 
-    %% Delegation
-    peer-review -.-> codex([/codex]):::review
+    %% Evaluate findings (confidence-based triage)
+    subgraph evalfindings ["/evaluate-findings — Confidence-Based Triage"]
+        ef-steps["1. Assess each finding
+2. Devil's Advocate
+3. Reconciliation
+4. Present results"]:::review
+    end
+
+    cr-eval -. "triages findings" .-> ef-steps
 
     %% Debugging
-    stage -. "test failures" .-> investigate([/investigate]):::debug
-    review-feature-branch -. "step failures" .-> investigate
-    review-pr -. "step failures" .-> investigate
-    investigate -. "escalate" .-> oracle([/oracle]):::debug
+    subgraph debugging ["/investigate — Root Cause Analysis"]
+        inv-steps["1. Characterize
+2. Isolate
+3. Hypothesize
+4. Test"]:::debug
+        inv-steps -. "stuck after 2 cycles" .-> oracle([/oracle]):::debug
+    end
+
+    stage -. "test failures" .-> inv-steps
 
     %% Knowledge
     subgraph knowledge ["/self-improve — Self-Improvement"]
-        direction TB
-        ds-detect(["1. Detect Context"]):::know --> ds-scan(["2. Scan Session"]):::know --> ds-filter(["3. Filter"]):::know --> ds-route(["4. Route"]):::know --> ds-present(["5. Present"]):::know --> ds-execute(["6. Execute"]):::know
+        si-steps["1. Detect Context
+2. Scan Session
+3. Filter
+4. Route
+5. Present
+6. Execute"]:::know
+        si-steps -. "skill-shaped lesson" .-> create-skill([/create-skill]):::know
+        si-steps -. "out-of-scope fix" .-> note-improvement([/note-improvement]):::know
     end
 
-    ds-execute -.-> create-skill([/create-skill]):::know
-    ds-execute -.-> note-improvement([/note-improvement]):::know
+    self-improve -. "has learnings" .-> si-steps
 
-    self-improve -. "routes learnings" .-> ds-detect
+    classDef plan fill:#dcfce7,stroke:#22c55e,color:#14532d
+    classDef review fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+    classDef debug fill:#ffedd5,stroke:#f97316,color:#7c2d12
+    classDef know fill:#f3e8ff,stroke:#a855f7,color:#581c87
+    classDef git fill:#fef9c3,stroke:#eab308,color:#713f12
 
-    classDef plan fill:#dcfce7,stroke:#22c55e
-    classDef review fill:#dbeafe,stroke:#3b82f6
-    classDef debug fill:#ffedd5,stroke:#f97316
-    classDef know fill:#f3e8ff,stroke:#a855f7
-    classDef git fill:#fef9c3,stroke:#eab308
-
-    style planning fill:#f0fdf4,stroke:#22c55e
-    style finalize fill:#f8fafc,stroke:#3b82f6
-    style p1 fill:#fefce8,stroke:#eab308
-    style p2 fill:#eff6ff,stroke:#3b82f6
-    style p3 fill:#eff6ff,stroke:#3b82f6
-    style p4 fill:#faf5ff,stroke:#a855f7
-    style p5 fill:#fefce8,stroke:#eab308
-    style p6 fill:#fefce8,stroke:#eab308
-    style knowledge fill:#faf5ff,stroke:#a855f7
+    style planning fill:#f0fdf4,stroke:#22c55e,color:#14532d
+    style finalize fill:#f8fafc,stroke:#3b82f6,color:#1e3a5f
+    style simplifyplus fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+    style codereview fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+    style evalfindings fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+    style debugging fill:#fff7ed,stroke:#f97316,color:#7c2d12
+    style knowledge fill:#faf5ff,stroke:#a855f7,color:#581c87
+    style p1 fill:#fefce8,stroke:#eab308,color:#713f12
+    style p2 fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+    style p3 fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+    style p4 fill:#faf5ff,stroke:#a855f7,color:#581c87
+    style p5 fill:#fefce8,stroke:#eab308,color:#713f12
+    style p6 fill:#fefce8,stroke:#eab308,color:#713f12
 ```
-
 ## Quick Start
 
 ### Prerequisites
