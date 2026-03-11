@@ -31,7 +31,7 @@ Check whether a PR exists for the current branch:
 gh pr view --json number,title,url 2>/dev/null
 ```
 
-- **PR exists**: Run the `/review-pr-comments` skill to fetch and display unresolved review threads. Retain the output for evaluation in Phase 3.
+- **PR exists**: Run the `/fetch-pr-comments` skill to fetch and display unresolved review threads. Retain the output for evaluation in Phase 3.
 - **No PR exists**: Note that no PR was found and proceed to Phase 3 with only the codex review output.
 
 ## Phase 3: Evaluate Findings

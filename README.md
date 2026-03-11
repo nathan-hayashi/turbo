@@ -87,7 +87,7 @@ graph TD
 
     %% Review branch
     review-feature-branch([/review-feature-branch]):::review --> peer-review
-    review-feature-branch --> review-pr-comments([/review-pr-comments]):::review
+    review-feature-branch --> fetch-pr-comments([/fetch-pr-comments]):::review
     review-feature-branch --> evaluate-findings
 
     %% Delegation
@@ -302,7 +302,7 @@ Each session handles one prompt. This keeps context focused and avoids running o
 | `/commit-staged` | Commit already-staged files with good message |
 | `/create-pr` | Draft and create a GitHub PR |
 | `/update-pr` | Update existing PR title and description |
-| `/review-pr-comments` | Read-only summary of unresolved PR comments |
+| `/fetch-pr-comments` | Read-only summary of unresolved PR comments |
 | `/resolve-pr-comments` | Evaluate, fix, and reply to PR comments |
 
 ### Debugging
