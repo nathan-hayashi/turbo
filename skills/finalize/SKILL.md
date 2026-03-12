@@ -54,7 +54,9 @@ Run the `/simplify-code` skill. The diff command for this phase is `git diff --c
 
 ### Step 1: Run code review
 
-Run the `/review-code` skill to review uncommitted changes. Apply any actionable findings — launch a single opus agent with the full diff to apply each fix.
+Run the `/review-code` skill to review uncommitted changes. If zero actionable findings survive, skip Steps 2 and 3 and proceed to Phase 4.
+
+Apply any actionable findings — launch a single opus agent with the full diff to apply each fix.
 
 ### Step 2: Simplify review fixes
 
