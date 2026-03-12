@@ -98,3 +98,4 @@ For disputed findings, add a callout below the table showing both perspectives.
 - If a finding references code that no longer exists or has since changed, skip it and note that the code has diverged.
 - If two findings conflict with each other, skip both and document the conflict.
 - For each finding, clarify whether the issue was introduced by the PR/changeset or is pre-existing. Present this distinction explicitly so the user can decide whether it belongs in this PR's scope.
+- Pre-existing issues in earlier commits on the same feature branch are in-scope by default — the entire branch is one coherent unit of work. Do not auto-skip findings just because they touch code from a prior commit in the branch.
