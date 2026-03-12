@@ -278,7 +278,8 @@ The recommended way to use Turbo:
 ### Context Management Tips
 
 - **Disable auto-compact.** You want to control when compaction happens.
-- **Keep >50% context free** before running `/finalize` (>40% may also work). If you're low, run `/compact` first.
+- **Run `/self-improve` before `/compact`.** Compaction loses conversational detail that `/self-improve` mines for lessons. Capture learnings first, then compact.
+- **Keep >50% context free** before running `/finalize` (>40% may also work). If you're low, run `/self-improve`, then `/compact`.
 - The status line from step 3 above makes this easy to track.
 
 ### Self-Improvement
