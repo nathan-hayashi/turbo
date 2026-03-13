@@ -49,7 +49,7 @@ Scan the full conversation with this priority:
 4. **Preferences** — Formatting, naming, style, or tool choices the user expressed.
 5. **Failure modes** — Approaches that failed, with what worked instead.
 6. **Domain knowledge** — Facts or conventions Claude needed but did not have.
-7. **Improvement opportunities** — Out-of-scope improvements noticed during work: code that could be refactored, missing tests, performance issues, readability concerns, or feature ideas that were intentionally skipped to stay focused. **Skipped review findings count here**: when a code review (codex, PR reviewer, or evaluate-findings) identified a genuine issue but the user chose to skip it for this PR, route it as a project improvement so it isn't lost.
+7. **Improvement opportunities** — Out-of-scope improvements noticed during work: code that could be refactored, missing tests, performance issues, readability concerns, or feature ideas that were intentionally skipped to stay focused. **Skipped findings count here**: when code simplification or code review identified a genuine improvement or issue but it was skipped for this session, route it as a project improvement so it isn't lost.
 8. **Trusted reviewer feedback** — Human PR review comments that reveal project conventions, patterns, or corrections. Trusted reviewers are repo collaborators with `admin` or `maintain` roles (determine via `gh api repos/{owner}/{repo}/collaborators --jq '.[] | select(.role_name == "admin" or .role_name == "maintain") | .login'`). Their feedback takes precedence over other reviewers and AI bots when there are contradictions.
 
 After scanning, read all skill SKILL.md files (they are small). This gives Step 4 full context for routing.
