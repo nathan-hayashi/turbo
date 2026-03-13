@@ -72,9 +72,9 @@ Findings not investigated by the subagent keep their original assessment unchang
 
 For accepted findings (high/medium confidence), document what the issue is and where. For medium confidence, note assumptions and risks. For skipped findings (low confidence), document why the suggestion was not accepted and what additional context would be needed to reconsider.
 
-## Step 4: Present Results
+## Step 4: Format Output
 
-Present a summary table.
+Summarize the evaluated findings in a table.
 
 When the Devil's Advocate subagent was **not** spawned:
 
@@ -92,6 +92,8 @@ Where Investigated shows:
 - **Disputed: [reason]** — subagent found counter-evidence
 
 For disputed findings, add a callout below the table showing both perspectives.
+
+The caller determines what to do with the evaluated findings.
 
 ## Rules
 
