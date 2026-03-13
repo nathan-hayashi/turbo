@@ -81,20 +81,17 @@ graph TD
             self-improve([/self-improve]):::know
         end
 
-        subgraph p5 ["Phase 5 — Commit"]
-            commit-staged([/commit-staged]):::git
-        end
-
-        subgraph p6 ["Phase 6 — Pull Request"]
-            pr["1. /create-pr or /update-pr
-2. /resolve-pr-comments"]:::git
+        subgraph p5 ["Phase 5 — Commit and PR"]
+            cp["1. Branch if needed
+2. /commit-staged
+3. /create-pr or /update-pr
+4. /resolve-pr-comments"]:::git
         end
 
         stage --> simplify-code
         simplify-code --> cr
         cr --> self-improve
-        self-improve --> commit-staged
-        commit-staged --> pr
+        self-improve --> cp
     end
 
     %% Simplify (multi-agent review)
@@ -167,7 +164,6 @@ graph TD
     style p3 fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
     style p4 fill:#faf5ff,stroke:#a855f7,color:#581c87
     style p5 fill:#fefce8,stroke:#eab308,color:#713f12
-    style p6 fill:#fefce8,stroke:#eab308,color:#713f12
 ```
 ## Quick Start
 
@@ -317,8 +313,7 @@ The recommended way to use Turbo:
 2. **Simplify Code** — Multi-agent review for reuse, quality, efficiency, clarity
 3. **Code Review** — AI peer review, evaluate findings, apply fixes, re-test
 4. **Self-Improve** — Extract learnings, route to CLAUDE.md / memory / skills
-5. **Commit** — Formulate commit message, create commit
-6. **Pull Request** — Create or update PR, optionally resolve review comments
+5. **Commit and PR** — Branch if needed, commit, push, create or update PR
 
 ### Context Management Tips
 

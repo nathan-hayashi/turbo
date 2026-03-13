@@ -15,8 +15,7 @@ At the start, use `TaskCreate` to create a task for each phase:
 2. Simplify code
 3. Code review
 4. Self-improve
-5. Commit
-6. Pull request
+5. Commit and PR
 
 ## Phase 1: Stage and Test
 
@@ -73,25 +72,37 @@ Run the `/simplify-code` skill. The diff command for this phase is `git diff` (N
 
 Run the `/self-improve` skill.
 
-## Phase 5: Commit
+## Phase 5: Commit and PR
 
-Use `AskUserQuestion` to confirm readiness to commit.
+### Step 1: Determine intent
 
-- **Approve** — run the `/commit-staged` skill (it handles commit message formulation)
+Detect the repository's default branch via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`. Check the current branch name and whether a PR already exists for it using `gh pr view`.
+
+Use `AskUserQuestion` to ask the user how to proceed. Present the options based on the current state:
+
+- **On a feature branch with an existing PR** — commit, push, and update the PR
+- **On a feature branch without a PR** — commit only, or commit + create a PR
+- **On the default branch** — commit only, or create a feature branch + commit + create a PR
 - **Abort** — leave changes staged, do not commit
 
-## Phase 6: Pull Request
+### Step 2: Branch (if needed)
 
-### Step 1: Push and create or update PR
+If the user wants a PR and the current branch is the default branch:
 
-Check if a PR exists for the current branch using `gh pr view`.
+1. Suggest a branch name based on the changes and use `AskUserQuestion` to confirm or adjust
+2. Create and switch to the new branch: `git checkout -b <branch-name>`
 
-- **PR exists** — push new commits and run the `/update-pr` skill
-- **No PR exists** — use `AskUserQuestion` to ask if a PR should be created
-  - **Yes** — push the branch and run the `/create-pr` skill
-  - **No** — push the branch and end the workflow
+### Step 3: Commit
 
-### Step 2: Resolve PR comments
+Run the `/commit-staged` skill.
+
+### Step 4: Push and create or update PR (if requested)
+
+- **PR exists** — push and run the `/update-pr` skill
+- **New PR** — push with `-u` and run the `/create-pr` skill
+- **Commit only** — end the workflow (do not push unless the user asks)
+
+### Step 5: Resolve PR comments
 
 Use `AskUserQuestion` to ask if the user wants to wait for automated reviewers to finish and resolve comments.
 
