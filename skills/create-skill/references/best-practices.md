@@ -918,6 +918,13 @@ When a skill needs a *category* of tool (e.g., documentation lookup), reference 
 
 Note: this is about tool *categories*. When referencing a *specific known tool*, still use the fully qualified `ServerName:tool_name` format per the MCP tool references section.
 
+### Use explicit tool names for user interaction
+
+When a skill needs user input, reference the tool by name (`AskUserQuestion`) instead of vague phrasing like "ask the user" or "wait for user confirmation." Naming the tool directly ensures the executing Claude instance uses the right mechanism.
+
+- ✗ **Avoid**: "Ask the user which option they prefer."
+- ✓ **Good**: "Use `AskUserQuestion` to determine which option the user prefers."
+
 ### Avoid redundant Rules sections
 
 A Rules section should only contain information not already conveyed by the skill body. Before adding a rule, check whether the Process, workflow steps, or tables already encode the same behavior. If they do, the rule is wasted tokens.

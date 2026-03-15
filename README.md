@@ -347,7 +347,7 @@ With the 1M context window, running out of context during `/finalize` is unlikel
 
 `/self-improve` is another core skill. Run it anytime before your context runs out (it's also part of `/finalize` Phase 4). It scans the conversation for corrections, repeated guidance, failure modes, and preferences, then routes each lesson to the right place: project CLAUDE.md, auto memory, or existing/new skills. It routes lessons through Claude Code's built-in knowledge layers and, over time, makes Claude better at your specific project.
 
-`/note-improvement` captures improvement opportunities that come up during work but are out of scope: code review findings you chose to skip, refactoring ideas, missing tests. These get tracked in `.turbo/improvements.md` so they don't get lost. Since `.turbo/` is gitignored, it doesn't clutter the repo.
+`/note-improvement` captures improvement opportunities that come up during work but are out of scope: code review findings you chose to skip, refactoring ideas, missing tests. These get tracked in `.turbo/improvements.md` so they don't get lost. Since `.turbo/` is gitignored, it doesn't clutter the repo. When you're ready to act on them, `/implement-improvements` validates each entry against the current codebase (filtering out stale items), then plans and implements the remaining ones.
 
 ## The Planning Pipeline (Optional)
 
@@ -425,6 +425,7 @@ Each session handles one prompt to keep context focused.
 |---|---|
 | [`/self-improve`](skills/self-improve/SKILL.md) | Extract session learnings to CLAUDE.md, memory, or skills |
 | [`/note-improvement`](skills/note-improvement/SKILL.md) | Capture out-of-scope improvement ideas for later |
+| [`/implement-improvements`](skills/implement-improvements/SKILL.md) | Validate and implement improvements from the backlog |
 | [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure |
 | [`/update-deps`](skills/update-deps/SKILL.md) | Smart dependency upgrades with breaking change research |
 | [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills from local repo with changelog and conflict detection |
