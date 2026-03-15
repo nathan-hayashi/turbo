@@ -1,6 +1,6 @@
 ---
 name: review-code
-description: "Run AI code review, evaluate findings, apply fixes, and verify. Launches `/code-review` and `/peer-review` in parallel, then evaluates and applies actionable findings. Use when the user asks to \"review code\", \"code review\", \"review my changes\", \"find bugs in my changes\", or wants a reviewed and evaluated set of findings."
+description: "Run AI code review, evaluate findings, apply fixes, and verify. Launches `/code-review`, `/security-review`, and `/peer-review` in parallel, then evaluates and applies actionable findings. Use when the user asks to \"review code\", \"code review\", \"review my changes\", \"find bugs in my changes\", or wants a reviewed and evaluated set of findings."
 ---
 
 # Review Code
@@ -17,7 +17,7 @@ Determine what to review based on context:
 
 Default to reviewing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`). If the caller specifies a different target, use that.
 
-## Step 2: Run Two Reviews in Parallel
+## Step 2: Run Three Reviews in Parallel
 
 The diff target from Step 1 determines what each reviewer analyzes.
 
@@ -25,13 +25,17 @@ The diff target from Step 1 determines what each reviewer analyzes.
 
 Launch a background agent (`model: "opus"`, `run_in_background: true`) that runs the `/code-review` skill with the diff target from Step 1.
 
-### Review B: Peer Review
+### Review B: Security Review
 
-Run the `/peer-review` skill directly (via the Skill tool) with the same diff target. This runs in the main thread while Review A works in the background.
+Launch a background agent (`model: "opus"`, `run_in_background: true`) that runs the `/security-review` skill with the diff target from Step 1.
+
+### Review C: Peer Review
+
+Run the `/peer-review` skill directly (via the Skill tool) with the same diff target. This runs in the main thread while Reviews A and B work in the background.
 
 ## Step 3: Evaluate Findings
 
-Combine findings from both reviewers and run the `/evaluate-findings` skill on the merged set.
+Combine findings from all three reviewers and run the `/evaluate-findings` skill on the merged set.
 
 If there are additional findings to include (e.g., PR comments passed in by the caller), combine them before evaluation.
 
@@ -53,5 +57,5 @@ Run the `/simplify-code` skill. The diff command is `git diff` (the fixes are un
 
 ## Rules
 
-- If either reviewer is unavailable or returns malformed output, proceed with findings from the other reviewer alone.
+- If any reviewer is unavailable or returns malformed output, proceed with findings from the remaining reviewers.
 - Process findings in file order to minimize context switching.

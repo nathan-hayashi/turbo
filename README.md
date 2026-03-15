@@ -102,8 +102,10 @@ graph TD
     %% Code review (review, apply, verify)
     subgraph reviewcode ["/review-code — AI Review, Fix & Verify"]
         cr-code([/code-review]):::review
+        cr-sec([/security-review]):::review
         cr-peer([/peer-review]):::review -. "runs review" .-> codex([/codex]):::review
         cr-code --> cr-eval([/evaluate-findings]):::review
+        cr-sec --> cr-eval
         codex --> cr-eval
         cr-eval --> cr-fix["Apply fixes
 /simplify-code
@@ -398,6 +400,7 @@ Each session handles one prompt to keep context focused.
 | [`/simplify-code`](skills/simplify-code/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity |
 | [`/review-code`](skills/review-code/SKILL.md) | AI code review, apply fixes, simplify, and verify |
 | [`/code-review`](skills/code-review/SKILL.md) | AI code review analysis with structured findings |
+| [`/security-review`](skills/security-review/SKILL.md) | Security-focused code review with threat model integration |
 | [`/peer-review`](skills/peer-review/SKILL.md) | AI code review interface that delegates to `/codex` by default |
 | [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback |
