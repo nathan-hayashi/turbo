@@ -1,10 +1,27 @@
-# Review Prompt
+---
+name: code-review
+description: "Runs AI code review of changes and returns structured findings. Analyzes a diff for bugs, security issues, and correctness problems using strict determination criteria. Use when the user asks to \"review my code for bugs\", \"find issues in my changes\", \"check my code for security issues\", \"analyze my diff\", or \"run a code review analysis\"."
+---
 
-Review prompt for the review subagent.
+# Code Review
 
-## Role
+Analyze code changes for bugs, security issues, and correctness problems. Return structured findings.
 
-You are reviewing a proposed code change made by another engineer.
+## Step 1: Determine the Diff Target
+
+Determine what to review based on context:
+
+- **Uncommitted changes**: `--uncommitted`
+- **Against a base branch**: `--base <branch>`
+- **Specific commit**: `--commit <sha>`
+
+Default to reviewing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`). If the caller specifies a different target, use that.
+
+## Step 2: Review Changes
+
+1. Run the appropriate diff command to obtain the changes
+2. For each changed file, read enough surrounding context to understand the change
+3. Apply the bug determination criteria and return findings in the output format below
 
 ## Bug Determination Criteria
 

@@ -101,12 +101,16 @@ graph TD
 
     %% Code review (review, apply, verify)
     subgraph reviewcode ["/review-code — AI Review, Fix & Verify"]
-        cr-peer([/peer-review]):::review -. "runs review" .-> codex([/codex]):::review --> cr-eval([/evaluate-findings]):::review --> cr-fix["Apply fixes
+        cr-code([/code-review]):::review
+        cr-peer([/peer-review]):::review -. "runs review" .-> codex([/codex]):::review
+        cr-code --> cr-eval([/evaluate-findings]):::review
+        codex --> cr-eval
+        cr-eval --> cr-fix["Apply fixes
 /simplify-code
 Test & lint"]:::review
     end
 
-    p3-review-code -. "runs review" .-> cr-peer
+    p3-review-code -. "runs review" .-> cr-code
 
     %% Evaluate findings (confidence-based triage)
     subgraph evalfindings ["/evaluate-findings — Confidence-Based Triage"]
@@ -393,6 +397,7 @@ Each session handles one prompt to keep context focused.
 | [`/write-tests`](skills/write-tests/SKILL.md) | Write missing tests matching project conventions |
 | [`/simplify-code`](skills/simplify-code/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity |
 | [`/review-code`](skills/review-code/SKILL.md) | AI code review, apply fixes, simplify, and verify |
+| [`/code-review`](skills/code-review/SKILL.md) | AI code review analysis with structured findings |
 | [`/peer-review`](skills/peer-review/SKILL.md) | AI code review interface that delegates to `/codex` by default |
 | [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback |

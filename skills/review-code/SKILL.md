@@ -1,6 +1,6 @@
 ---
 name: review-code
-description: Run AI code review, evaluate findings, apply fixes, and verify. Launches a review subagent and `/peer-review` in parallel, then evaluates and applies actionable findings. Use when the user asks to "review code", "code review", "review my changes", "find bugs in my changes", or wants a reviewed and evaluated set of findings.
+description: Run AI code review, evaluate findings, apply fixes, and verify. Launches `/code-review` and `/peer-review` in parallel, then evaluates and applies actionable findings. Use when the user asks to "review code", "code review", "review my changes", "find bugs in my changes", or wants a reviewed and evaluated set of findings.
 ---
 
 # Review Code
@@ -21,14 +21,9 @@ Default to reviewing against the repository's default branch (detect via `gh rep
 
 The diff target from Step 1 determines what each reviewer analyzes.
 
-### Review A: Review Subagent
+### Review A: Code Review
 
-Launch a **background** agent (`run_in_background: true`, `model: "opus"`) that:
-
-1. Runs the appropriate diff command itself to obtain the changes
-2. Reads [references/review-prompt.md](references/review-prompt.md) for review guidelines
-3. For each changed file, reads enough surrounding context to understand the change
-4. Returns findings following the format in the review prompt
+Launch a **background** agent (`run_in_background: true`, `model: "opus"`) that runs the `/code-review` skill with the diff target from Step 1.
 
 ### Review B: Peer Review
 
