@@ -57,7 +57,7 @@ Use `AskUserQuestion` to confirm:
 2. Whether to remove stale entries from the backlog
 3. Resolution for any unclear items
 
-## Step 4: Plan the Implementation
+## Step 4: Plan and Enhance
 
 If there are more than 10 active improvements, suggest splitting into multiple sessions and use `AskUserQuestion` to determine which subset to tackle first.
 
@@ -67,11 +67,9 @@ Enter plan mode. Design an implementation plan that addresses all confirmed impr
 - **Dependencies** — Order improvements so that foundational changes come first
 - **Conflicts** — Flag if two improvements contradict each other
 
-## Step 5: Enhance the Plan
+After writing the plan, before presenting it to the user, run the `/enhance-plan` skill to add task tracking, a skills line, and a finalize step. Add a final instruction: "Remove implemented improvements from `.turbo/improvements.md`."
 
-Run the `/enhance-plan` skill to add task tracking, a skills line, and a finalize step. Add a final instruction: "Remove implemented improvements from `.turbo/improvements.md`."
-
-## Step 6: Clean Up the Backlog
+## Step 5: Clean Up the Backlog
 
 After implementation is complete (post-finalize), update `.turbo/improvements.md`:
 

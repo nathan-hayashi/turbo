@@ -53,11 +53,11 @@ gh issue view <number> --json number,title,body,url,labels,comments,reactionGrou
 
 Read the full issue body and comments to understand the requirements and any discussion context.
 
-## Step 5: Plan the Implementation
+## Step 5: Plan and Enhance
 
 Using the issue as the requirements, explore the codebase, design the implementation, and write a detailed plan (exact file paths, function signatures, data flow, test cases).
 
-## Step 6: Enhance the Plan
+After writing the plan, before presenting it to the user:
 
 1. Run the `/enhance-plan` skill to add task tracking, a skills line, and a finalize step.
 2. The plan's final step must instruct: "Close issue #N or reference it in the PR with `Closes #N`."
