@@ -19,13 +19,13 @@ Read the project CLAUDE.md/AGENTS.md and MEMORY.md. List all skill directories b
 
 ### Turbo Skill Detection
 
+Read `~/.turbo/config.json` for `repoMode`. If `repoMode` is `"fork"` or `"source"`, turbo skill improvements can be contributed upstream.
+
 If `~/.turbo/repo/` exists, identify which installed skills are turbo skills:
 
 - List directories in `~/.turbo/repo/skills/`
 - Any skill in `~/.claude/skills/` that has a matching directory in `~/.turbo/repo/skills/` is a turbo skill
 - Skills only in `~/.claude/skills/` (no match in the repo) are user/project skills
-
-Read `~/.turbo/config.json` for `repoMode`. If `repoMode` is `"fork"` or `"source"`, turbo skill improvements can be contributed upstream.
 
 **Exception:** If the current project IS the turbo repo (i.e., the working directory contains this skill collection), route turbo skill changes directly to `skills/` in the project directory. Skip the installed-copy indirection and the contribution flow.
 

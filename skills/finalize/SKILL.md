@@ -75,6 +75,8 @@ If the user wants a PR and the current branch is the default branch:
 
 Run the `/commit-staged` skill.
 
+If the commit fails due to a pre-commit hook (formatter, linter), fix the issues — or run the project's format/lint script to auto-fix — then **re-stage all modified files** before retrying. Pre-commit hooks may modify files in the working tree without updating the staging area.
+
 ### Step 4: Push and Create or Update PR (if Requested)
 
 - **Push only** — push (do not create or update a PR)
