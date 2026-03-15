@@ -1,6 +1,6 @@
 # Turbo
 
-A modular collection of [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skills that speed up everyday dev tasks while keeping quality high. Heavily optimized and battle-tested with Claude Code and the Opus model.
+A composable dev process for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), packaged as modular skills. Each skill encodes a dev workflow so you can run it instead of prompting from scratch. Battle-tested with the Opus model.
 
 **TL;DR** — Three steps to ship:
 
@@ -8,46 +8,25 @@ A modular collection of [Claude Code](https://docs.anthropic.com/en/docs/claude-
 2. **Implement** — Build it with Claude
 3. **Run `/finalize`** — Tests, code simplification, AI review, commit, and PR. One command.
 
-Everything else in Turbo builds on this loop: planning pipelines for large projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are 30+ skills beyond `/finalize`. Read on for the full picture.
+Everything else in Turbo builds on this loop: planning pipelines for large projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are 40+ skills beyond `/finalize`. Read on for the full picture.
 
 ## What Is This?
 
-Turbo is a skill set for Claude Code. Each skill teaches Claude a specific workflow: reviewing code, creating PRs, investigating bugs, self-improving from session learnings, and more. The skills are designed to [work together](#how-skills-connect).
+Turbo covers the full dev lifecycle: reviewing code, creating PRs, investigating bugs, self-improving from session learnings, and more.
 
-The key idea: skills aren't just standalone tools you use next to each other. They're [puzzle pieces](#the-puzzle-piece-philosophy) that connect into larger workflows. The main orchestrator, [`/finalize`](#the-main-workflow), chains testing, code simplification, AI review, committing, and PR creation into one command. But each piece is small and swappable. Replace one skill with your own and the rest of the pipeline still works.
+Five ideas shape the design:
+
+1. **Standardized process.** Skills capture dev workflows so you can run them directly instead of prompting from scratch. [`/finalize`](#the-main-workflow) runs your entire post-implementation QA in one command. `/investigate` follows a structured root cause analysis cycle. The skill is the prompt.
+2. **Layered design.** Skills range from focused tools (`/code-review` analyzes a diff) to orchestrators that compose them (`/review-code` chains code review, security review, peer review, evaluation, and fixes). They [work together](#how-skills-connect) with a natural, predictable interface.
+3. **Swappable by design.** Every skill owns one concern and communicates through standard interfaces. Replace any piece with your own and the pipeline adapts. See [The Puzzle Piece Philosophy](#the-puzzle-piece-philosophy) for details.
+4. **Works out of the box.** Install the skills and the full workflow is ready. Dependencies are standard dev tooling (GitHub CLI, Codex) that most teams already have.
+5. **Just skills.** No framework, no custom runtime, no new memory system. Skills are plain markdown that use Claude Code's native primitives (git, filesystem, built-in tools). Remove an independent skill and the rest still work.
 
 The other core piece is [`/self-improve`](#self-improvement), which makes the whole system compound. After each session, it extracts lessons from the conversation and routes them to the right place: project CLAUDE.md, auto memory, or existing/new skills. Every session teaches Claude something, and future sessions benefit.
 
-## What It's Not
-
-Turbo amplifies your existing process. If your plan is vague, your architecture is unclear, and you skip every review finding, Turbo won't save you. Garbage in, garbage out.
-
-It works best when your project has the right infrastructure in place:
-
-- **Tests** — `/finalize` runs your test suite and writes missing tests. Without tests, there's no safety net. If your project doesn't have automated tests, [`/smoke-test`](#all-skills) (standalone skill, not part of `/finalize`) can fill the gap by launching your app and verifying changes manually, but real tests are always better.
-- **Linters and formatters** — `/finalize` runs your linter after code review fixes. If you don't have one, style issues slip through.
-- **Dead code analysis** — [`/find-dead-code`](#all-skills) (standalone skill, not part of `/finalize`) identifies unused code via parallel analysis, but it's even better when your project already has tools like `knip`, `vulture`, or `periphery` integrated.
-
-The target audience is experienced developers who want to move faster without sacrificing quality. That said, beginners are welcome too. Turbo is a great way to learn how a professional dev workflow looks. Just don't blindly trust outputs. Review what Claude produces, understand *why* it made those choices, and build your own judgment alongside it.
-
-## The Puzzle Piece Philosophy
-
-Every skill is a self-contained piece. Orchestrator skills like `/finalize` compose them into workflows, but each piece works independently too.
-
-Want to swap a piece? For example:
-- Replace `/oracle` with your own setup (it's macOS-only and has a cookies workaround)
-- Replace `/commit-rules` with your team's commit convention. The pipeline adapts.
-- Replace `/code-style` with your team's style guide. The built-in one teaches general principles rather than opinionated rules, so it's a natural swap point.
-
-This is also why similar-sounding skills like `/code-review` and `/review-code` both exist. `/code-review` analyzes a diff and returns structured findings. `/review-code` is an orchestrator that composes `/code-review`, `/security-review`, and `/peer-review` into a full pipeline with evaluation, fixes, and verification. Run the piece when you want a scan. Run the orchestrator when you want the whole workflow.
-
-The skills communicate through standard interfaces (git staging area, PR state, file conventions), not tight coupling.
-
-## Sponsorship
-
-If Turbo has helped you ship faster and you're so inclined, I'd greatly appreciate it if you'd consider [sponsoring my open source work](https://github.com/sponsors/tobihagemann).
-
 ## How Skills Connect
+
+This diagram shows how `/finalize` orchestrates its pipeline and how the key sub-skills compose. It covers the core workflow, not every skill in Turbo. See [All Skills](#all-skills) for the full list.
 
 ```mermaid
 graph TD
@@ -72,7 +51,7 @@ graph TD
             simplify-code([/simplify-code]):::review
         end
 
-        subgraph p3 ["Phase 3 — Code Review"]
+        subgraph p3 ["Phase 3 — Review Code"]
             p3-review-code([/review-code]):::review
         end
 
@@ -173,6 +152,40 @@ Test & lint"]:::review
     style p4 fill:#faf5ff,stroke:#a855f7,color:#581c87
     style p5 fill:#fefce8,stroke:#eab308,color:#713f12
 ```
+
+## Works Best With
+
+Turbo amplifies your existing process. It shines when your project has the right infrastructure in place:
+
+- **Tests** — `/finalize` runs your test suite and writes missing tests. Without tests, there's no safety net. If your project doesn't have automated tests, [`/smoke-test`](#all-skills) (standalone skill, not part of `/finalize`) can fill the gap by launching your app and verifying changes manually, but real tests are always better.
+- **Linters and formatters** — `/finalize` runs your linter after code review fixes. If you don't have one, style issues slip through.
+- **Dead code analysis** — [`/find-dead-code`](#all-skills) (standalone skill, not part of `/finalize`) identifies unused code via parallel analysis, but it's even better when your project already has tools like `knip`, `vulture`, or `periphery` integrated.
+- **Dependencies** — [GitHub CLI](https://cli.github.com/) and [Codex CLI](https://github.com/openai/codex) power PR operations and peer review. Everything works without them, but the full pipeline is better with them. See [Prerequisites](#5-install-prerequisites) for setup.
+
+## Who It's For
+
+The target audience is experienced developers who want to move faster without sacrificing quality. That said, beginners are welcome too. Turbo is a great way to learn how a professional dev workflow looks. Just don't blindly trust outputs. Review what Claude produces, understand *why* it made those choices, and build your own judgment alongside it.
+
+If your plan is vague, your architecture is unclear, and you skip every review finding, Turbo won't save you. Garbage in, garbage out.
+
+## The Puzzle Piece Philosophy
+
+Every skill is a self-contained piece. Orchestrator skills like `/finalize` compose them into workflows, but each piece works independently too.
+
+Want to swap a piece? For example:
+- Replace `/oracle` with your own setup (it's macOS-only and has a cookies workaround)
+- Replace `/commit-rules` with your team's commit convention. The pipeline adapts.
+- Replace `/code-style` with your team's style guide. The built-in one teaches general principles rather than opinionated rules, so it's a natural swap point.
+
+This is also why similar-sounding skills like `/code-review` and `/review-code` both exist. `/code-review` analyzes a diff and returns structured findings. `/review-code` is an orchestrator that composes `/code-review`, `/security-review`, and `/peer-review` into a full pipeline with evaluation, fixes, and verification. Run the piece when you want a scan. Run the orchestrator when you want the whole workflow.
+
+Skills communicate through standard interfaces: git staging area, PR state, and file conventions.
+
+## Sponsorship
+
+If Turbo has helped you ship faster and you're so inclined, I'd greatly appreciate it if you'd consider [sponsoring my open source work](https://github.com/sponsors/tobihagemann).
+
+
 ## Quick Start
 
 ### Prerequisites
@@ -341,7 +354,7 @@ The recommended way to use Turbo:
 
 1. **Stage & Test** — Stage changed files, write missing tests, run test suite
 2. **Simplify Code** — Multi-agent review for reuse, quality, efficiency, clarity
-3. **Code Review** — AI peer review, evaluate findings, apply fixes, re-test
+3. **Review Code** — AI peer review, evaluate findings, apply fixes, re-test
 4. **Self-Improve** — Extract learnings, route to CLAUDE.md / memory / skills
 5. **Commit and PR** — Branch if needed, commit, push, create or update PR
 
@@ -376,73 +389,73 @@ Each session handles one prompt to keep context focused.
 
 ### Orchestrators
 
-| Skill | What it does |
-|---|---|
-| [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: test, simplify, review, commit, PR |
-| [`/review-feature-branch`](skills/review-feature-branch/SKILL.md) | Full branch review: code review + evaluation + optional finalization |
-| [`/review-pr`](skills/review-pr/SKILL.md) | Full PR review: code review + PR comments + evaluation + optional finalization |
+| Skill | What it does | Uses |
+|---|---|---|
+| [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: test, simplify, review, commit, PR | `/stage`, `/write-tests`, `/simplify-code`, `/review-code`, `/self-improve`, `/commit-staged`, `/create-pr`, `/update-pr`, `/resolve-pr-comments` |
+| [`/review-feature-branch`](skills/review-feature-branch/SKILL.md) | Full branch review: code review + evaluation + optional finalization | `/review-code`, `/investigate`, `/finalize` |
+| [`/review-pr`](skills/review-pr/SKILL.md) | Full PR review: code review + PR comments + evaluation + optional finalization | `/review-code`, `/fetch-pr-comments`, `/investigate`, `/finalize` |
 
 ### Planning
 
-| Skill | What it does |
-|---|---|
-| [`/create-spec`](skills/create-spec/SKILL.md) | Guided discussion that produces a spec at `.turbo/spec.md` |
-| [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts |
-| [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it |
-| [`/pick-next-issue`](skills/pick-next-issue/SKILL.md) | Pick the most popular open GitHub issue and plan it |
-| [`/create-threat-model`](skills/create-threat-model/SKILL.md) | Analyze a codebase and produce a structured threat model |
-| [`/enhance-plan`](skills/enhance-plan/SKILL.md) | Add task tracking, a skills line, and a finalize step to a plan |
-| [`/capture-context`](skills/capture-context/SKILL.md) | Capture session knowledge into the plan file before clearing context |
+| Skill | What it does | Uses |
+|---|---|---|
+| [`/create-spec`](skills/create-spec/SKILL.md) | Guided discussion that produces a spec at `.turbo/spec.md` | |
+| [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts | `/evaluate-findings` |
+| [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it | `/enhance-plan` |
+| [`/pick-next-issue`](skills/pick-next-issue/SKILL.md) | Pick the most popular open GitHub issue and plan it | `/enhance-plan` |
+| [`/create-threat-model`](skills/create-threat-model/SKILL.md) | Analyze a codebase and produce a threat model at `.turbo/threat-model.md` | |
+| [`/enhance-plan`](skills/enhance-plan/SKILL.md) | Add task tracking, a skills line, and a finalize step to a plan | |
+| [`/capture-context`](skills/capture-context/SKILL.md) | Capture session knowledge into the plan file before clearing context | |
 
 ### Code Quality
 
-| Skill | What it does |
-|---|---|
-| [`/code-style`](skills/code-style/SKILL.md) | Enforce mirror, reuse, and symmetry principles |
-| [`/write-tests`](skills/write-tests/SKILL.md) | Write missing tests matching project conventions |
-| [`/simplify-code`](skills/simplify-code/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity |
-| [`/review-code`](skills/review-code/SKILL.md) | AI code review, apply fixes, simplify, and verify |
-| [`/code-review`](skills/code-review/SKILL.md) | AI code review analysis with structured findings |
-| [`/security-review`](skills/security-review/SKILL.md) | Security-focused code review with threat model integration |
-| [`/peer-review`](skills/peer-review/SKILL.md) | AI code review interface that delegates to `/codex` by default |
-| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI |
-| [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback |
-| [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis |
+| Skill | What it does | Uses |
+|---|---|---|
+| [`/code-style`](skills/code-style/SKILL.md) | Enforce mirror, reuse, and symmetry principles | |
+| [`/write-tests`](skills/write-tests/SKILL.md) | Write missing tests matching project conventions | `/investigate` |
+| [`/simplify-code`](skills/simplify-code/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity | |
+| [`/review-code`](skills/review-code/SKILL.md) | AI code review, apply fixes, simplify, and verify | `/code-review`, `/security-review`, `/peer-review`, `/evaluate-findings`, `/simplify-code`, `/investigate` |
+| [`/code-review`](skills/code-review/SKILL.md) | AI code review analysis with structured findings | |
+| [`/security-review`](skills/security-review/SKILL.md) | Security-focused code review with threat model integration | |
+| [`/peer-review`](skills/peer-review/SKILL.md) | AI code review interface that delegates to `/codex` by default | `/codex` |
+| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI | |
+| [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback | |
+| [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | `/evaluate-findings`, `/investigate` |
 
 ### Git & GitHub
 
-| Skill | What it does |
-|---|---|
-| [`/stage`](skills/stage/SKILL.md) | Stage implementation changes with precise file selection |
-| [`/stage-commit`](skills/stage-commit/SKILL.md) | Stage files and commit in one step |
-| [`/stage-commit-push`](skills/stage-commit-push/SKILL.md) | Stage, commit, and push in one step |
-| [`/commit-staged`](skills/commit-staged/SKILL.md) | Commit already-staged files with good message |
-| [`/commit-staged-push`](skills/commit-staged-push/SKILL.md) | Commit already-staged files and push |
-| [`/commit-rules`](skills/commit-rules/SKILL.md) | Shared commit message rules and technical constraints |
-| [`/create-pr`](skills/create-pr/SKILL.md) | Draft and create a GitHub PR |
-| [`/update-pr`](skills/update-pr/SKILL.md) | Update existing PR title and description |
-| [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md) | Read-only summary of unresolved PR comments |
-| [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments |
+| Skill | What it does | Uses |
+|---|---|---|
+| [`/stage`](skills/stage/SKILL.md) | Stage implementation changes with precise file selection | |
+| [`/stage-commit`](skills/stage-commit/SKILL.md) | Stage files and commit in one step | `/stage`, `/commit-staged` |
+| [`/stage-commit-push`](skills/stage-commit-push/SKILL.md) | Stage, commit, and push in one step | `/stage-commit` |
+| [`/commit-staged`](skills/commit-staged/SKILL.md) | Commit already-staged files with good message | `/commit-rules` |
+| [`/commit-staged-push`](skills/commit-staged-push/SKILL.md) | Commit already-staged files and push | `/commit-staged` |
+| [`/commit-rules`](skills/commit-rules/SKILL.md) | Shared commit message rules and technical constraints | |
+| [`/create-pr`](skills/create-pr/SKILL.md) | Draft and create a GitHub PR | `/github-voice` |
+| [`/update-pr`](skills/update-pr/SKILL.md) | Update existing PR title and description | `/github-voice` |
+| [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md) | Read-only summary of unresolved PR comments | |
+| [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments | `/evaluate-findings`, `/self-improve`, `/stage-commit-push`, `/github-voice` |
 
 ### Debugging
 
-| Skill | What it does |
-|---|---|
-| [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures |
-| [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually |
-| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) |
+| Skill | What it does | Uses |
+|---|---|---|
+| [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | `/codex`, `/evaluate-findings`, `/oracle` |
+| [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually | `/investigate` |
+| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) | |
 
 ### Knowledge & Maintenance
 
-| Skill | What it does |
-|---|---|
-| [`/self-improve`](skills/self-improve/SKILL.md) | Extract session learnings to CLAUDE.md, memory, or skills |
-| [`/note-improvement`](skills/note-improvement/SKILL.md) | Capture out-of-scope improvement ideas for later |
-| [`/implement-improvements`](skills/implement-improvements/SKILL.md) | Validate and implement improvements from the backlog |
-| [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure |
-| [`/update-deps`](skills/update-deps/SKILL.md) | Smart dependency upgrades with breaking change research |
-| [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills with always-latest instructions fetched from GitHub |
-| [`/contribute-turbo`](skills/contribute-turbo/SKILL.md) | Submit turbo skill improvements back to upstream |
+| Skill | What it does | Uses |
+|---|---|---|
+| [`/self-improve`](skills/self-improve/SKILL.md) | Extract session learnings to CLAUDE.md, memory, or skills | |
+| [`/note-improvement`](skills/note-improvement/SKILL.md) | Capture out-of-scope improvement ideas to `.turbo/improvements.md` | |
+| [`/implement-improvements`](skills/implement-improvements/SKILL.md) | Validate and implement improvements from the backlog | `/enhance-plan` |
+| [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure | |
+| [`/update-deps`](skills/update-deps/SKILL.md) | Smart dependency upgrades with breaking change research | |
+| [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills with always-latest instructions fetched from GitHub | |
+| [`/contribute-turbo`](skills/contribute-turbo/SKILL.md) | Submit turbo skill improvements back to upstream | `/commit-rules`, `/github-voice` |
 
 ## License
 

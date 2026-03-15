@@ -13,7 +13,7 @@ At the start, use `TaskCreate` to create a task for each phase:
 
 1. Stage and test
 2. Simplify code
-3. Code review
+3. Review code
 4. Self-improve
 5. Commit and PR
 
@@ -39,7 +39,7 @@ Reviews and fixes code style and structure: reuse opportunities, quality pattern
 
 Stage any changes made by the simplifier.
 
-## Phase 3: Code Review
+## Phase 3: Review Code
 
 Run the `/review-code` skill to review uncommitted changes.
 
