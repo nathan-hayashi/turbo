@@ -61,7 +61,7 @@ Use `AskUserQuestion` to confirm:
 
 If there are more than 10 active improvements, suggest splitting into multiple sessions and use `AskUserQuestion` to determine which subset to tackle first.
 
-Run `/enhance-plan` first to add task tracking, a skills line, and a finalize step to the plan.
+Run the `/enhance-plan` skill first to add task tracking, a skills line, and a finalize step to the plan.
 
 Then, design an implementation plan that addresses all confirmed improvements together, looking for:
 

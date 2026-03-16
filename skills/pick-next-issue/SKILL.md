@@ -55,7 +55,7 @@ Read the full issue body and comments to understand the requirements and any dis
 
 ## Step 5: Plan and Enhance
 
-Run `/enhance-plan` first to add task tracking, a skills line, and a finalize step to the plan.
+Run the `/enhance-plan` skill first to add task tracking, a skills line, and a finalize step to the plan.
 
 Then, using the issue as the requirements, explore the codebase, design the implementation, and write a detailed plan (exact file paths, function signatures, data flow, test cases).
 

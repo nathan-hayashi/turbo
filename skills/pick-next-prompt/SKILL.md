@@ -47,7 +47,7 @@ Identify currently available skills from the skill list in the system prompt. De
 
 ## Step 5: Plan and Enhance
 
-Run `/enhance-plan` first to add task tracking, a skills line, and a finalize step to the plan.
+Run the `/enhance-plan` skill first to add task tracking, a skills line, and a finalize step to the plan.
 
 Then, using the selected prompt as the requirements, explore the codebase, design the implementation, and write a detailed plan (exact file paths, function signatures, data flow, test cases).
 
