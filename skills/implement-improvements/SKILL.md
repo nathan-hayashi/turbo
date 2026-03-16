@@ -61,13 +61,15 @@ Use `AskUserQuestion` to confirm:
 
 If there are more than 10 active improvements, suggest splitting into multiple sessions and use `AskUserQuestion` to determine which subset to tackle first.
 
-Enter plan mode. Design an implementation plan that addresses all confirmed improvements together, looking for:
+Run `/enhance-plan` first to add task tracking, a skills line, and a finalize step to the plan.
+
+Then, design an implementation plan that addresses all confirmed improvements together, looking for:
 
 - **Synergies** — Improvements touching the same files or areas should be grouped
 - **Dependencies** — Order improvements so that foundational changes come first
 - **Conflicts** — Flag if two improvements contradict each other
 
-Run `/enhance-plan` first to add task tracking, a skills line, and a finalize step to the plan. Add a final instruction: "Remove implemented improvements from `.turbo/improvements.md`."
+The plan's final step must instruct: "Remove implemented improvements from `.turbo/improvements.md`."
 
 ## Step 5: Clean Up the Backlog
 
