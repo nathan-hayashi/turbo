@@ -399,6 +399,8 @@ Run the `/commit-rules` skill to load commit message rules and technical constra
 - Stage only the changes to commit
 ```
 
+**Style-guide dependencies as Step 1:** When a skill depends on a style-guide skill that loads conventions, place it as Step 1. Style guides shape all subsequent work. Burying them in a later step risks them being skipped.
+
 ### Structure longer reference files with table of contents
 
 For reference files longer than 100 lines, include a table of contents at the top. This ensures Claude can see the full scope of available information even when previewing with partial reads.
@@ -457,6 +459,8 @@ Break complex operations into clear, sequential steps. Use `## Step N:` headings
 ```
 
 **Avoid** wrapper sections like `## Process` with `### 1.` numbered subsections. Steps should be top-level, not nested under a generic heading.
+
+**Planning skills and context clearing:** When a skill produces a plan that gets approved and executed in a separate session (after context clear), any steps after plan approval are lost. Post-implementation work (cleanup, status updates) must be written into the plan itself, not as standalone skill steps.
 
 For particularly complex workflows, provide a checklist that Claude can copy into its response and check off as it progresses.
 
@@ -592,6 +596,10 @@ This shows the validation loop pattern using reference documents instead of scri
 The validation loop catches errors early.
 
 ## Content guidelines
+
+### Keep a short intro paragraph
+
+YAML frontmatter (name, description) is stripped before the skill body is loaded into context. If the title and steps don't make the skill's purpose obvious, a one-line intro paragraph after the `# Title` heading can help orient execution. Keep it short, avoid restating the description verbatim, and omit it entirely if the steps already make the purpose clear.
 
 ### Avoid time-sensitive information
 

@@ -402,10 +402,10 @@ Each session handles one prompt to keep context focused.
 |---|---|---|
 | [`/create-spec`](skills/create-spec/SKILL.md) | Guided discussion that produces a spec at `.turbo/spec.md` | |
 | [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts | `/evaluate-findings` |
-| [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it | `/enhance-plan` |
-| [`/pick-next-issue`](skills/pick-next-issue/SKILL.md) | Pick the most popular open GitHub issue and plan it | `/enhance-plan` |
+| [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it | `/plan-style` |
+| [`/pick-next-issue`](skills/pick-next-issue/SKILL.md) | Pick the most popular open GitHub issue and plan it | `/plan-style` |
 | [`/create-threat-model`](skills/create-threat-model/SKILL.md) | Analyze a codebase and produce a threat model at `.turbo/threat-model.md` | |
-| [`/enhance-plan`](skills/enhance-plan/SKILL.md) | Add task tracking, a skills line, and a finalize step to a plan | |
+| [`/plan-style`](skills/plan-style/SKILL.md) | Planning conventions for task tracking, skill loading, and finalization | |
 | [`/capture-context`](skills/capture-context/SKILL.md) | Capture session knowledge into the plan file before clearing context | |
 
 ### Code Quality
@@ -452,7 +452,7 @@ Each session handles one prompt to keep context focused.
 |---|---|---|
 | [`/self-improve`](skills/self-improve/SKILL.md) | Extract session learnings to CLAUDE.md, memory, or skills | |
 | [`/note-improvement`](skills/note-improvement/SKILL.md) | Capture out-of-scope improvement ideas to `.turbo/improvements.md` | |
-| [`/implement-improvements`](skills/implement-improvements/SKILL.md) | Validate and implement improvements from the backlog | `/enhance-plan` |
+| [`/implement-improvements`](skills/implement-improvements/SKILL.md) | Validate and implement improvements from the backlog | `/plan-style` |
 | [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure | |
 | [`/update-deps`](skills/update-deps/SKILL.md) | Smart dependency upgrades with breaking change research | |
 | [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills with always-latest instructions fetched from GitHub | |

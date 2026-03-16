@@ -5,9 +5,13 @@ description: "Pick the next prompt from .turbo/prompts.md and plan its implement
 
 # Pick Next Prompt
 
-Read the prompt plan at `.turbo/prompts.md`, pick the next prompt, and plan its implementation. This skill runs in plan mode — it produces an implementation plan for the selected prompt, ready for the user to approve and execute.
+Pick the next prompt from `.turbo/prompts.md` and plan its implementation.
 
-## Step 1: Read the Prompt Plan
+## Step 1: Plan Style
+
+Run the `/plan-style` skill to load planning conventions.
+
+## Step 2: Read the Prompt Plan
 
 Read `.turbo/prompts.md`. Parse all prompts extracting:
 - Prompt number and title
@@ -17,7 +21,7 @@ Read `.turbo/prompts.md`. Parse all prompts extracting:
 
 Also read `.turbo/spec.md` (or the spec path referenced in the prompt plan header) for full context.
 
-## Step 2: Pick the Next Prompt
+## Step 3: Pick the Next Prompt
 
 Find the first `pending` prompt whose dependencies are all `done`.
 
@@ -25,7 +29,7 @@ Find the first `pending` prompt whose dependencies are all `done`.
 - **If all prompts are `done`**: report completion to the user — the plan is finished
 - **If remaining prompts are blocked**: report which prompts are blocked and by what
 
-## Step 3: Adapt the Prompt
+## Step 4: Adapt the Prompt
 
 Re-read the spec and compare against the current project state. Adjust the prompt if implementation has diverged:
 
@@ -38,18 +42,9 @@ Update `.turbo/prompts.md` with adjustments to the selected prompt. For affected
 
 Mark the selected prompt `in-progress` in `.turbo/prompts.md`.
 
-## Step 4: Discover Skills
+## Step 5: Plan
 
-Identify currently available skills from the skill list in the system prompt. Determine which skills are relevant for this prompt's work:
-
-- Compare the prompt's work type against each skill's trigger description
-- Skills may have been installed or removed since the plan was created
-
-## Step 5: Plan and Enhance
-
-Run the `/enhance-plan` skill first to add task tracking, a skills line, and a finalize step to the plan.
-
-Then, using the selected prompt as the requirements, explore the codebase, design the implementation, and write a detailed plan (exact file paths, function signatures, data flow, test cases).
+Using the selected prompt as the requirements, explore the codebase, design the implementation, and write a detailed plan (exact file paths, function signatures, data flow, test cases).
 
 The plan's final step must instruct: "Mark prompt N as `done` in `.turbo/prompts.md`."
 
