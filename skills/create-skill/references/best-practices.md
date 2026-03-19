@@ -937,16 +937,21 @@ When a skill needs user input, reference the tool by name (`AskUserQuestion`) in
 
 When a skill spawns subagents, always specify `model` and `run_in_background` explicitly in a parenthetical. Vague phrasing like "launch concurrently" or "in parallel" causes flaky behavior where Claude sometimes sets `run_in_background: true` and sometimes doesn't.
 
-Multiple foreground Agent tool calls in a single message already run in parallel. `run_in_background: true` is only needed when the main agent should continue working while subagents run (not to achieve parallelism).
+Multiple foreground Agent tool calls in a single message already run in parallel. Prefer foreground agents over background agents:
 
-Standard format, `model` first:
-- Foreground: `(model: "opus", do not set run_in_background)`
-- Background: `(model: "opus", run_in_background: true)`
+- **Foreground parallel** (recommended): Multiple Agent calls in one message run concurrently and return all results in the same turn. Reliable and simple.
+- **Background** (`run_in_background: true`): The model must later retrieve results via `TaskOutput` or `SendMessage`, which frequently fails with "Invalid tool parameters" — causing agent output to be silently lost. Only use background agents when the main thread has genuinely independent work to do and does not need the agent's output to proceed.
 
 - ✗ **Avoid**: "Launch all four agents concurrently in a single message."
 - ✗ **Avoid**: "Spawn a subagent to review the output."
 - ✓ **Good**: "Launch all four agents in a single message (`model: "opus"`, do not set `run_in_background`)."
-- ✓ **Good**: "Launch one subagent per directory (`model: "opus"`, `run_in_background: true`)."
+
+### Skill tool calls don't parallelize with Agent calls
+
+The Skill tool loads instructions and returns immediately — the actual work (Bash calls, agent spawns, etc.) happens in subsequent turns, after any parallel Agent calls have already completed. To truly parallelize a skill's work with other agents, wrap it in an Agent that loads and executes the skill internally.
+
+- ✗ **Avoid**: Launching Agent + Agent + Skill in one message expecting all three to do work concurrently.
+- ✓ **Good**: Launching three Agents in one message, each running its respective skill.
 
 ### Avoid redundant Rules sections
 

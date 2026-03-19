@@ -66,16 +66,16 @@ H3: [description] — confirmed if [X], refuted if [Y]
 
 ### Parallel Investigation
 
-For complex problems with 3+ hypotheses and a non-obvious root cause, spawn parallel background investigators simultaneously.
+For complex problems with 3+ hypotheses and a non-obvious root cause, spawn parallel investigators simultaneously.
 
 **Spawn condition**: 3+ hypotheses AND the problem is not a simple typo, missing import, or syntax error.
 
 **Skip** when 1-2 hypotheses are obvious (e.g., stack trace points directly to the bug).
 
-Launch in parallel (`model: "opus"`, `run_in_background: true`):
+Launch in parallel (`model: "opus"`, do not set `run_in_background`):
 
 1. **One subagent per hypothesis** — each receives the hypothesis, relevant file paths, what evidence to look for, and instructions to report **confirmed** / **refuted** / **inconclusive** with evidence. Budget: max 5 tool calls per subagent.
-2. **Codex exec** (read-only) — run the `/codex` skill in exec mode with a focused prompt describing the problem, reproduction, and files examined. Provides an independent perspective that may spot patterns the hypothesis-driven subagents miss. Run the `/evaluate-findings` skill on its output.
+2. **Codex exec** (read-only) — launch an agent that runs the `/codex` skill in exec mode with a focused prompt describing the problem, reproduction, and files examined. Provides an independent perspective that may spot patterns the hypothesis-driven subagents miss. Run the `/evaluate-findings` skill on its output.
 
 After all investigators complete, merge results. Codex findings that overlap with a subagent's confirmed hypothesis reinforce confidence. Novel codex findings become additional hypotheses to test in Step 4.
 

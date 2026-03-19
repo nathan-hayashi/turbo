@@ -19,19 +19,19 @@ Default to reviewing against the repository's default branch (detect via `gh rep
 
 ## Step 2: Run Three Reviews in Parallel
 
-The diff target from Step 1 determines what each reviewer analyzes.
+Launch all three reviews in a single message so they run concurrently. The diff target from Step 1 determines what each reviewer analyzes.
 
 ### Review A: Code Review
 
-Launch a background agent (`model: "opus"`, `run_in_background: true`) that runs the `/code-review` skill with the diff target from Step 1.
+Launch an agent (`model: "opus"`, do not set `run_in_background`) that runs the `/code-review` skill with the diff target from Step 1.
 
 ### Review B: Security Review
 
-Launch a background agent (`model: "opus"`, `run_in_background: true`) that runs the `/security-review` skill with the diff target from Step 1.
+Launch an agent (`model: "opus"`, do not set `run_in_background`) that runs the `/security-review` skill with the diff target from Step 1.
 
 ### Review C: Peer Review
 
-Run the `/peer-review` skill directly (via the Skill tool) with the same diff target. This runs in the main thread while Reviews A and B work in the background.
+Launch an agent (`model: "opus"`, do not set `run_in_background`) that runs the `/peer-review` skill with the same diff target.
 
 ## Step 3: Evaluate Findings
 
