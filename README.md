@@ -78,7 +78,7 @@ graph TD
         pc-lint -. "changes? re-run" .-> pc-simplify
     end
 
-    polish-code -. "runs loop" .-> pc-stage
+    polish-code -. "runs loop" .-> polishcode
 
     %% Simplify (multi-agent review)
     subgraph simplifycode ["/simplify-code — Multi-Agent Review"]
@@ -87,7 +87,7 @@ graph TD
 3. Fix issues"]:::review
     end
 
-    pc-simplify -. "runs review" .-> sp-steps
+    pc-simplify -. "runs review" .-> simplifycode
 
     %% Code review (review-only)
     subgraph reviewcode ["/review-code — AI Review & Evaluate"]
@@ -99,7 +99,7 @@ graph TD
         codex --> cr-eval
     end
 
-    pc-review -. "runs review" .-> cr-code
+    pc-review -. "runs review" .-> reviewcode
 
     %% Evaluate findings (confidence-based triage)
     subgraph evalfindings ["/evaluate-findings — Confidence-Based Triage"]
@@ -109,7 +109,7 @@ graph TD
 4. Present results"]:::review
     end
 
-    cr-eval -. "triages findings" .-> ef-steps
+    cr-eval -. "triages findings" .-> evalfindings
 
     %% Debugging
     subgraph debugging ["/investigate — Root Cause Analysis"]
@@ -120,8 +120,8 @@ graph TD
         inv-steps -. "stuck after 2 cycles" .-> oracle([/oracle]):::debug
     end
 
-    p1-write-tests -. "test failures" .-> inv-steps
-    pc-test -. "test failures" .-> inv-steps
+    p1-write-tests -. "test failures" .-> debugging
+    pc-test -. "test failures" .-> debugging
 
     %% Knowledge
     subgraph knowledge ["/self-improve — Self-Improvement"]
@@ -136,7 +136,7 @@ graph TD
         si-steps -. "turbo skill change" .-> contribute-turbo([/contribute-turbo]):::know
     end
 
-    self-improve -. "has learnings" .-> si-steps
+    self-improve -. "has learnings" .-> knowledge
 
     classDef plan fill:#dcfce7,stroke:#22c55e,color:#14532d
     classDef review fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
