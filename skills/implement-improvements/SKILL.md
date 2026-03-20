@@ -27,17 +27,18 @@ Parse all entries, extracting for each:
 
 Improvements can go stale: files get renamed, code gets refactored, issues get fixed as side effects of other work. Before planning, validate each improvement.
 
-For each entry, check whether the improvement still applies:
+For each entry, verify whether the specific problem or opportunity described in the entry still exists in the code. Do not rely on git log alone. Recent commits touching the same files do not mean the specific issue was addressed. Read the actual code and confirm:
 
-1. **Files exist** — Do the referenced files/paths still exist?
-2. **Problem persists** — Read the relevant code. Is the issue or opportunity still present?
-3. **Not already addressed** — Check git log for recent changes to the referenced files that may have already resolved the improvement.
+1. **Files exist** — Do the referenced files/paths still exist? If not, the entry is stale.
+2. **Problem persists** — Read the relevant code sections. Is the exact issue or opportunity described in the entry still present? This is the primary determination. Check the specific claims: if the entry says a function is uncalled, verify it has no callers; if it says error handling is missing, check whether it was added.
 
 Classify each entry as:
 
-- **Active** — Still relevant, proceed with implementation
-- **Stale** — No longer applicable (file removed, code refactored, issue fixed)
+- **Active** — The described problem or opportunity is confirmed present in the current code
+- **Stale** — The referenced files no longer exist, or the specific issue has been resolved (cite the evidence: what changed and where)
 - **Unclear** — Cannot determine from code alone, needs user input
+
+When in doubt, classify as Active. The cost of re-examining a resolved issue is low; dismissing a valid improvement is high.
 
 ## Step 4: Report Findings
 
