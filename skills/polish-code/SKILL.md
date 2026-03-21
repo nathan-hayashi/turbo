@@ -43,8 +43,4 @@ Stage any changes made by the formatter, linter, or manual fixes.
 
 ## Step 6: Re-run if Changed
 
-If any prior step produced changes, run the `/polish-code` skill again, skipping Step 1.
-
-## Rules
-
-- Cap at 3 consecutive runs to prevent runaway loops.
+If Steps 2–5 produced any changes during this run, run the `/polish-code` skill again, skipping Step 1. Cap at 3 consecutive runs to prevent runaway loops.
