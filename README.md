@@ -28,135 +28,7 @@ The other core piece is [`/self-improve`](#self-improvement), which makes the wh
 
 This diagram shows how `/finalize` orchestrates its pipeline and how the key sub-skills compose. It covers the core workflow, not every skill in Turbo. See [All Skills](#all-skills) for the full list.
 
-```mermaid
-graph TD
-    %% Planning pipeline (optional)
-    subgraph planning ["Planning Pipeline (Optional)"]
-        direction TB
-        create-spec([/create-spec]):::plan --> create-prompt-plan([/create-prompt-plan]):::plan
-        create-prompt-plan --> pick-next-prompt([/pick-next-prompt]):::plan
-    end
-
-    planning -- "implement, then..." --> finalize
-
-    %% Finalize phases
-    subgraph finalize ["/finalize — QA Orchestrator"]
-        direction TB
-
-        subgraph p1 ["Phase 1 — Write Missing Tests"]
-            p1-write-tests([/write-tests]):::git
-        end
-
-        subgraph p2 ["Phase 2 — Polish Code"]
-            polish-code([/polish-code]):::review
-        end
-
-        subgraph p3 ["Phase 3 — Self-Improve"]
-            self-improve([/self-improve]):::know
-        end
-
-        subgraph p4 ["Phase 4 — Commit and PR"]
-            cp["1. Branch if needed
-2. /commit-staged
-3. /create-pr or /update-pr
-4. /resolve-pr-comments"]:::git
-        end
-
-        p1 --> p2
-        p2 --> p3
-        p3 --> p4
-    end
-
-    %% Polish code (iterative loop)
-    subgraph polishcode ["/polish-code"]
-        direction TB
-        pc-stage([/stage]):::git --> pc-simplify([/simplify-code]):::review
-        pc-simplify --> pc-review([/review-code]):::review
-        pc-review --> pc-fix["Apply fixes"]:::review
-        pc-fix --> pc-test["Test"]:::debug
-        pc-test --> pc-lint["Lint"]:::review
-        pc-lint -. "changes? re-run" .-> pc-simplify
-    end
-
-    p2 -. "runs loop" .-> polishcode
-
-    %% Simplify (multi-agent review)
-    subgraph simplifycode ["/simplify-code"]
-        sp-steps["1. Determine diff command
-2. Launch 4 review agents
-3. Fix issues"]:::review
-    end
-
-    pc-simplify -. "runs review" .-> simplifycode
-
-    %% Code review (review-only)
-    subgraph reviewcode ["/review-code"]
-        cr-code([/code-review]):::review
-        cr-sec([/security-review]):::review
-        cr-peer([/peer-review]):::review -. "runs review" .-> codex([/codex]):::review
-        cr-code --> cr-eval([/evaluate-findings]):::review
-        cr-sec --> cr-eval
-        codex --> cr-eval
-    end
-
-    pc-review -. "runs review" .-> reviewcode
-
-    %% Evaluate findings (confidence-based triage)
-    subgraph evalfindings ["/evaluate-findings"]
-        ef-steps["1. Assess each finding
-2. Devil's Advocate
-3. Reconciliation
-4. Present results"]:::review
-    end
-
-    cr-eval -. "triages findings" .-> evalfindings
-
-    %% Debugging
-    subgraph debugging ["/investigate"]
-        inv-steps["1. Characterize
-2. Isolate
-3. Hypothesize
-4. Test"]:::debug
-        inv-steps -. "stuck after 2 cycles" .-> oracle([/oracle]):::debug
-    end
-
-    p1 -. "test failures" .-> debugging
-    pc-test -. "test failures" .-> debugging
-
-    %% Knowledge
-    subgraph knowledge ["/self-improve"]
-        si-steps["1. Detect Context
-2. Scan Session
-3. Filter
-4. Route
-5. Present
-6. Execute"]:::know
-        si-steps -. "skill-shaped lesson" .-> create-skill([/create-skill]):::know
-        si-steps -. "out-of-scope fix" .-> note-improvement([/note-improvement]):::know
-        si-steps -. "turbo skill change" .-> contribute-turbo([/contribute-turbo]):::know
-    end
-
-    p3 -. "has learnings" .-> knowledge
-
-    classDef plan fill:#dcfce7,stroke:#22c55e,color:#14532d
-    classDef review fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
-    classDef debug fill:#ffedd5,stroke:#f97316,color:#7c2d12
-    classDef know fill:#f3e8ff,stroke:#a855f7,color:#581c87
-    classDef git fill:#fef9c3,stroke:#eab308,color:#713f12
-
-    style planning fill:#f0fdf4,stroke:#22c55e,color:#14532d
-    style finalize fill:#f8fafc,stroke:#3b82f6,color:#1e3a5f
-    style polishcode fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
-    style simplifycode fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
-    style reviewcode fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
-    style evalfindings fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
-    style debugging fill:#fff7ed,stroke:#f97316,color:#7c2d12
-    style knowledge fill:#faf5ff,stroke:#a855f7,color:#581c87
-    style p1 fill:#fefce8,stroke:#eab308,color:#713f12
-    style p2 fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
-    style p3 fill:#faf5ff,stroke:#a855f7,color:#581c87
-    style p4 fill:#fefce8,stroke:#eab308,color:#713f12
-```
+![How Skills Connect](assets/how-skills-connect.svg)
 
 ## Works Best With
 
@@ -353,7 +225,7 @@ The `/oracle` skill requires additional setup (Chrome, Python, ChatGPT access). 
 The recommended way to use Turbo:
 
 1. **Enter plan mode** and plan the implementation
-2. **Approve the plan** (optionally clear context if planning used significant context)
+2. **Approve the plan**
 3. **Run `/finalize`** when you're done implementing
 
 `/finalize` runs through these phases automatically:
@@ -382,11 +254,9 @@ For larger projects, Turbo offers a full spec-to-implementation pipeline. You ca
 
 1. **Run `/create-spec`** — Guided discussion that produces a spec at `.turbo/spec.md`
 2. **Run `/create-prompt-plan`** — Breaks the spec into context-sized prompts at `.turbo/prompts.md`
-3. **For each prompt, open a new session:**
-   1. Enter plan mode and run `/pick-next-prompt`
-   2. Approve the plan (optionally clear context if planning used significant context)
-   3. Implement the changes
-   4. Run `/finalize`
+3. **For each prompt, open a new session:** enter plan mode and run `/pick-next-prompt`, then approve the plan
+
+`/pick-next-prompt` uses `/plan-style`, which includes implementation and `/finalize` in the plan.
 
 Each session handles one prompt to keep context focused.
 
