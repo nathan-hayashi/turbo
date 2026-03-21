@@ -64,7 +64,7 @@ Write an updated title and body that:
 
 ## Step 6: Confirm with User
 
-Use `AskUserQuestion` to present the drafted title and description side-by-side with the original. Show what changed.
+Output the drafted title and description as text, alongside the original for comparison. Then use `AskUserQuestion` for confirmation.
 
 ## Step 7: Apply the Update
 

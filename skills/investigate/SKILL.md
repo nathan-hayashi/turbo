@@ -126,7 +126,7 @@ Proceed only if the user approves.
 
 ## Investigation Report
 
-Present results using `AskUserQuestion`:
+Output results as text:
 
 ```
 Investigation Report:

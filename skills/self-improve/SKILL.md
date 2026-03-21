@@ -101,7 +101,7 @@ Assign each surviving lesson to exactly one destination:
 
 ## Step 5: Present Routing Plan
 
-Show the user a table before making any changes:
+Output a table as text before making any changes:
 
 ```
 | # | Rec | Lesson | Destination | Action |
@@ -114,7 +114,7 @@ Show the user a table before making any changes:
 
 For each lesson, show: recommendation (Yes/No), concise summary, target file/skill, and whether it's an append, update-in-place, or new creation. Mark a lesson as "No" when the routing is uncertain or the lesson is borderline on the filtering criteria.
 
-Use `AskUserQuestion` with these options: **Approve all**, **Approve recommended** (apply only "Yes" rows), or **Reject all**.
+Then use `AskUserQuestion` with these options: **Approve all**, **Approve recommended** (apply only "Yes" rows; omit if all are "Yes"), or **Reject all**.
 
 ## Step 6: Execute
 

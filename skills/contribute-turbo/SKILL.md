@@ -72,7 +72,7 @@ Before finalizing, verify each "why" description contains none of the following:
 - Business logic or domain-specific terminology that identifies the project
 - User names beyond the contributor's GitHub handle
 
-Show the drafted context to the user via `AskUserQuestion` for approval. The user must approve the contribution message before proceeding.
+Output the drafted context as text. Then use `AskUserQuestion` for approval. The user must approve the contribution message before proceeding.
 
 ## Step 4: Commit Rules
 

@@ -933,6 +933,14 @@ When a skill needs user input, reference the tool by name (`AskUserQuestion`) in
 - ✗ **Avoid**: "Ask the user which option they prefer."
 - ✓ **Good**: "Use `AskUserQuestion` to determine which option the user prefers."
 
+### Output content as text before AskUserQuestion
+
+When a skill presents structured content (tables, plans, reports) before asking for approval, output the content as text first. `AskUserQuestion` has limited UI space and should only carry the approval prompt, not the content being reviewed.
+
+- ✗ **Avoid**: "Present the test plan to the user with `AskUserQuestion` before executing."
+- ✗ **Avoid**: "Show the drafted context to the user via `AskUserQuestion` for approval."
+- ✓ **Good**: "Output the plan as text. Then use `AskUserQuestion` to ask for approval."
+
 ### Use explicit Agent tool parameters for subagents
 
 When a skill spawns subagents, always specify `model` and `run_in_background` explicitly in a parenthetical. Vague phrasing like "launch concurrently" or "in parallel" causes flaky behavior where Claude sometimes sets `run_in_background: true` and sometimes doesn't.
