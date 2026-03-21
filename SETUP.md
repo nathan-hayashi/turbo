@@ -8,13 +8,12 @@ At the start, use `TaskCreate` to create a task for each step:
 
 1. Install Turbo skills
 2. Add `.turbo` to global gitignore
-3. Allow all skills
-4. Install prerequisites
-5. Configure context tracking
-6. Add pre-implementation prep
-7. Disable auto-compact (optional)
-8. Oracle setup
-9. Quick onboarding
+3. Install prerequisites
+4. Configure context tracking
+5. Add pre-implementation prep
+6. Disable auto-compact (optional)
+7. Oracle setup
+8. Quick onboarding
 
 ## Step 1: Install Turbo Skills
 
@@ -114,19 +113,7 @@ echo '.turbo/' >> ~/.config/git/ignore
 
 Do not set `core.excludesfile` — the XDG path works automatically without it.
 
-## Step 3: Allow All Skills
-
-Orchestrator workflows like `/finalize` invoke many skills in sequence. Without allowlisting them, the user gets prompted for each one, breaking the flow.
-
-Add all Turbo skills to the `permissions.allow` array in `~/.claude/settings.json`. Generate the entries from the local repo:
-
-```bash
-ls ~/.turbo/repo/skills/ | sed 's/.*/"Skill(&)"/'
-```
-
-Merge the output into the existing `permissions.allow` array.
-
-## Step 4: Install Prerequisites
+## Step 3: Install Prerequisites
 
 ### GitHub CLI (Required)
 
@@ -167,9 +154,7 @@ npx skills add https://github.com/openclaw/openclaw --skill peekaboo --agent cla
 
 Both are optional. Without them, `/smoke-test` falls back to terminal-based verification.
 
-Add `"Skill(agent-browser)"` and `"Skill(peekaboo)"` to the `permissions.allow` array in `~/.claude/settings.json` (same as Step 3) so `/smoke-test` can invoke them without prompting.
-
-## Step 5: Configure Context Tracking
+## Step 4: Configure Context Tracking
 
 Turbo workflows like `/finalize` consume significant context. Knowing how much context is left prevents unexpected compaction mid-workflow.
 
@@ -188,7 +173,7 @@ The user should now see something like `92% context left` at the bottom of the C
 
 > **Tip:** If there are already other settings in this file, merge the `statusLine` key into the existing JSON.
 
-## Step 6: Add Pre-Implementation Prep
+## Step 5: Add Pre-Implementation Prep
 
 Add this to `~/.claude/CLAUDE.md` (create the file if it doesn't exist):
 
@@ -204,11 +189,11 @@ After plan approval (ExitPlanMode) and before making edits:
 
 This ensures code style is read and mirrored before making changes.
 
-## Step 7: Disable Auto-Compact (Optional)
+## Step 6: Disable Auto-Compact (Optional)
 
 With the 1M context window, compaction is rarely needed. If you prefer to control compaction timing, disable auto-compact in Claude Code via `/config`.
 
-## Step 8: Oracle Setup
+## Step 7: Oracle Setup
 
 The `/oracle` skill consults ChatGPT when completely stuck on a problem. If not set up, everything still works. `/investigate` offers oracle escalation via a prompt, and the user can simply decline.
 
@@ -229,7 +214,7 @@ It requires:
 
 Merge these values into the existing `~/.turbo/config.json`. See the [oracle skill](skills/oracle/SKILL.md) for details.
 
-## Step 9: Quick Onboarding
+## Step 8: Quick Onboarding
 
 Present the user with a summary of how to get started:
 

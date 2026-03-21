@@ -299,19 +299,7 @@ The `/smoke-test` skill uses external skills for browser and UI automation:
 
 Without these, `/smoke-test` falls back to terminal-based verification.
 
-#### 7. Allow All Skills
-
-Orchestrator workflows like `/finalize` invoke many skills in sequence. Without allowlisting them, you'll get prompted for each one, breaking the flow.
-
-Add all Turbo skills to the `permissions.allow` array in `~/.claude/settings.json`. Generate the entries from the local repo:
-
-```bash
-ls ~/.turbo/repo/skills/ | sed 's/.*/"Skill(&)"/'
-```
-
-Merge the output into your existing `permissions.allow` array.
-
-#### 8. Configure Context Tracking
+#### 7. Configure Context Tracking
 
 Turbo workflows like `/finalize` consume significant context. Knowing how much context you have left prevents unexpected compaction mid-workflow.
 
@@ -326,7 +314,7 @@ Add this to `~/.claude/settings.json`:
 }
 ```
 
-#### 9. Add Pre-Implementation Prep
+#### 8. Add Pre-Implementation Prep
 
 Add this to your `~/.claude/CLAUDE.md` (create the file if it doesn't exist):
 
@@ -340,11 +328,11 @@ After plan approval (ExitPlanMode) and before making edits:
 4. Read similar files in the project to mirror their style
 ```
 
-#### 10. Disable Auto-Compact (Optional)
+#### 9. Disable Auto-Compact (Optional)
 
 With the 1M context window, compaction is rarely needed. If you prefer to control compaction timing, disable auto-compact in Claude Code via `/config`.
 
-#### 11. Oracle Setup (Optional)
+#### 10. Oracle Setup (Optional)
 
 The `/oracle` skill requires additional setup (Chrome, Python, ChatGPT access). See the [oracle skill](skills/oracle/SKILL.md) for configuration via `~/.turbo/config.json`. If not set up, everything still works.
 

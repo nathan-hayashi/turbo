@@ -22,3 +22,15 @@ Migrations are executed in ascending order. After all applicable migrations comp
 5. Copy skills from the repo. For customized skills, copy the user's version instead
 6. Initialize `~/.turbo/config.json` with `repoMode`, `excludeSkills: []`, and `lastUpdateHead` set to `git -C ~/.turbo/repo rev-parse HEAD`
 7. Report migration complete
+
+## Version 2: Remove Skill Permissions
+
+**Condition:** `~/.claude/settings.json` contains any `Skill(...)` entries in `permissions.allow`.
+
+**Skip if:** No `Skill(...)` entries exist in `permissions.allow`.
+
+### Steps
+
+1. Read `~/.claude/settings.json`, remove all entries matching `Skill(...)` from the `permissions.allow` array, and write the file back.
+
+Since Claude Code 2.1.19, skills without additional permissions or hooks are auto-allowed, making these entries unnecessary.

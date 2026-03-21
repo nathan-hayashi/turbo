@@ -32,7 +32,7 @@ If they match, report that Turbo is already up to date and stop.
 
 ### Step 2: Run Migrations
 
-**Current version: 1**
+**Current version: 2**
 
 If `configVersion` equals the current version, skip to Step 3.
 
@@ -167,19 +167,7 @@ For each skill where the user chose "Merge":
 1. The copy step overwrote the file. Read the new upstream version (now installed at `~/.claude/skills/<name>/SKILL.md`).
 2. Launch an agent with the user's saved customized version and the new upstream version. Instruct it to preserve the user's customizations while incorporating the upstream changes. The agent writes the merged result to `~/.claude/skills/<name>/SKILL.md`.
 
-### Step 4: Update Permissions
-
-Reconcile `permissions.allow` in `~/.claude/settings.json` against the full set of installed turbo skills — not just newly added or renamed ones. Previously installed skills may be missing from permissions if an earlier update or manual install skipped this step.
-
-Generate the expected entries from the local repo:
-
-```bash
-ls ~/.turbo/repo/skills/ | sed 's/.*/"Skill(&)"/'
-```
-
-Compare against existing `Skill(...)` entries in the settings file. If there are entries to add or remove, use `AskUserQuestion` to show the diff and confirm. If the user confirms, read the settings file, update the array, keep it sorted alphabetically, and write it back.
-
-### Step 5: Save State
+### Step 4: Save State
 
 Read `~/.turbo/config.json`, set `lastUpdateHead` to the new HEAD (`git -C ~/.turbo/repo rev-parse HEAD`), set `configVersion` to the current version from Phase 1 Step 2, merge any new exclusions into `excludeSkills`, and write it back.
 
