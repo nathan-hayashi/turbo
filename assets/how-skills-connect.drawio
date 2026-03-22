@@ -221,7 +221,7 @@
           <mxGeometry height="40" width="150" x="200" y="50" as="geometry" />
         </mxCell>
         <mxCell id="47" parent="43" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/codex" vertex="1">
-          <mxGeometry height="40" width="150" x="200" y="110" as="geometry" />
+          <mxGeometry height="40" width="150" x="130" y="120" as="geometry" />
         </mxCell>
         <mxCell id="130" parent="43" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/api-usage-review" vertex="1">
           <mxGeometry height="40" width="150" x="540" y="50" as="geometry" />
@@ -256,11 +256,11 @@
         <mxCell id="80" edge="1" parent="43" source="46" style="dashed=1;dashPattern=8 4;endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#94a3b8;fontSize=11;fontColor=#64748b;" target="47" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="81" edge="1" parent="43" source="47" style="endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#64748b;" target="48">
+        <mxCell id="81" edge="1" parent="43" source="46" style="endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#64748b;" target="48">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="270" y="170" />
-              <mxPoint x="330" y="170" />
+              <mxPoint x="300" y="130" />
+              <mxPoint x="340" y="130" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -368,7 +368,8 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1125" y="1480" />
-              <mxPoint x="1665" y="1480" />
+              <mxPoint x="1520" y="1480" />
+              <mxPoint x="1520" y="1295" />
             </Array>
             <mxPoint x="1125" y="1430" as="sourcePoint" />
             <mxPoint x="1665" y="1450" as="targetPoint" />
