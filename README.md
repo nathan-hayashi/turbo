@@ -8,7 +8,7 @@ A composable dev process for [Claude Code](https://docs.anthropic.com/en/docs/cl
 2. **Implement** — Build it with Claude
 3. **Run [`/finalize`](skills/finalize/SKILL.md)** — Tests, iterative code polishing, commit, and PR. One command.
 
-Everything else in Turbo builds on this loop: planning pipelines for large projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are 40+ skills beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
+Everything else in Turbo builds on this loop: planning pipelines for large projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [40+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
 
 ## What Is This?
 
@@ -127,20 +127,17 @@ Each session handles one prompt to keep context focused.
 
 ## All Skills
 
-### Orchestrators
+### Workflows
 
 | Skill | What it does | Uses |
 |---|---|---|
 | [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: test, polish, commit, PR | [`/write-tests`](skills/write-tests/SKILL.md), [`/polish-code`](skills/polish-code/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/commit-staged`](skills/commit-staged/SKILL.md), [`/create-pr`](skills/create-pr/SKILL.md), [`/update-pr`](skills/update-pr/SKILL.md), [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) |
-| [`/polish-code`](skills/polish-code/SKILL.md) | Iterative quality loop: stage → simplify → review + fix → test → lint → re-run until stable | [`/stage`](skills/stage/SKILL.md), [`/simplify-code`](skills/simplify-code/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
-| [`/review-pr`](skills/review-pr/SKILL.md) | PR review: fetch comments, detect base branch, run code review | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md), [`/review-code`](skills/review-code/SKILL.md) |
 
 ### Planning
 
 | Skill | What it does | Uses |
 |---|---|---|
 | [`/create-spec`](skills/create-spec/SKILL.md) | Guided discussion that produces a spec at `.turbo/spec.md` | |
-| [`/create-threat-model`](skills/create-threat-model/SKILL.md) | Analyze a codebase and produce a threat model at `.turbo/threat-model.md` | |
 | [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) |
 | [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it | [`/plan-style`](skills/plan-style/SKILL.md) |
 | [`/pick-next-issue`](skills/pick-next-issue/SKILL.md) | Pick the most popular open GitHub issue and plan it | [`/plan-style`](skills/plan-style/SKILL.md) |
@@ -151,17 +148,24 @@ Each session handles one prompt to keep context focused.
 
 | Skill | What it does | Uses |
 |---|---|---|
+| [`/polish-code`](skills/polish-code/SKILL.md) | Iterative quality loop: stage → simplify → review + fix → test → lint → re-run until stable | [`/stage`](skills/stage/SKILL.md), [`/simplify-code`](skills/simplify-code/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/code-style`](skills/code-style/SKILL.md) | Enforce mirror, reuse, and symmetry principles | |
-| [`/write-tests`](skills/write-tests/SKILL.md) | Write missing tests matching project conventions | [`/investigate`](skills/investigate/SKILL.md) |
 | [`/simplify-code`](skills/simplify-code/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity | |
+| [`/write-tests`](skills/write-tests/SKILL.md) | Write missing tests matching project conventions | [`/investigate`](skills/investigate/SKILL.md) |
+
+### Review
+
+| Skill | What it does | Uses |
+|---|---|---|
 | [`/review-code`](skills/review-code/SKILL.md) | AI code review: 4 parallel reviewers + evaluation | [`/code-review`](skills/code-review/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md), [`/security-review`](skills/security-review/SKILL.md), [`/api-usage-review`](skills/api-usage-review/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) |
+| [`/review-pr`](skills/review-pr/SKILL.md) | PR review: fetch comments, detect base branch, run code review | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md), [`/review-code`](skills/review-code/SKILL.md) |
 | [`/code-review`](skills/code-review/SKILL.md) | AI code review analysis with structured findings | |
 | [`/security-review`](skills/security-review/SKILL.md) | Security-focused code review with threat model integration | |
 | [`/peer-review`](skills/peer-review/SKILL.md) | AI code review interface that delegates to [`/codex`](skills/codex/SKILL.md) by default | [`/codex`](skills/codex/SKILL.md) |
 | [`/api-usage-review`](skills/api-usage-review/SKILL.md) | Check API/library usage against official documentation | |
-| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI | |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback | |
 | [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
+| [`/create-threat-model`](skills/create-threat-model/SKILL.md) | Analyze a codebase and produce a threat model at `.turbo/threat-model.md` | |
 
 ### Git & GitHub
 
@@ -178,13 +182,19 @@ Each session handles one prompt to keep context focused.
 | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md) | Read-only summary of unresolved PR comments | |
 | [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/stage-commit-push`](skills/stage-commit-push/SKILL.md), [`/github-voice`](skills/github-voice/SKILL.md) |
 
+### External AI
+
+| Skill | What it does | Uses |
+|---|---|---|
+| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI | |
+| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) | |
+
 ### Debugging
 
 | Skill | What it does | Uses |
 |---|---|---|
 | [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/codex`](skills/codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/oracle`](skills/oracle/SKILL.md) |
 | [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually | [`/investigate`](skills/investigate/SKILL.md) |
-| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) | |
 
 ### Knowledge & Maintenance
 
