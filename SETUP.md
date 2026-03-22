@@ -10,10 +10,9 @@ At the start, use `TaskCreate` to create a task for each step:
 2. Add `.turbo` to global gitignore
 3. Install prerequisites
 4. Configure context tracking
-5. Add pre-implementation prep
-6. Disable auto-compact (optional)
-7. Oracle setup
-8. Quick onboarding
+5. Add CLAUDE.md additions
+6. Oracle setup
+7. Quick onboarding
 
 ## Step 1: Install Turbo Skills
 
@@ -173,27 +172,13 @@ The user should now see something like `92% context left` at the bottom of the C
 
 > **Tip:** If there are already other settings in this file, merge the `statusLine` key into the existing JSON.
 
-## Step 5: Add Pre-Implementation Prep
+## Step 5: Add CLAUDE.md Additions
 
-Add this to `~/.claude/CLAUDE.md` (create the file if it doesn't exist):
+Read [`CLAUDE-ADDITIONS.md`](CLAUDE-ADDITIONS.md) from `~/.turbo/repo/` and add each `##` section to `~/.claude/CLAUDE.md` as a `#` section. Create the file if it doesn't exist.
 
-```markdown
-# Pre-Implementation Prep
+These additions are kept in sync by `/update-turbo` for future updates.
 
-After plan approval (ExitPlanMode) and before making edits:
-1. Run `/code-style` to load code style principles
-2. Read all files referenced by the user in their request
-3. Read all files mentioned in the plan
-4. Read similar files in the project to mirror their style
-```
-
-This ensures code style is read and mirrored before making changes.
-
-## Step 6: Disable Auto-Compact (Optional)
-
-With the 1M context window, compaction is rarely needed. If you prefer to control compaction timing, disable auto-compact in Claude Code via `/config`.
-
-## Step 7: Oracle Setup
+## Step 6: Oracle Setup
 
 The `/oracle` skill consults ChatGPT when completely stuck on a problem. If not set up, everything still works. `/investigate` offers oracle escalation via a prompt, and the user can simply decline.
 
@@ -214,7 +199,7 @@ It requires:
 
 Merge these values into the existing `~/.turbo/config.json`. See the [oracle skill](skills/oracle/SKILL.md) for details.
 
-## Step 8: Quick Onboarding
+## Step 7: Quick Onboarding
 
 Present the user with a summary of how to get started:
 

@@ -1,0 +1,39 @@
+# Skill Loading Rules — Reasoning
+
+## Problem
+
+Two failure modes were observed:
+
+1. **Skipped sub-skills on re-run**: Running `/finalize` a second time caused Claude to skip all sub-skill invocations (e.g., `/code-style`, `/review-code`). It believed the skills were "already loaded" from the first run.
+
+2. **Self-recursion never fires**: `/polish-code` is designed to re-run itself as its last step. Claude never actually did this — it saw `/polish-code` already in context and bailed out.
+
+## Root Cause
+
+Both issues trace back to the same system prompt instruction:
+
+> "Do not invoke a skill that is already running"
+
+Claude over-generalizes this to mean "don't invoke a skill that was previously used in this conversation." The presence of prior skill output in context acts as a false signal that the skill is "already running."
+
+Additionally, Claude sometimes substitutes by executing steps from memory rather than invoking the Skill tool — recalling what a skill did last time instead of loading it fresh. This is problematic because skills may have been updated, and a fresh invocation ensures the current version is used.
+
+## Analysis
+
+The system prompt's guard rail has a narrow intended meaning: don't call a skill *in the same turn* where its `<command-name>` tag already appeared (i.e., the CLI already injected it). But without clarification, Claude interprets it broadly as "once invoked, never again."
+
+This breaks:
+- **Pipelines**: `/finalize` invoking `/review-code`, `/simplify-code`, etc.
+- **Parallel sub-reviews**: `/review-code` launching `/code-review`, `/security-review`, `/peer-review`
+- **Loops**: `/polish-code` re-invoking itself until stable
+- **Routing**: `/self-improve` routing through `/create-skill`
+- **Any second run**: Running the same top-level skill twice in one session
+
+## Solution
+
+Two rules added to CLAUDE.md:
+
+1. **Always use the Skill tool to invoke skills** — never substitute by executing steps from memory, even if the skill was loaded earlier in this conversation, including skills invoked by other skills or by themselves.
+2. **"Already running" is scoped narrowly** — it only means don't call a skill in the same turn where its `<command-name>` tag already appeared.
+
+The first rule addresses the general case: every skill invocation must go through the Skill tool, no shortcuts. The second rule clarifies the only exception where skipping is correct.

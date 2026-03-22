@@ -80,6 +80,14 @@ Read both versions and write a concise, plain-language summary of what changed. 
 
 For added skills, read their new SKILL.md and summarize what they do.
 
+Also check for changes to `CLAUDE-ADDITIONS.md`:
+
+```bash
+git -C ~/.turbo/repo diff --name-status <lastUpdateHead>..<remote>/main -- CLAUDE-ADDITIONS.md
+```
+
+If modified, read both versions and summarize what changed: new sections added, existing sections updated, or sections removed.
+
 ### Step 4: Present Changelog
 
 Use `AskUserQuestion` to present a formatted changelog. Example format:
@@ -101,6 +109,10 @@ Modified:
 - /skill-b — Delegates to /review-code instead of running review inline
 
 ⚠ Breaking: /old-name renamed to /new-name — update any custom workflows
+
+CLAUDE.md Additions:
+- Updated "Skill Loading" — added new rule about X
+- New section "Section Name" — brief description
 
 Proceed with update?
 ```
@@ -167,7 +179,35 @@ For each skill where the user chose "Merge":
 1. The copy step overwrote the file. Read the new upstream version (now installed at `~/.claude/skills/<name>/SKILL.md`).
 2. Launch an agent with the user's saved customized version and the new upstream version. Instruct it to preserve the user's customizations while incorporating the upstream changes. The agent writes the merged result to `~/.claude/skills/<name>/SKILL.md`.
 
-### Step 4: Save State
+### Step 4: Sync CLAUDE.md Additions
+
+If `CLAUDE-ADDITIONS.md` changed since `lastUpdateHead` (detected in Phase 1 Step 3):
+
+1. Read `CLAUDE-ADDITIONS.md` from `~/.turbo/repo/`
+2. Read `~/.claude/CLAUDE.md`
+3. For each `##` section in `CLAUDE-ADDITIONS.md`:
+   - If no matching `#` section exists in the user's file → **new**
+   - If a matching section exists but content differs → **changed**
+   - If content matches → skip
+4. If there are new or changed sections, use `AskUserQuestion`:
+
+```
+CLAUDE.md additions updated:
+
+New:
+- "Section Name" — brief description
+
+Changed:
+- "Section Name" — what changed
+
+Apply to ~/.claude/CLAUDE.md?
+```
+
+5. If approved, update `~/.claude/CLAUDE.md`:
+   - Append new sections as `#` headers
+   - Replace changed sections with the updated content
+
+### Step 5: Save State
 
 Read `~/.turbo/config.json`, set `lastUpdateHead` to the new HEAD (`git -C ~/.turbo/repo rev-parse HEAD`), set `configVersion` to the current version from Phase 1 Step 2, merge any new exclusions into `excludeSkills`, and write it back.
 
