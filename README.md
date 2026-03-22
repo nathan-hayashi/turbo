@@ -186,8 +186,8 @@ Each session handles one prompt to keep context focused.
 
 | Skill | What it does | Uses |
 |---|---|---|
-| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI | |
-| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) | |
+| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI | [Codex CLI](https://github.com/openai/codex) |
+| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) | [ChatGPT Pro](https://chatgpt.com/) |
 
 ### Debugging
 
