@@ -72,7 +72,7 @@ done
 
 Skip any skills in `excludeSkills`.
 
-Many skills depend on each other, so installing only a subset will leave gaps in orchestrator workflows like `/finalize`.
+Many skills depend on each other, so installing only a subset will leave gaps in pipelines like `/finalize`.
 
 Verify skills are available by trying a command like `/finalize`. It should be recognized (don't run it yet, just check it's there).
 

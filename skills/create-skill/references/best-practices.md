@@ -967,7 +967,7 @@ A Rules section should only contain information not already conveyed by the skil
 
 ### Avoid "caller" phrasing
 
-Skills run in a conversational context, not a function-call context. Referring to "the caller" sounds mechanical and is ambiguous — it could mean the user, another skill, or the orchestrating agent. Use passive voice instead.
+Skills run in a conversational context, not a function-call context. Referring to "the caller" sounds mechanical and is ambiguous — it could mean the user, another skill, or the pipeline agent. Use passive voice instead.
 
 - ✗ **Avoid**: "If the caller specifies a diff command, use that."
 - ✓ **Good**: "If a specific diff command was provided, use that."

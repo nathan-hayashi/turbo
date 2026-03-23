@@ -70,7 +70,7 @@ If Turbo has helped you ship faster and you're so inclined, I'd greatly apprecia
 
 ### Prerequisites
 
-Turbo requires [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Works best with Claude Code Max 5x, Max 20x, or Team plan with Premium seats (orchestrator workflows are context-heavy). Additional tools are installed during setup.
+Turbo requires [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Works best with Claude Code Max 5x, Max 20x, or Team plan with Premium seats (pipeline workflows are context-heavy). Additional tools are installed during setup.
 
 **External services:** ChatGPT Plus or higher (for codex review), and ChatGPT Pro or Business (for [`/oracle`](skills/oracle/SKILL.md), where Pro models are the only ones that reliably solve very hard problems). That said, [`/peer-review`](skills/peer-review/SKILL.md) and [`/oracle`](skills/oracle/SKILL.md) are designed as swappable puzzle pieces, so if you don't have access, replace them with alternatives that work for you.
 
