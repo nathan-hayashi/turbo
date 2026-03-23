@@ -17,7 +17,7 @@ Turbo covers the full dev lifecycle: reviewing code, creating PRs, investigating
 Five ideas shape the design:
 
 1. **Standardized process.** Skills capture dev workflows so you can run them directly instead of prompting from scratch. [`/finalize`](skills/finalize/SKILL.md) runs your entire post-implementation QA in one command. [`/investigate`](skills/investigate/SKILL.md) follows a structured root cause analysis cycle. The skill is the prompt.
-2. **Layered design.** Skills compose other skills to any depth. [`/review-correctness`](skills/review-correctness/SKILL.md) analyzes code for bugs. [`/review-code`](skills/review-code/SKILL.md) chains four review skills with evaluation. [`/polish-code`](skills/polish-code/SKILL.md) loops write tests → simplify → review → test → lint until stable. [`/finalize`](skills/finalize/SKILL.md) wraps the whole pipeline with self-improvement and commit. They [work together](#how-skills-connect) with a natural, predictable interface.
+2. **Layered design.** Skills compose other skills to any depth. [`/review-correctness`](skills/review-correctness/SKILL.md) analyzes code for bugs. [`/review-code`](skills/review-code/SKILL.md) chains five review skills with evaluation. [`/polish-code`](skills/polish-code/SKILL.md) loops write tests → simplify → review → test → lint until stable. [`/finalize`](skills/finalize/SKILL.md) wraps the whole pipeline with self-improvement and commit. They [work together](#how-skills-connect) with a natural, predictable interface.
 3. **Swappable by design.** Every skill owns one concern and communicates through standard interfaces. Replace any piece with your own and the pipeline adapts. See [The Puzzle Piece Philosophy](#the-puzzle-piece-philosophy) for details.
 4. **Works out of the box.** Install the skills and the full workflow is ready. Dependencies are standard dev tooling (GitHub CLI, Codex) that most teams already have.
 5. **Just skills.** No framework, no custom runtime, no new memory system. Skills are plain markdown that use Claude Code's native primitives (git, filesystem, built-in tools). Remove an independent skill and the rest still work.
@@ -138,9 +138,9 @@ Each session handles one prompt to keep context focused.
 | Skill | What it does | Uses |
 |---|---|---|
 | [`/polish-code`](skills/polish-code/SKILL.md) | Iterative quality loop: stage → write tests → simplify → review + fix → test → lint → re-run until stable | [`/stage`](skills/stage/SKILL.md), [`/write-tests`](skills/write-tests/SKILL.md), [`/simplify-code`](skills/simplify-code/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
-| [`/review-code`](skills/review-code/SKILL.md) | AI code review: 4 parallel reviewers + evaluation | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) |
+| [`/review-code`](skills/review-code/SKILL.md) | AI code review: 5 parallel reviewers + evaluation | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) |
 | [`/review-pr`](skills/review-pr/SKILL.md) | PR review: fetch comments, detect base branch, run code review | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md), [`/review-code`](skills/review-code/SKILL.md) |
-| [`/simplify-code`](skills/simplify-code/SKILL.md) | Review code quality and fix issues | [`/review-quality`](skills/review-quality/SKILL.md) |
+| [`/simplify-code`](skills/simplify-code/SKILL.md) | Review code quality and fix issues | |
 | [`/write-tests`](skills/write-tests/SKILL.md) | Analyze coverage gaps and write missing tests | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/update-dependencies`](skills/update-dependencies/SKILL.md) | Smart dependency upgrades with breaking change research | [`/review-dependencies`](skills/review-dependencies/SKILL.md) |
 
@@ -151,7 +151,7 @@ Each session handles one prompt to keep context focused.
 | [`/review-correctness`](skills/review-correctness/SKILL.md) | Analyze code for bugs, logic errors, and correctness problems | |
 | [`/review-security`](skills/review-security/SKILL.md) | Security-focused code review with threat model integration | |
 | [`/review-api-usage`](skills/review-api-usage/SKILL.md) | Check API/library usage against official documentation | |
-| [`/review-quality`](skills/review-quality/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity | |
+| [`/review-quality`](skills/review-quality/SKILL.md) | Cross-file quality analysis: duplication, architectural consistency, abstraction opportunities | |
 | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md) | Analyze code for test coverage gaps and missing edge cases | |
 | [`/review-dependencies`](skills/review-dependencies/SKILL.md) | Detect outdated or vulnerable dependencies | |
 | [`/peer-review`](skills/peer-review/SKILL.md) | AI code review via codex | [`/codex-review`](skills/codex-review/SKILL.md) |

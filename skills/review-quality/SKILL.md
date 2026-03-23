@@ -1,80 +1,77 @@
 ---
 name: review-quality
-description: "Multi-agent review for code reuse, quality, efficiency, and clarity issues. Returns structured findings without applying fixes. Use when the user asks to \"review code quality\", \"check for code reuse\", \"review efficiency\", \"check clarity\", or \"review quality\"."
+description: "Analyze code for cross-file quality issues: duplicated logic, architectural inconsistencies, and abstraction opportunities. Returns structured findings without applying fixes. Use when the user asks to \"review quality\", \"check for duplication across files\", \"find architectural inconsistencies\", \"cross-file quality review\", or \"review code quality\"."
 ---
 
 # Review Quality
 
-Launch four parallel review agents to analyze code for reuse, quality, efficiency, and clarity issues. Return structured findings.
+Analyze code for cross-file quality issues. Return structured findings.
 
 ## Step 1: Determine the Scope
 
 Determine what to review:
 
-- If a specific **diff command** was provided (e.g., `git diff --cached`), each review agent will run it independently to obtain the changes. Do NOT run the diff in the main agent's context.
-- If a **file list or directory** was provided, each review agent will read and review those files directly.
-- If **neither** was provided, determine the appropriate diff command (e.g., `git diff`, `git diff --cached`, `git diff HEAD`) based on the current git state. If there are no git changes, review the most recently modified files mentioned in the conversation.
+- If a specific **diff command** was provided (e.g., `git diff --cached`, `git diff main...HEAD`), use that.
+- If a **file list or directory** was provided, review those files directly (read the full files, not a diff).
+- If **neither** was provided, default to diffing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`).
 
-## Step 2: Launch Four Review Agents in Parallel
+## Step 2: Review
 
-Launch all four agents in a single message (`model: "opus"`, do not set `run_in_background`). Pass the scope from Step 1 to each agent.
+1. For diff scope: run the diff command to obtain the changes. For file scope: read the specified files.
+2. For each file, read the surrounding context. Then identify related files in the project (shared interfaces, similar modules, files importing the same utilities) and read those to detect cross-file patterns
+3. Look across all files in the review scope for the patterns below. Cross-file issues are the primary focus — single-file quality issues are out of scope (those belong in `/simplify-code`).
+4. Apply the determination criteria and return findings in the output format below
 
-### Agent 1: Code Reuse Review
+### What to Look For
 
-For each change:
+1. **Cross-file duplication** — Nearly identical logic in multiple files, copy-pasted functions with slight variation across components, repeated boilerplate (setup sequences, validation logic, UI blocks) that could be extracted into a shared utility, component, or module
+2. **Architectural inconsistency** — Mixed error handling patterns across modules (some throw, others return error codes), inconsistent naming conventions, different approaches to the same concern in different components (e.g., some modules use dependency injection while others use global singletons)
+3. **Abstraction opportunities** — Repeated structural patterns across files that suggest a missing shared abstraction, multiple components manually implementing the same protocol or interface pattern, recurring configuration or setup boilerplate
+4. **Convention drift** — Divergent logging patterns across modules, inconsistent use of project-defined constants, types, or enums, different approaches to validation, serialization, or resource management across the codebase
 
-1. **Search for existing utilities and helpers** that could replace newly written code. Look for similar patterns elsewhere in the codebase — common locations are utility directories, shared modules, and files adjacent to the changed ones.
-2. **Flag any new function that duplicates existing functionality.** Suggest the existing function to use instead.
-3. **Flag any inline logic that could use an existing utility** — hand-rolled string manipulation, manual path handling, custom environment checks, and similar patterns are common candidates.
+## Determination Criteria
 
-### Agent 2: Code Quality Review
+Flag an issue only when ALL of these hold:
 
-Review for hacky patterns:
+1. It spans multiple files or represents an inconsistency across components
+2. The issue is discrete and actionable
+3. In diff mode: the issue was introduced or worsened by the changeset. In file scope mode: this criterion does not apply
+4. Fixing the inconsistency or extracting the duplication would provide clear maintenance or readability benefit
+5. The pattern has at least 2 concrete instances
 
-1. **Redundant state**: state that duplicates existing state, cached values that could be derived, reactive subscriptions that could be direct calls
-2. **Parameter sprawl**: adding new parameters to a function instead of generalizing or restructuring existing ones
-3. **Copy-paste with slight variation**: near-duplicate code blocks that should be unified with a shared abstraction
-4. **Leaky abstractions**: exposing internal details that should be encapsulated, or breaking existing abstraction boundaries
-5. **Stringly-typed code**: using raw strings where constants, enums, or dedicated types already exist in the codebase
-6. **Unnecessary wrapper nesting**: container elements or wrapper layers that add no structural or layout value
+## Comment Standards
 
-### Agent 3: Efficiency Review
+1. Name all files involved in the cross-file issue (use "(and others)" for findings spanning more than 3 files)
+2. Be specific about what is duplicated or inconsistent
+3. Keep the body to one paragraph maximum
+4. No code chunks longer than 3 lines
+5. Use a matter-of-fact tone
 
-Review for efficiency:
+## Priority Levels
 
-1. **Unnecessary work**: redundant computations, repeated file reads, duplicate network/API calls, N+1 patterns
-2. **Algorithmic complexity**: nested iterations, repeated linear searches replaceable by sets/maps, missing early exits
-3. **Missed concurrency**: independent operations run sequentially when they could run in parallel
-4. **Hot-path bloat**: new blocking work added to startup or per-request hot paths
-5. **Unnecessary existence checks**: pre-checking file/resource existence before operating (TOCTOU anti-pattern) — operate directly and handle the error
-6. **Memory**: unbounded data structures, missing cleanup, resource leaks
-7. **Overly broad operations**: reading entire files when only a portion is needed, loading all items when filtering for one
+- **P0** — Harmful inconsistency actively causing bugs or maintenance traps (e.g., error handling inconsistency where some paths swallow errors)
+- **P1** — Significant duplication or architectural drift that makes changes error-prone
+- **P2** — Moderate duplication or convention drift with clear extraction opportunity
+- **P3** — Minor inconsistency or duplication with low maintenance impact
 
-### Agent 4: Clarity and Standards Review
+## What to Ignore
 
-Review for clarity, standards, and balance:
-
-1. **Project standards**: coding conventions from CLAUDE.md not followed — import sorting, naming conventions, component patterns, error handling patterns, module style
-2. **Unnecessary complexity**: deep nesting, redundant abstractions, unclear variable or function names, comments that describe obvious code, nested ternary operators (prefer switch/if-else chains)
-3. **Unclear code**: choose clarity over brevity — explicit code is better than overly compact code. Consolidate related logic, but not at the cost of readability
-4. **Over-simplification**: overly clever solutions that are hard to understand, too many concerns combined into single functions or components, "fewer lines" prioritized over readability (dense one-liners, nested ternaries), helpful abstractions removed that were aiding code organization
-5. **Dead weight**: unnecessary comments, redundant code, abstractions that add indirection without value
-
-## Step 3: Aggregate and Return Findings
-
-Wait for all four agents to complete. Aggregate their findings into the output format below. Do not apply fixes.
+- Single-file code quality issues (those belong in `/simplify-code`)
+- Style-only differences unless they indicate a genuine pattern inconsistency
+- In diff mode: pre-existing cross-file issues not introduced or worsened by this changeset
+- Intentional variation documented in project guidelines
 
 ## Output Format
 
 Return findings as a numbered list. For each finding:
 
 ```
-### [P<N>] <title (imperative, <=80 chars)>
+### [P<N>] <title (imperative, ≤80 chars)>
 
-**File:** `<file path>` (lines <start>-<end>)
-**Category:** <reuse | quality | efficiency | clarity>
+**File:** `<file path 1>`, `<file path 2>` (and others)
+**Category:** <duplication | inconsistency | abstraction | convention-drift>
 
-<one paragraph explaining the issue and what should change>
+<one paragraph explaining the cross-file issue and what should change>
 ```
 
 After all findings, add:
@@ -87,4 +84,4 @@ After all findings, add:
 <1-3 sentence summary>
 ```
 
-If no issues are found, state that the code is clean and explain briefly.
+If there are no qualifying findings, state that the code is clean and explain briefly.
