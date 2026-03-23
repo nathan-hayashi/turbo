@@ -49,4 +49,4 @@ If Steps 3-6 produced any changes during this run, re-run Steps 3-6 scoped to on
 
 ## Rules
 
-- Every step must run. No change is "self-evidently correct" or "mechanical" enough to skip review. Each step catches different issues.
+- Every step must run. No change is "self-evidently correct" or "mechanical" enough to skip review. Simplify findings do not substitute for review. Passing tests do not substitute for lint. Each step catches different issues.
