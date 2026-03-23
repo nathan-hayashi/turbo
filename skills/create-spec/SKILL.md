@@ -11,7 +11,7 @@ Guide a collaborative discussion to explore a project idea, then synthesize the 
 
 Absorb whatever the user has provided — a sentence, a paragraph, a brain dump. Do not interrupt or ask questions yet. Restate the vision back in two or three sentences to confirm understanding.
 
-Then ask 3-5 focused opening questions targeting the biggest unknowns. Skip anything the user already answered. Prioritize from:
+Then use `AskUserQuestion` to ask 1-4 focused opening questions targeting the biggest unknowns. Skip anything the user already answered. Prioritize from:
 
 - What problem does this solve, and for whom?
 - Is this greenfield or does existing code/infrastructure exist?
@@ -35,9 +35,9 @@ Explore the project through multi-turn conversation. Cover these categories over
 | **MVP scope** | What ships first? What is explicitly deferred? |
 | **Open questions** | Unknowns needing research, prototyping, or external input |
 
-### Discussion guidelines
+### Discussion Guidelines
 
-- Ask one or two questions at a time, not a wall of questions
+- Use `AskUserQuestion` to ask one or two questions at a time, not a wall of questions. Use options with descriptions to frame trade-offs and offer concrete suggestions. Use `multiSelect` when choices are not mutually exclusive.
 - When the user gives a short answer, probe deeper before moving on
 - Offer concrete suggestions and trade-off analysis — be a collaborator, not an interviewer
 - If the user says "you decide" or "what do you recommend", make a clear recommendation with reasoning
@@ -58,7 +58,7 @@ Create the `.turbo/` directory if it does not exist. Accept a different output p
 
 ## Step 4: Review and Finalize
 
-Present the draft to the user. Offer three paths:
+Present the draft to the user. Use `AskUserQuestion` to offer three paths:
 
 - **Approve** — spec is final
 - **Revise** — user specifies sections to change; apply edits and re-present

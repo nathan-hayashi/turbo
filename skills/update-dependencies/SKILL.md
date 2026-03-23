@@ -1,6 +1,6 @@
 ---
-name: update-deps
-description: "Upgrade project dependencies with breaking change research for major version updates. Use when the user asks to \"update dependencies\", \"upgrade packages\", \"check for updates\", \"update deps\", \"upgrade deps\", \"update npm deps\", \"update Swift packages\", \"cargo update\", \"go get updates\", \"bundle update\", or \"pip upgrade\"."
+name: update-dependencies
+description: "Upgrade project dependencies with breaking change research for major version updates. Use when the user asks to \"update dependencies\", \"upgrade packages\", \"upgrade dependencies\", \"update deps\", \"upgrade deps\", \"update npm deps\", \"update Swift packages\", \"cargo update\", \"go get updates\", \"bundle update\", or \"pip upgrade\"."
 argument-hint: "[package-filter]"
 ---
 
@@ -10,60 +10,11 @@ Upgrade project dependencies, researching breaking changes for major version upd
 
 Optional filter: `$ARGUMENTS` (e.g., `react`, `Alamofire`, `serde tokio`)
 
-## Phase 1: Detect Package Managers
+## Phase 1: Review Dependencies
 
-Identify which package managers are in use by searching for config files:
+Run the `/review-dependencies` skill to detect package managers and discover available updates. If no updates are available, stop.
 
-| Config file | Package manager | Lockfile | Ecosystem |
-|---|---|---|---|
-| `package.json` | npm / yarn / pnpm | `package-lock.json` / `yarn.lock` / `pnpm-lock.yaml` | Node.js |
-| `Package.swift`, `*.xcodeproj` | Swift Package Manager | `Package.resolved` | Swift |
-| `pyproject.toml`, `requirements.txt`, `setup.py` | pip / poetry / uv | `poetry.lock`, `uv.lock` | Python |
-| `Cargo.toml` | cargo | `Cargo.lock` | Rust |
-| `go.mod` | Go modules | `go.sum` | Go |
-| `Gemfile` | Bundler | `Gemfile.lock` | Ruby |
-| `pom.xml` | Maven | — | Java |
-| `build.gradle`, `build.gradle.kts` | Gradle | `gradle.lockfile` | Java/Kotlin |
-
-Swift dependencies can live in `Package.swift` or be configured directly in the Xcode project file (`.xcodeproj`/`.xcworkspace`). For Xcode-managed dependencies, inspect the project's package references.
-
-Detection steps:
-
-1. Search for config files in the project root and subdirectories (exclude vendored directories)
-2. If a lockfile exists, use the corresponding package manager variant (e.g., `yarn.lock` → yarn, `pnpm-lock.yaml` → pnpm)
-3. If **multiple instances of the same package manager** found (e.g., monorepo with several `package.json` files): use AskUserQuestion to let the user choose which to update (multiSelect allowed)
-4. If **multiple package managers** found: use AskUserQuestion to let the user choose which to update
-5. If **none** found: inform user and exit
-
-## Phase 2: Discovery
-
-Run the appropriate discovery command to find available updates:
-
-| Package manager | Discovery command | Notes |
-|---|---|---|
-| npm | `ncu --format group` | Requires `npm-check-updates`. Suggest `npm install -g npm-check-updates` if missing. |
-| yarn | `ncu --format group` or `yarn upgrade-interactive` | |
-| pnpm | `ncu --format group` or `pnpm outdated` | |
-| Swift PM | Check resolved versions in `Package.resolved` against latest releases via WebSearch | No built-in outdated command. Read `Package.swift` or inspect the Xcode project to identify dependencies and their current version constraints. |
-| pip | `pip list --outdated` | |
-| poetry | `poetry show --outdated` | |
-| uv | `uv pip list --outdated` | |
-| cargo | `cargo outdated` | Requires `cargo-outdated`. Fall back to comparing `Cargo.toml` versions via WebSearch. |
-| Go modules | `go list -m -u all` | |
-| Bundler | `bundle outdated` | |
-| Maven | `mvn versions:display-dependency-updates` | |
-| Gradle | `gradle dependencyUpdates` | Requires `com.github.ben-manes.versions` plugin. |
-
-If a filter was provided via `$ARGUMENTS`, restrict discovery to matching packages.
-
-Categorize updates:
-- **Major** (breaking changes) — requires migration research
-- **Minor** (new features, backward compatible)
-- **Patch** (bug fixes)
-
-If no updates are available, inform the user and exit.
-
-## Phase 3: User Strategy Selection
+## Phase 2: User Strategy Selection
 
 Present a summary showing:
 - Count and list of major updates (with current → target versions)
@@ -79,7 +30,7 @@ Use AskUserQuestion for upgrade strategy:
 - **Skip major** — Only upgrade minor and patch versions
 - **Interactive** — Ask for each major update individually
 
-## Phase 4: Research Breaking Changes
+## Phase 3: Research Breaking Changes
 
 For **each package with a major version update**:
 
@@ -108,7 +59,7 @@ Identify: API changes (renamed/removed functions), configuration changes, peer/t
 
 Use Grep to find usage of deprecated or changed APIs. Document which files are affected and what changes are needed.
 
-## Phase 5: User Confirmation
+## Phase 4: User Confirmation
 
 For each major update, present:
 - Package name and version transition
@@ -126,7 +77,7 @@ Use AskUserQuestion to confirm:
 
 If "Show details" selected, display full migration research, then ask again.
 
-## Phase 6: Execute Upgrades
+## Phase 5: Execute Upgrades
 
 ### Cautious Strategy
 
@@ -136,7 +87,7 @@ First upgrade minor and patch only using the package manager's semver-respecting
 
 Update the manifest file (version constraint) and run the install/resolve command. For package managers with a dedicated upgrade command, use it. For others (Swift PM, Maven, Gradle), edit the manifest directly.
 
-## Phase 7: Apply Migrations
+## Phase 6: Apply Migrations
 
 ### Step 1: Run Codemods (if Available)
 
@@ -162,7 +113,7 @@ For changes requiring manual intervention:
 
 If configuration format changed, read current config, transform to new format, write updated config.
 
-## Phase 8: Verification
+## Phase 7: Verification
 
 Run the project's test, build, and lint commands. Detect which commands are available from the project's config files and scripts. Use project-level task runners when present (`Makefile`, `Taskfile`, `justfile`, npm scripts, etc.).
 
@@ -181,7 +132,7 @@ If any migrations could not be automated:
 
 ### Discovery Tool Not Available
 
-If the discovery tool is not installed, suggest the installation command (see Phase 2 notes column). If no tool exists for the ecosystem, fall back to manual version checking via WebSearch.
+If the discovery tool is not installed, `/review-dependencies` will note it. Fall back to manual version checking via WebSearch.
 
 ### Network Errors During Research
 

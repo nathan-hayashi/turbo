@@ -1,20 +1,24 @@
 ---
-name: code-review
-description: "Analyzes a diff for bugs, security issues, and correctness problems using strict determination criteria. Returns structured findings without applying fixes. Use when the user asks to \"scan my code for bugs\", \"find issues in my changes\", \"analyze my diff\", \"check for security issues\", or \"run a code review analysis\"."
+name: review-correctness
+description: "Analyze code for bugs and correctness problems using strict determination criteria. Returns structured findings without applying fixes. Use when the user asks to \"review correctness\", \"scan my code for bugs\", \"find bugs in my changes\", \"look for bugs\", \"check for bugs\", or \"run a correctness review\"."
 ---
 
-# Code Review
+# Review Correctness
 
-Analyze code changes for bugs, security issues, and correctness problems. Return structured findings.
+Analyze code for bugs and correctness problems. Return structured findings.
 
-## Step 1: Determine the Diff
+## Step 1: Determine the Scope
 
-Determine the appropriate diff command (e.g. `git diff --cached`, `git diff main...HEAD`) based on the current git state. If a specific diff command was provided, use that. Otherwise, default to diffing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`).
+Determine what to review:
 
-## Step 2: Review Changes
+- If a specific **diff command** was provided (e.g., `git diff --cached`, `git diff main...HEAD`), use that.
+- If a **file list or directory** was provided, review those files directly (read the full files, not a diff).
+- If **neither** was provided, default to diffing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`).
 
-1. Run the appropriate diff command to obtain the changes
-2. For each changed file, read enough surrounding context to understand the change
+## Step 2: Review
+
+1. For diff scope: run the diff command to obtain the changes. For file scope: read the specified files.
+2. For each file, read enough surrounding context to understand the code
 3. Apply the bug determination criteria and return findings in the output format below
 
 ## Bug Determination Criteria
@@ -24,7 +28,7 @@ Flag an issue only when ALL of these hold:
 1. It meaningfully impacts the accuracy, performance, security, or maintainability of the code
 2. The bug is discrete and actionable (not a general codebase issue or combination of multiple issues)
 3. Fixing it does not demand rigor beyond what exists in the rest of the codebase
-4. The bug was introduced in the changeset (do not flag pre-existing bugs)
+4. In diff mode: the bug was introduced in the changeset (do not flag pre-existing bugs). In file scope mode: this criterion does not apply
 5. The author would likely fix the issue if aware of it
 6. The bug does not rely on unstated assumptions about the codebase or author's intent
 7. Speculation is insufficient — identify the parts of the code that are provably affected
@@ -51,7 +55,7 @@ Flag an issue only when ALL of these hold:
 ## What to Ignore
 
 - Trivial style unless it obscures meaning or violates documented standards
-- Pre-existing issues not introduced by this changeset
+- In diff mode: pre-existing issues not introduced by this changeset
 
 ## Output Format
 

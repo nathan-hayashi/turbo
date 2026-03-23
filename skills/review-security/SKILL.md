@@ -1,15 +1,19 @@
 ---
-name: security-review
-description: "Runs security-focused code review of changes and returns structured findings. Analyzes a diff for vulnerabilities, insecure patterns, and security regressions using strict determination criteria. References the project threat model when available. Use when the user asks to \"security review my code\", \"check for security issues\", \"find vulnerabilities in my changes\", \"run a security review\", or \"analyze my diff for security\"."
+name: review-security
+description: "Analyze code for security vulnerabilities, insecure patterns, and security regressions using strict determination criteria. References the project threat model when available. Returns structured findings without applying fixes. Use when the user asks to \"review security\", \"check for security issues\", \"find vulnerabilities in my changes\", \"run a security review\", \"analyze my code for security\", \"security audit\", or \"security scan\"."
 ---
 
-# Security Review
+# Review Security
 
-Analyze code changes for security vulnerabilities, insecure patterns, and security regressions. Return structured findings.
+Analyze code for security vulnerabilities, insecure patterns, and security regressions. Return structured findings.
 
-## Step 1: Determine the Diff
+## Step 1: Determine the Scope
 
-Determine the appropriate diff command (e.g. `git diff --cached`, `git diff main...HEAD`) based on the current git state. If a specific diff command was provided, use that. Otherwise, default to diffing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`).
+Determine what to review:
+
+- If a specific **diff command** was provided (e.g., `git diff --cached`, `git diff main...HEAD`), use that.
+- If a **file list or directory** was provided, review those files directly (read the full files, not a diff).
+- If **neither** was provided, default to diffing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`).
 
 ## Step 2: Load Threat Model Context
 
@@ -23,10 +27,10 @@ Use this context to prioritize findings. Changes that touch identified attack su
 
 If no threat model exists, proceed without it. Do not create one.
 
-## Step 3: Review Changes
+## Step 3: Review
 
-1. Run the appropriate diff command to obtain the changes
-2. For each changed file, read enough surrounding context to understand the change
+1. For diff scope: run the diff command to obtain the changes. For file scope: read the specified files.
+2. For each file, read enough surrounding context to understand the code
 3. Apply the vulnerability determination criteria and return findings in the output format below
 
 ### Review Mindset
@@ -54,7 +58,7 @@ Flag an issue only when ALL of these hold:
 
 1. It is a concrete security weakness, not a theoretical concern or defense-in-depth suggestion
 2. The vulnerability is discrete and actionable (not a general architecture issue)
-3. The issue was introduced or worsened by the changeset (do not flag pre-existing issues unless the change removes a mitigation)
+3. In diff mode: the issue was introduced or worsened by the changeset (do not flag pre-existing issues unless the change removes a mitigation). In file scope mode: this criterion does not apply
 4. The vulnerable code path is reachable with attacker-controlled input or attacker-influenced state
 5. The author would likely fix the issue if aware of the security implications
 6. The issue is demonstrable through a specific attack scenario, not speculation
@@ -79,7 +83,7 @@ Flag an issue only when ALL of these hold:
 ## What to Ignore
 
 - Style and naming unless it creates a security-relevant ambiguity
-- Pre-existing vulnerabilities not affected by this changeset
+- In diff mode: pre-existing vulnerabilities not affected by this changeset
 - Defense-in-depth suggestions when the primary defense demonstrably holds (not just exists)
 - Vulnerabilities in test code that cannot be reached in production
 

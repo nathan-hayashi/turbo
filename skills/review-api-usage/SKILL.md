@@ -1,24 +1,27 @@
 ---
-name: api-usage-review
-description: "Checks API, library, and framework usage in code changes against official documentation and installed skill knowledge. Flags deprecated APIs, incorrect method signatures, wrong parameter types, version-incompatible patterns, and best-practice violations. Use when the user asks to \"check API usage\", \"verify against docs\", \"api usage review\", \"check library usage\", \"validate API calls\", \"check against documentation\", or \"check for deprecated APIs\"."
+name: review-api-usage
+description: "Check API, library, and framework usage in code against official documentation and installed skill knowledge. Flags deprecated APIs, incorrect method signatures, wrong parameter types, version-incompatible patterns, and best-practice violations. Use when the user asks to \"review API usage\", \"check API usage\", \"verify against docs\", \"check library usage\", \"validate API calls\", \"check against documentation\", or \"check for deprecated APIs\"."
 ---
 
-# API Usage Review
+# Review API Usage
 
-Check API, library, and framework usage in code changes against official documentation and installed skill knowledge. Return structured findings.
+Check API, library, and framework usage in code against official documentation and installed skill knowledge. Return structured findings.
 
-## Step 1: Determine the Diff
+## Step 1: Determine the Scope
 
-Determine the appropriate diff command (e.g. `git diff --cached`, `git diff main...HEAD`) based on the current git state. If a specific diff command was provided, use that. Otherwise, default to diffing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`).
+Determine what to review:
 
-## Step 2: Extract Library Usage from Changes
+- If a specific **diff command** was provided (e.g., `git diff --cached`, `git diff main...HEAD`), use that.
+- If a **file list or directory** was provided, review those files directly (read the full files, not a diff).
+- If **neither** was provided, default to diffing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`).
 
-1. Run the diff command to obtain the changes
-2. Identify external library/framework APIs used in changed lines: new imports, changed method calls, updated configuration patterns
-3. Cross-reference with project dependency files to determine library versions in use
-4. Filter out standard library and language built-ins. Focus on third-party dependencies.
+## Step 2: Extract Library Usage
 
-If no external library usage is found in the changes, report that and stop.
+1. For diff scope: run the diff command to obtain the changes and identify external library/framework APIs in changed lines. For file scope: read the specified files and identify all external library/framework API usage.
+2. Cross-reference with project dependency files to determine library versions in use
+3. Filter out standard library and language built-ins. Focus on third-party dependencies.
+
+If no external library usage is found, report that and stop.
 
 ## Step 3: Look Up Documentation
 
@@ -55,7 +58,7 @@ Flag an issue only when ALL of these hold:
 
 1. The documentation or loaded skill clearly contradicts the usage (not ambiguous or underdocumented)
 2. The issue is discrete and actionable
-3. The issue was introduced in the changeset (do not flag pre-existing usage)
+3. In diff mode: the issue was introduced in the changeset (do not flag pre-existing usage). In file scope mode: this criterion does not apply
 4. The documented behavior applies to the library version in the project's dependency file
 5. The issue would cause incorrect behavior, a runtime error, or a deprecation warning
 
@@ -79,7 +82,7 @@ Flag an issue only when ALL of these hold:
 
 - Standard library and language built-in usage
 - APIs where documentation is ambiguous or unavailable
-- Pre-existing usage not changed by this diff
+- In diff mode: pre-existing usage not changed by this diff
 - Internal project APIs (only check third-party dependencies)
 - Style preferences not grounded in documentation
 

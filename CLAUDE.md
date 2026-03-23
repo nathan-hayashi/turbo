@@ -12,16 +12,17 @@ skills/<skill-name>/
 └── assets/               # Optional templates or boilerplate
 ```
 
-Each skill is self-contained. Orchestrators compose skills by invoking them via `/skill-name`, not by importing code.
+Each skill is self-contained. Skills compose other skills to any depth via `/skill-name` invocations. The key distinction is between analysis skills (return structured findings without acting) and workflow skills (compose analysis skills and act on results).
 
 ## Skill Conventions
 
 - SKILL.md frontmatter has `name` and `description` — description includes trigger phrases
 - Skills should not reference which orchestrators call them (stay self-contained)
-- Orchestrators should not embed implementation details of delegated skills (downstream CLI commands, tool-specific flags, model coupling in reference materials). The skill interface is the abstraction boundary.
-- Orchestrator skills use `TaskCreate` for phase tracking
+- Workflow skills should not embed implementation details of delegated skills (downstream CLI commands, tool-specific flags, model coupling in reference materials). The skill interface is the abstraction boundary.
+- Workflow skills use `TaskCreate` for phase tracking
 - Skills communicate through standard interfaces: git staging area, PR state, file conventions at `.turbo/`
 - Skills should be context-agnostic: accept caller-specified context but determine their own when called standalone (from conversation context or git state). See `/simplify-code` as the model.
+- Analysis review skills accept a standardized scope interface: a diff command OR a file/directory list. In diff mode, only flag issues introduced by the changeset. In file scope mode, all issues in the reviewed files are in scope.
 - Skills should avoid side effects outside their domain. Let the caller or a dedicated skill handle cross-cutting concerns (e.g., staging files).
 - Run `/create-skill` when creating or editing skills
 - When adding a new skill, update README.md: add it to the appropriate table in "All Skills" and update any relevant prose sections

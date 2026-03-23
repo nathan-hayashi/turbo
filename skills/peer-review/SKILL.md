@@ -1,6 +1,6 @@
 ---
 name: peer-review
-description: "Run AI-powered code review of changes by delegating to codex in review mode. Use when the user asks to \"review my code\", \"peer review\", \"review changes\", \"review the diff\", \"review uncommitted changes\", or \"review against main\"."
+description: "Run code review using the codex CLI as an independent reviewer. Returns structured findings without applying fixes. Use when the user asks to \"peer review\", \"get a second opinion on my code\", \"run codex review\", \"codex peer review\", \"run codex on my diff\", or \"review against main\"."
 ---
 
 # Peer Review
@@ -11,10 +11,20 @@ AI-powered code review of changes. Delegates to `/codex` in review mode by defau
 
 Determine what to review based on context:
 
+### Diff Mode
+
 - **Uncommitted changes**: run `/codex` with `--uncommitted`
 - **Against a base branch**: run `/codex` with `--base <branch>`
 - **Specific commit**: run `/codex` with `--commit <sha>`
 
 Pass `--title` when reviewing a feature branch or PR to give the reviewer context.
+
+### File Scope Mode
+
+When a file list or directory is provided instead of a diff:
+
+```bash
+codex review "Review the following files for bugs, correctness, and security issues: <file list>"
+```
 
 Capture and return the full review output.
