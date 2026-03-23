@@ -53,7 +53,7 @@ Every skill is a self-contained piece. Pipeline skills like [`/finalize`](skills
 
 Want to swap a piece? For example:
 
-- Replace [`/oracle`](skills/oracle/SKILL.md) with your own setup (it's macOS-only and has a cookies workaround)
+- Replace [`/consult-oracle`](skills/consult-oracle/SKILL.md) with your own setup (it's macOS-only and has a cookies workaround)
 - Replace [`/commit-rules`](skills/commit-rules/SKILL.md) with your team's commit convention. The pipeline adapts.
 - Replace [`/code-style`](skills/code-style/SKILL.md) with your team's style guide. The built-in one teaches general principles rather than opinionated rules, so it's a natural swap point.
 
@@ -72,7 +72,7 @@ If Turbo has helped you ship faster and you're so inclined, I'd greatly apprecia
 
 Turbo requires [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Works best with Claude Code Max 5x, Max 20x, or Team plan with Premium seats (pipeline workflows are context-heavy). Additional tools are installed during setup.
 
-**External services:** ChatGPT Plus or higher (for codex review), and ChatGPT Pro or Business (for [`/oracle`](skills/oracle/SKILL.md), where Pro models are the only ones that reliably solve very hard problems). That said, [`/peer-review`](skills/peer-review/SKILL.md) and [`/oracle`](skills/oracle/SKILL.md) are designed as swappable puzzle pieces, so if you don't have access, replace them with alternatives that work for you.
+**External services:** ChatGPT Plus or higher (for codex review), and ChatGPT Pro or Business (for [`/consult-oracle`](skills/consult-oracle/SKILL.md), where Pro models are the only ones that reliably solve very hard problems). That said, [`/peer-review`](skills/peer-review/SKILL.md) and [`/consult-oracle`](skills/consult-oracle/SKILL.md) are designed as swappable puzzle pieces, so if you don't have access, replace them with alternatives that work for you.
 
 ### Automatic Setup (Recommended)
 
@@ -154,13 +154,15 @@ Each session handles one prompt to keep context focused.
 | [`/review-quality`](skills/review-quality/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity | |
 | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md) | Analyze code for test coverage gaps and missing edge cases | |
 | [`/review-dependencies`](skills/review-dependencies/SKILL.md) | Detect outdated or vulnerable dependencies | |
-| [`/peer-review`](skills/peer-review/SKILL.md) | AI code review via codex | [`/codex`](skills/codex/SKILL.md) |
+| [`/peer-review`](skills/peer-review/SKILL.md) | AI code review via codex | [`/codex-review`](skills/codex-review/SKILL.md) |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback | |
 | [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
-| [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/codex`](skills/codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/oracle`](skills/oracle/SKILL.md) |
+| [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/consult-codex`](skills/consult-codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/consult-oracle`](skills/consult-oracle/SKILL.md) |
 | [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually | [`/investigate`](skills/investigate/SKILL.md) |
-| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI | [Codex CLI](https://github.com/openai/codex) |
-| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) | [ChatGPT Pro](https://chatgpt.com/) |
+| [`/codex-review`](skills/codex-review/SKILL.md) | AI code review via codex CLI | [Codex CLI](https://github.com/openai/codex) |
+| [`/codex-exec`](skills/codex-exec/SKILL.md) | Autonomous task execution via codex CLI | [Codex CLI](https://github.com/openai/codex) |
+| [`/consult-codex`](skills/consult-codex/SKILL.md) | Multi-turn consultation with codex CLI | [Codex CLI](https://github.com/openai/codex) |
+| [`/consult-oracle`](skills/consult-oracle/SKILL.md) | Consult ChatGPT Pro when completely stuck (requires setup) | [ChatGPT Pro](https://chatgpt.com/) |
 
 ### Planning
 

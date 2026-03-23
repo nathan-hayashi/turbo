@@ -230,7 +230,7 @@
         <mxCell id="46" parent="43" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/peer-review" vertex="1">
           <mxGeometry height="40" width="150" x="200" y="50" as="geometry" />
         </mxCell>
-        <mxCell id="47" parent="43" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/codex" vertex="1">
+        <mxCell id="47" parent="43" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/codex-review" vertex="1">
           <mxGeometry height="40" width="150" x="130" y="120" as="geometry" />
         </mxCell>
         <mxCell id="130" parent="43" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/review-api-usage" vertex="1">
@@ -322,10 +322,10 @@
         <mxCell id="125" edge="1" parent="51" source="121" style="endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#64748b;" target="122">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="208" parent="51" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#ffedd5;strokeColor=#f97316;fontColor=#7c2d12;fontSize=12;" value="/codex" vertex="1">
+        <mxCell id="208" parent="51" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#ffedd5;strokeColor=#f97316;fontColor=#7c2d12;fontSize=12;" value="/consult-codex" vertex="1">
           <mxGeometry height="40" width="150" x="30" y="310" as="geometry" />
         </mxCell>
-        <mxCell id="53" parent="51" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#ffedd5;strokeColor=#f97316;fontColor=#7c2d12;fontSize=12;" value="/oracle" vertex="1">
+        <mxCell id="53" parent="51" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#ffedd5;strokeColor=#f97316;fontColor=#7c2d12;fontSize=12;" value="/consult-oracle" vertex="1">
           <mxGeometry height="40" width="150" x="200" y="310" as="geometry" />
         </mxCell>
         <mxCell id="209" edge="1" parent="51" source="122" style="dashed=1;dashPattern=8 4;endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#94a3b8;fontSize=11;fontColor=#64748b;" target="208" value="parallel investigation">

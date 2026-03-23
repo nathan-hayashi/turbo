@@ -105,4 +105,4 @@ Add the sections from [`CLAUDE-ADDITIONS.md`](../CLAUDE-ADDITIONS.md) to `~/.cla
 
 ## 9. Oracle Setup (Optional)
 
-The `/oracle` skill requires additional setup (Chrome, Python, ChatGPT access). See the [oracle skill](../skills/oracle/SKILL.md) for configuration via `~/.turbo/config.json`. If not set up, everything still works.
+The `/consult-oracle` skill requires additional setup (Chrome, Python, ChatGPT access). See the [consult-oracle skill](../skills/consult-oracle/SKILL.md) for configuration via `~/.turbo/config.json`. If not set up, everything still works.

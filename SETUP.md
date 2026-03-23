@@ -180,7 +180,7 @@ These additions are kept in sync by `/update-turbo` for future updates.
 
 ## Step 6: Oracle Setup
 
-The `/oracle` skill consults ChatGPT when completely stuck on a problem. If not set up, everything still works. `/investigate` offers oracle escalation via a prompt, and the user can simply decline.
+The `/consult-oracle` skill consults ChatGPT when completely stuck on a problem. If not set up, everything still works. `/investigate` offers oracle escalation via a prompt, and the user can simply decline.
 
 It requires:
 
@@ -197,7 +197,7 @@ It requires:
 }
 ```
 
-Merge these values into the existing `~/.turbo/config.json`. See the [oracle skill](skills/oracle/SKILL.md) for details.
+Merge these values into the existing `~/.turbo/config.json`. See the [consult-oracle skill](skills/consult-oracle/SKILL.md) for details.
 
 ## Step 7: Quick Onboarding
 

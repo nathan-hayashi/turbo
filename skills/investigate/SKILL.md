@@ -75,7 +75,7 @@ For complex problems with 3+ hypotheses and a non-obvious root cause, spawn para
 Launch in parallel (`model: "opus"`, do not set `run_in_background`):
 
 1. **One subagent per hypothesis** — each receives the hypothesis, relevant file paths, what evidence to look for, and instructions to report **confirmed** / **refuted** / **inconclusive** with evidence. Budget: max 5 tool calls per subagent.
-2. **Codex exec** (read-only) — launch an agent that runs the `/codex` skill in exec mode with a focused prompt describing the problem, reproduction, and files examined. Provides an independent perspective that may spot patterns the hypothesis-driven subagents miss. Run the `/evaluate-findings` skill on its output.
+2. **Codex consultation** (read-only) — launch an agent that runs the `/consult-codex` skill with a focused prompt describing the problem, reproduction, and files examined. The multi-turn conversation allows it to dig deeper into patterns the hypothesis-driven subagents miss. Run the `/evaluate-findings` skill on its output.
 
 After all investigators complete, merge results. Codex findings that overlap with a subagent's confirmed hypothesis reinforce confidence. Novel codex findings become additional hypotheses to test in Step 4.
 
@@ -111,7 +111,7 @@ If all hypotheses are refuted or inconclusive:
 
 ## Escalation
 
-After 2 failed hypothesis cycles, offer escalation to `/oracle` via `AskUserQuestion`:
+After 2 failed hypothesis cycles, offer escalation to `/consult-oracle` via `AskUserQuestion`:
 
 ```
 Investigation stalled after [N] hypothesis cycles.

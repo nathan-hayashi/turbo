@@ -1,58 +1,17 @@
 ---
-name: codex
-description: "Run AI-powered code review and autonomous task execution using the codex CLI. Use when the user asks to \"review code with codex\", \"run codex review\", \"run codex exec\", \"execute a task with codex\", \"use codex to...\", \"ask codex\", \"consult codex\", \"review uncommitted changes\", \"review against main\", \"review a commit\", \"codex review\", or \"codex exec\"."
+name: codex-exec
+description: "Run autonomous task execution using the codex CLI. Use when the user asks to \"codex exec\", \"run codex exec\", \"execute a task with codex\", or \"delegate to codex\"."
 ---
 
-# Codex
+# Codex Exec
 
-AI-powered code review and autonomous task execution via the codex CLI.
-
-- Both modes run non-interactively and are safe to invoke with generous timeouts
-
-## Review Mode
-
-### Uncommitted Changes
-
-```bash
-codex review --uncommitted
-```
-
-### Against a Base Branch
-
-```bash
-codex review --base main
-codex review --base develop
-```
-
-### Specific Commit
-
-```bash
-codex review --commit <sha>
-codex review --commit HEAD~1
-```
-
-### Custom Prompt (standalone)
-
-Cannot be combined with `--uncommitted`, `--base`, or `--commit`.
-
-```bash
-codex review "Focus on security issues and error handling"
-```
-
-### Review Options
-
-- Use `--title` to add context when reviewing feature branches or PRs
-- Use a generous timeout (30 minutes / 1800000ms)
-
-## Exec Mode
-
-Run autonomous tasks non-interactively. Progress streams to stderr; final result on stdout.
+Autonomous task execution via the codex CLI. Runs non-interactively. Progress streams to stderr; final result on stdout.
 
 ```bash
 codex exec "task description"
 ```
 
-### Permission Levels
+## Permission Levels
 
 | Level | Flag | When to Use |
 |-------|------|-------------|
@@ -61,7 +20,7 @@ codex exec "task description"
 | Full access | `--sandbox danger-full-access` | Installing packages, running tests, system operations |
 | Full auto | `--full-auto` | Combined with a sandbox level for unattended execution |
 
-### Exec Options
+## Options
 
 | Option | Description |
 |--------|-------------|
@@ -74,7 +33,7 @@ codex exec "task description"
 | `--skip-git-repo-check` | Bypass git repository requirement |
 | `-m, --model <MODEL>` | Specify the model to use |
 
-### Interpreting Results
+## Interpreting Results
 
 - Exec output is a starting point, not a guaranteed solution
 - Cross-reference suggestions with project documentation and conventions

@@ -5,7 +5,7 @@ description: "Run code review using the codex CLI as an independent reviewer. Re
 
 # Peer Review
 
-AI-powered code review of changes. Delegates to `/codex` in review mode by default.
+AI-powered code review of changes. Delegates to `/codex-review` by default.
 
 ## Usage
 
@@ -13,9 +13,9 @@ Determine what to review based on context:
 
 ### Diff Mode
 
-- **Uncommitted changes**: run `/codex` with `--uncommitted`
-- **Against a base branch**: run `/codex` with `--base <branch>`
-- **Specific commit**: run `/codex` with `--commit <sha>`
+- **Uncommitted changes**: run `/codex-review` with `--uncommitted`
+- **Against a base branch**: run `/codex-review` with `--base <branch>`
+- **Specific commit**: run `/codex-review` with `--commit <sha>`
 
 Pass `--title` when reviewing a feature branch or PR to give the reviewer context.
 
