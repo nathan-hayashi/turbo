@@ -90,7 +90,7 @@ If modified, read both versions and summarize what changed: new sections added, 
 
 ### Step 4: Present Changelog
 
-Use `AskUserQuestion` to present a formatted changelog. Example format:
+Output the changelog as text. Example format:
 
 ```
 Turbo Update Available
@@ -113,11 +113,9 @@ Modified:
 CLAUDE.md Additions:
 - Updated "Skill Loading" — added new rule about X
 - New section "Section Name" — brief description
-
-Proceed with update?
 ```
 
-If the user declines, stop.
+Then use `AskUserQuestion` to ask whether to proceed with the update. If the user declines, stop.
 
 ## Phase 2: Resolution
 
