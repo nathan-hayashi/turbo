@@ -8,7 +8,7 @@ A composable dev process for [Claude Code](https://docs.anthropic.com/en/docs/cl
 2. **Implement** — Build it with Claude
 3. **Run [`/finalize`](skills/finalize/SKILL.md)** — Tests, iterative code polishing, commit, and PR. One command.
 
-Everything else in Turbo builds on this loop: planning pipelines for large projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [40+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
+Everything else in Turbo builds on this loop: planning pipelines for large projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [50+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
 
 ## What Is This?
 
