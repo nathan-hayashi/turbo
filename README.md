@@ -30,7 +30,7 @@ The other core piece is [`/self-improve`](skills/self-improve/SKILL.md), which m
 
 This diagram shows how [`/finalize`](skills/finalize/SKILL.md) composes its pipeline and how the key sub-skills compose. It covers the core workflow, not every skill in Turbo. See [All Skills](#all-skills) for the full list.
 
-![How Skills Connect](assets/how-skills-connect.svg?raw=true)
+![How Skills Connect](assets/how-skills-connect.svg)
 
 ## Works Best With
 
