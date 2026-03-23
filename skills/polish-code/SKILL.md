@@ -45,8 +45,8 @@ Stage all changes made in this step before continuing.
 
 ## Step 7: Re-run if Changed
 
-If Steps 4-6 produced any changes during this run, run the `/polish-code` skill again. Cap at 3 consecutive runs to prevent runaway loops.
+If Steps 3-6 produced any changes during this run, re-run Steps 3-6 scoped to only the files modified in the previous iteration. Use `git diff --cached -- <file1> <file2> ...` as the diff command for `/simplify-code` and `/review-code`. Cap at 3 total iterations to prevent runaway loops.
 
 ## Rules
 
-- Every step must run. Simplify findings do not substitute for review. Passing tests do not substitute for lint. Each step catches different issues.
+- Every step must run. No change is "self-evidently correct" or "mechanical" enough to skip review. Each step catches different issues.
