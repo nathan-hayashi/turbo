@@ -65,7 +65,7 @@ Use `AskUserQuestion` to ask if the user wants to wait for automated reviewers t
 
 ## Rules
 
-- Diff size, number of files changed, or passing tests are not reasons to skip a phase. Each phase does work beyond what those signals cover.
+- Diff size, number of files changed, passing tests, or perceived user urgency are not reasons to skip a phase. Each phase does work beyond what those signals cover.
 - Never stage or commit files containing secrets (`.env`, credentials, API keys). Warn if detected.
 - Do not present diffs to the user — the user reviews diffs in an external git client. Use `git diff` internally as needed.
 - If a non-test step fails (polish, review), stop and report the failure. Do not skip ahead.
