@@ -75,4 +75,10 @@ After writing all files, spawn a subagent (`model: "opus"`, do not set `run_in_b
 2. Read all skill files (SKILL.md and any bundled resources)
 3. Produce a review report following the format in the guidelines
 
-Do not blindly apply all review findings. Run the `/evaluate-findings` skill on the reviewer's recommendations if available. Apply only findings that survive evaluation. Present the result to the user.
+## Step 6: Evaluate Findings
+
+Do not blindly apply all review findings. Run the `/evaluate-findings` skill on the reviewer's recommendations if available.
+
+## Step 7: Apply Findings
+
+Run the `/apply-findings` skill on the evaluated results. Present the result to the user.

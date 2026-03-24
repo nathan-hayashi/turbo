@@ -99,9 +99,13 @@ After writing, spawn a subagent (`model: "opus"`, do not set `run_in_background`
 2. Read the prompt plan (`.turbo/prompts.md`) and the source spec in full
 3. Produce a review report following the format in the guidelines
 
-After the subagent returns its review report, run `/evaluate-findings` on the recommendations to triage issues and apply fixes to `.turbo/prompts.md`.
+After the subagent returns its review report, run the `/evaluate-findings` skill on the recommendations to triage issues.
 
-## Step 5: Present Summary
+## Step 5: Apply Findings
+
+Run the `/apply-findings` skill on the evaluated results to fix `.turbo/prompts.md`.
+
+## Step 6: Present Summary
 
 After writing and verification, present a brief summary: number of prompts, one-line description of each prompt's scope, and any assumptions made about ambiguities.
 

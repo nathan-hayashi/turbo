@@ -102,3 +102,5 @@ The caller determines what to do with the evaluated findings.
 - If two findings conflict with each other, skip both and document the conflict.
 - For each finding, clarify whether the issue was introduced by the PR/changeset or is pre-existing. Present this distinction explicitly so the user can decide whether it belongs in this PR's scope.
 - Pre-existing issues in earlier commits on the same feature branch are in-scope by default — the entire branch is one coherent unit of work. Do not auto-skip findings just because they touch code from a prior commit in the branch.
+- Out-of-scope findings that are genuinely useful and have low blast radius (small, contained changes) should be accepted. Only skip out-of-scope findings when the change is disproportionate to the current work.
+- Readability and clarity improvements that genuinely make code cleaner or more consistent are valid findings. Do not auto-classify cosmetic changes as subjective preference. Evaluate each on its merit.

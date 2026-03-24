@@ -53,4 +53,8 @@ python3 scripts/run_oracle.py --prompt "<problem description>" --file <relevant 
 
 ## Step 5: Evaluate the Response
 
-Run the `/evaluate-findings` skill on the oracle's response. Apply only findings that survive evaluation. Oracle suggestions are starting points — cross-reference with official docs and peer open-source implementations before accepting.
+Run the `/evaluate-findings` skill on the oracle's response. Oracle suggestions are starting points — cross-reference with official docs and peer open-source implementations before accepting.
+
+## Step 6: Apply Findings
+
+Run the `/apply-findings` skill on the evaluated results.

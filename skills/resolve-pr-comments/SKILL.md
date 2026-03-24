@@ -32,22 +32,26 @@ query($owner: String!, $repo: String!, $pr: Int!) {
 
 Auto-detect owner, repo, and PR number from current branch if not provided. Filter to unresolved threads only.
 
-## Step 2: Evaluate and Fix
+## Step 2: Evaluate
 
-Run the `/evaluate-findings` skill on the unresolved threads to assess each comment. Proceed with the evaluation results — apply high/medium confidence fixes and skip low confidence suggestions.
+Run the `/evaluate-findings` skill on the unresolved threads to assess each comment.
 
-## Step 3: Self-Improve
+## Step 3: Apply Findings
+
+Run the `/apply-findings` skill on the evaluated results.
+
+## Step 4: Self-Improve
 
 Run the `/self-improve` skill.
 
-## Step 4: Stage, Commit, and Push
+## Step 5: Stage, Commit, and Push
 
 If any fixes were applied, use `AskUserQuestion` to ask if the user wants to stage, commit, and push the changes now.
 
 - **Yes** — run the `/stage-commit-push` skill
 - **No** — leave changes unstaged, proceed to replies
 
-## Step 5: Reply to Each Thread
+## Step 6: Reply to Each Thread
 
 Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
 
@@ -71,7 +75,7 @@ Only add a brief description after the SHA if the fix meaningfully diverges from
 
 **Reply format for skips:** Just state the reasoning for not changing it.
 
-## Step 6: Summary
+## Step 7: Summary
 
 After processing all threads, present a summary table:
 

@@ -138,10 +138,11 @@ Each session handles one prompt to keep context focused.
 
 | Skill | What it does | Uses |
 |---|---|---|
-| [`/polish-code`](skills/polish-code/SKILL.md) | Iterative quality loop: stage → write tests → simplify → review + fix → test → lint → re-run until stable | [`/stage`](skills/stage/SKILL.md), [`/write-tests`](skills/write-tests/SKILL.md), [`/simplify-code`](skills/simplify-code/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
+| [`/polish-code`](skills/polish-code/SKILL.md) | Iterative quality loop: stage → write tests → simplify → review + fix → test → lint → re-run until stable | [`/stage`](skills/stage/SKILL.md), [`/write-tests`](skills/write-tests/SKILL.md), [`/simplify-code`](skills/simplify-code/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/review-code`](skills/review-code/SKILL.md) | AI code review: 5 parallel reviewers + evaluation | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) |
 | [`/review-pr`](skills/review-pr/SKILL.md) | PR review: fetch comments, detect base branch, run code review | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md), [`/review-code`](skills/review-code/SKILL.md) |
-| [`/simplify-code`](skills/simplify-code/SKILL.md) | Review code quality and fix issues | |
+| [`/simplify-code`](skills/simplify-code/SKILL.md) | Review code quality and fix issues | [`/apply-findings`](skills/apply-findings/SKILL.md) |
+| [`/apply-findings`](skills/apply-findings/SKILL.md) | Apply findings from evaluations or reviews | [`/note-improvement`](skills/note-improvement/SKILL.md) |
 | [`/write-tests`](skills/write-tests/SKILL.md) | Analyze coverage gaps and write missing tests | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/update-dependencies`](skills/update-dependencies/SKILL.md) | Smart dependency upgrades with breaking change research | [`/review-dependencies`](skills/review-dependencies/SKILL.md) |
 
@@ -165,7 +166,7 @@ Each session handles one prompt to keep context focused.
 | [`/codex-review`](skills/codex-review/SKILL.md) | AI code review via codex CLI | [Codex CLI](https://github.com/openai/codex) |
 | [`/codex-exec`](skills/codex-exec/SKILL.md) | Autonomous task execution via codex CLI | [Codex CLI](https://github.com/openai/codex) |
 | [`/consult-codex`](skills/consult-codex/SKILL.md) | Multi-turn consultation with codex CLI | [Codex CLI](https://github.com/openai/codex) |
-| [`/consult-oracle`](skills/consult-oracle/SKILL.md) | Consult ChatGPT Pro when completely stuck (requires setup) | [ChatGPT Pro](https://chatgpt.com/) |
+| [`/consult-oracle`](skills/consult-oracle/SKILL.md) | Consult ChatGPT Pro when completely stuck (requires setup) | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md), [ChatGPT Pro](https://chatgpt.com/) |
 
 ### Planning
 
@@ -173,7 +174,7 @@ Each session handles one prompt to keep context focused.
 |---|---|---|
 | [`/create-spec`](skills/create-spec/SKILL.md) | Guided discussion that produces a spec at `.turbo/spec.md` | |
 | [`/create-test-plan`](skills/create-test-plan/SKILL.md) | Generate a structured test plan at `.turbo/test-plan.md` with four escalating levels | |
-| [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) |
+| [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md) |
 | [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it | [`/plan-style`](skills/plan-style/SKILL.md) |
 | [`/pick-next-issue`](skills/pick-next-issue/SKILL.md) | Pick the most popular open GitHub issue and plan it | [`/plan-style`](skills/plan-style/SKILL.md) |
 | [`/plan-style`](skills/plan-style/SKILL.md) | Planning conventions for task tracking, skill loading, and finalization | |
@@ -194,7 +195,7 @@ Each session handles one prompt to keep context focused.
 | [`/create-pr`](skills/create-pr/SKILL.md) | Draft and create a GitHub PR | [`/github-voice`](skills/github-voice/SKILL.md) |
 | [`/update-pr`](skills/update-pr/SKILL.md) | Update existing PR title and description | [`/github-voice`](skills/github-voice/SKILL.md) |
 | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md) | Read-only summary of unresolved PR comments | |
-| [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/stage-commit-push`](skills/stage-commit-push/SKILL.md), [`/github-voice`](skills/github-voice/SKILL.md) |
+| [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/stage-commit-push`](skills/stage-commit-push/SKILL.md), [`/github-voice`](skills/github-voice/SKILL.md) |
 
 ### Knowledge & Maintenance
 
@@ -203,7 +204,7 @@ Each session handles one prompt to keep context focused.
 | [`/self-improve`](skills/self-improve/SKILL.md) | Extract session learnings to CLAUDE.md, memory, or skills | |
 | [`/note-improvement`](skills/note-improvement/SKILL.md) | Capture out-of-scope improvement ideas to `.turbo/improvements.md` | |
 | [`/implement-improvements`](skills/implement-improvements/SKILL.md) | Validate and implement improvements from the backlog | [`/plan-style`](skills/plan-style/SKILL.md) |
-| [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure | |
+| [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md) |
 | [`/create-threat-model`](skills/create-threat-model/SKILL.md) | Analyze a codebase and produce a threat model at `.turbo/threat-model.md` | |
 | [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills with always-latest instructions fetched from GitHub | |
 | [`/contribute-turbo`](skills/contribute-turbo/SKILL.md) | Submit turbo skill improvements back to upstream | [`/commit-rules`](skills/commit-rules/SKILL.md), [`/github-voice`](skills/github-voice/SKILL.md) |
