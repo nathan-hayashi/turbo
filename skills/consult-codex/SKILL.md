@@ -15,8 +15,22 @@ Identify the 2-5 files most relevant to the problem. Formulate a clear, specific
 
 Run `codex exec` with `-o` to capture the response cleanly. Default to `-s read-only` for safety. Use `-s workspace-write` when the consultation requires running code or reading files outside the workspace.
 
+**All `codex` Bash calls require `dangerouslyDisableSandbox: true`** (network access to OpenAI API). Use `.turbo/` as the temp directory — it is in the working directory (sandbox-writable), gitignored, and avoids `$TMPDIR` path mismatches between sandbox and non-sandbox mode.
+
+Generate a random session tag at the start to keep files unique for parallel use:
+
 ```bash
-codex exec -s read-only -o "$TMPDIR/codex-consult.txt" "<question with full context>"
+CODEX_TAG=$(head -c 4 /dev/urandom | xxd -p) && mkdir -p .turbo
+codex exec -s read-only -o ".turbo/codex-$CODEX_TAG.txt" "<question with full context>"
+```
+
+For long context that won't fit inline, write a context file first, then pass it:
+
+```bash
+cat > ".turbo/codex-ctx-$CODEX_TAG.txt" << 'EOF'
+<long context here>
+EOF
+codex exec -s read-only -o ".turbo/codex-$CODEX_TAG.txt" "$(cat ".turbo/codex-ctx-$CODEX_TAG.txt")"
 ```
 
 Parse the `session id:` line from the CLI output. This UUID is needed for follow-up turns.
@@ -25,7 +39,9 @@ Use a generous timeout (30 minutes / 1800000ms per turn).
 
 ## Step 3: Read and Evaluate Response
 
-Read the response from `$TMPDIR/codex-consult.txt`. Assess whether:
+The `-o` file contains only Codex's response (cleaner than stdout, which includes CLI chrome and tool-use logs). Read from `.turbo/codex-$CODEX_TAG.txt`. If the output is too large for the Read tool, read stdout from the Bash tool result instead.
+
+Assess whether:
 - The answer is sufficient and actionable
 - Follow-up questions would improve the answer
 - The response contradicts known project facts (verify before accepting)
@@ -37,13 +53,21 @@ If no follow-up is needed, skip to Step 5.
 Resume the session with the parsed session ID (not `--last`, which is unsafe for parallel use):
 
 ```bash
-codex exec resume <session-id> -o "$TMPDIR/codex-consult.txt" "<follow-up question>"
+codex exec resume <session-id> -o ".turbo/codex-$CODEX_TAG.txt" "<follow-up question>"
 ```
 
 The `-s` flag is not available for `resume`. It inherits sandbox settings from the original session.
 
 Return to Step 3. Cap at 5 turns to prevent runaway conversations.
 
-## Step 5: Synthesize
+## Step 5: Clean Up
+
+Remove temp files created during the consultation:
+
+```bash
+rm -f ".turbo/codex-$CODEX_TAG.txt" ".turbo/codex-ctx-$CODEX_TAG.txt"
+```
+
+## Step 6: Synthesize
 
 Summarize the key insights from the consultation. Cross-reference suggestions with project documentation and conventions before applying. Codex suggestions are starting points, not guaranteed solutions.
