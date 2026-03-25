@@ -105,17 +105,17 @@ Assign each surviving lesson to exactly one destination:
 Output a table as text before making any changes:
 
 ```
-| # | Rec | Lesson | Destination | Action |
-|---|-----|--------|-------------|--------|
-| 1 | Yes | Always use X for... | Project AGENTS.md | Append to ## Conventions |
-| 2 | Yes | The /create-pr skill should... | ~/.claude/skills/create-pr | Update Step 2 |
-| 3 | No  | Multi-step deploy workflow | New project skill | Create new skill |
-| 4 | Yes | User prefers short commit msgs | Auto memory | Append to MEMORY.md |
+| # | Lesson | Destination | Action |
+|---|--------|-------------|--------|
+| 1 | Always use X for... | Project AGENTS.md | Append to ## Conventions |
+| 2 | The /create-pr skill should... | ~/.claude/skills/create-pr | Update Step 2 |
+| 3 | Multi-step deploy workflow | New project skill | Create new skill |
+| 4 | User prefers short commit msgs | Auto memory | Append to MEMORY.md |
 ```
 
-For each lesson, show: recommendation (Yes/No), concise summary, target file/skill, and whether it's an append, update-in-place, or new creation. Mark a lesson as "No" when the routing is uncertain or the lesson is borderline on the filtering criteria.
+For each lesson, show: concise summary, target file/skill, and whether it's an append, update-in-place, or new creation.
 
-Then use `AskUserQuestion` with these options: **Approve all**, **Approve recommended** (apply only "Yes" rows; omit if all are "Yes"), or **Reject all**.
+Then use `AskUserQuestion` with these options: **Approve** or **Reject**.
 
 ## Step 6: Execute
 
