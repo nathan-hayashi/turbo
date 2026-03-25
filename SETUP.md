@@ -118,8 +118,9 @@ Do not set `core.excludesfile` — the XDG path works automatically without it.
 
 Many skills use `gh` for PR operations, review comments, and repo queries.
 
+Install it from [cli.github.com](https://cli.github.com/), then authenticate:
+
 ```bash
-brew install gh
 gh auth login
 ```
 

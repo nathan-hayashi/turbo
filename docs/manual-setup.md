@@ -62,8 +62,9 @@ This uses Git's standard XDG path (`$XDG_CONFIG_HOME/git/ignore`), which Git rea
 
 [GitHub CLI](https://cli.github.com/) is used by many skills for PR operations, review comments, and repo queries:
 
+Install it from [cli.github.com](https://cli.github.com/), then authenticate:
+
 ```bash
-brew install gh
 gh auth login
 ```
 
