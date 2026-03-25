@@ -12,18 +12,23 @@ Post-implementation QA workflow: tests, code polishing, commit, and self-improve
 At the start, use `TaskCreate` to create a task for each phase:
 
 1. Polish code
-2. Self-improve
-3. Commit and PR
+2. Update changelog
+3. Self-improve
+4. Commit and PR
 
 ## Phase 1: Polish Code
 
 Run the `/polish-code` skill for the current changes.
 
-## Phase 2: Self-Improve
+## Phase 2: Update Changelog
+
+Run the `/update-changelog` skill.
+
+## Phase 3: Self-Improve
 
 Run the `/self-improve` skill for the current session.
 
-## Phase 3: Commit and PR
+## Phase 4: Commit and PR
 
 ### Step 1: Determine Intent
 
