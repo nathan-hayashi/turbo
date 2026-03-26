@@ -71,4 +71,4 @@ If any file was edited, run `/polish-code` again using the Skill tool. This invo
 
 ## Rules
 
-- Every step must run. No change is "self-evidently correct" or "mechanical" enough to skip review. Simplify findings do not substitute for review. Passing tests do not substitute for lint. Each step catches different issues.
+- Every step must run. No change is "self-evidently correct" or "mechanical" enough to skip review. Simplify findings do not substitute for review. Passing tests do not substitute for lint. Each step catches different issues. Context window concerns are not a reason to skip steps.
