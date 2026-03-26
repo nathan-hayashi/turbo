@@ -138,7 +138,7 @@ Each session handles one prompt to keep context focused.
 
 | Skill | What it does | Uses |
 |---|---|---|
-| [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: polish, changelog, commit, PR | [`/polish-code`](skills/polish-code/SKILL.md), [`/update-changelog`](skills/update-changelog/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/commit-staged`](skills/commit-staged/SKILL.md), [`/create-pr`](skills/create-pr/SKILL.md), [`/update-pr`](skills/update-pr/SKILL.md), [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) |
+| [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: polish, changelog, commit, PR | [`/polish-code`](skills/polish-code/SKILL.md), [`/update-changelog`](skills/update-changelog/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/commit-staged`](skills/commit-staged/SKILL.md), [`/create-pr`](skills/create-pr/SKILL.md), [`/update-pr`](skills/update-pr/SKILL.md) |
 | [`/audit`](skills/audit/SKILL.md) | Project-wide health audit: all analysis skills, evaluation, markdown and HTML report | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-dependencies`](skills/review-dependencies/SKILL.md), [`/review-tooling`](skills/review-tooling/SKILL.md), [`/find-dead-code`](skills/find-dead-code/SKILL.md), [`/create-threat-model`](skills/create-threat-model/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/frontend-design`](skills/frontend-design/SKILL.md) |
 
 ### Workflows
@@ -201,7 +201,7 @@ Each session handles one prompt to keep context focused.
 | [`/create-pr`](skills/create-pr/SKILL.md) | Draft and create a GitHub PR | [`/github-voice`](skills/github-voice/SKILL.md) |
 | [`/update-pr`](skills/update-pr/SKILL.md) | Update existing PR title and description | [`/github-voice`](skills/github-voice/SKILL.md) |
 | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md) | Read-only summary of unresolved PR comments | |
-| [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/stage-commit-push`](skills/stage-commit-push/SKILL.md), [`/github-voice`](skills/github-voice/SKILL.md) |
+| [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md), [`/finalize`](skills/finalize/SKILL.md), [`/github-voice`](skills/github-voice/SKILL.md) |
 
 ### Knowledge & Maintenance
 
