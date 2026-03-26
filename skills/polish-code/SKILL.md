@@ -57,15 +57,17 @@ Stage all changes made in this step before continuing.
 
 ## Step 7: Smoke Test
 
-Use the Agent tool to run the `/smoke-test` skill in a subagent (`model: "opus"`, do not set `run_in_background`). Pass the diff command (`git diff --cached`) to the subagent.
+Run the `/smoke-test` skill.
+
+Use the Agent tool (`model: "opus"`, do not set `run_in_background`) to execute the smoke test steps in a subagent. Pass the diff command (`git diff --cached`) to the subagent.
 
 If any test fails, fix the issues and stage the fixes.
 
 ## Step 8: Re-run if Changed
 
-Check whether any file was edited during Steps 3-7. Any edit counts, regardless of how small or mechanical it seems. A one-line doc comment fix, a renamed variable, a reformatted import, a smoke test fix — all trigger a re-run.
+Check whether any file was edited during Steps 3-7. Any edit counts, regardless of how small or mechanical it seems. A one-line doc comment fix, a renamed variable, a reformatted import, a smoke test fix — all count.
 
-If any file was edited, re-run `/polish-code` via skill invocation (use the Skill tool) scoped to only the files modified in the previous iteration. Use `git diff --cached -- <file1> <file2> ...` as the diff command for `/simplify-code` and `/review-code`. Smoke test scope remains unchanged (full feature scope, not file-narrowed). Cap at 3 total iterations (the initial run plus up to 2 re-runs) to prevent runaway loops.
+If any file was edited, run `/polish-code` again using the Skill tool. This invocation must not be skipped. Scope to only the files modified in the previous iteration. Use `git diff --cached -- <file1> <file2> ...` as the diff command for `/simplify-code` and `/review-code`. Smoke test scope remains unchanged (full feature scope, not file-narrowed). Cap at 3 total iterations (the initial run plus up to 2 additional runs) to prevent runaway loops.
 
 ## Rules
 
