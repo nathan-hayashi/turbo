@@ -9,7 +9,7 @@ Fetch unresolved review comments from a GitHub PR, critically evaluate each one,
 
 ## Step 1: Fetch Comments
 
-Fetch review threads and top-level review body comments from the PR:
+Fetch review threads, top-level review body comments, and PR commits from the PR:
 
 ```bash
 gh api graphql -f query='
@@ -28,7 +28,14 @@ query($owner: String!, $repo: String!, $pr: Int!) {
       reviews(first: 50) {
         nodes {
           author { login }
-          body state
+          body state submittedAt
+        }
+      }
+      commits(last: 50) {
+        nodes {
+          commit {
+            oid abbreviatedOid message committedDate
+          }
         }
       }
     }
@@ -38,25 +45,35 @@ query($owner: String!, $repo: String!, $pr: Int!) {
 
 Auto-detect owner, repo, and PR number from current branch if not provided. Filter review threads to unresolved only. Filter reviews to those with a non-empty body, excluding `PENDING` state (unsubmitted drafts).
 
-## Step 2: Evaluate
+## Step 2: Triage Review Body Comments
 
-Run the `/evaluate-findings` skill on the unresolved inline threads to assess each comment. Review body comments are not evaluated here — they are surfaced in Step 6 for manual attention.
+For each review body comment (non-empty body, non-PENDING), check whether a commit in the PR already addresses it. Compare the review's `submittedAt` timestamp against each commit's `committedDate`. Only commits **after** the review was submitted can address it.
 
-## Step 3: Apply Findings
+To determine if a commit addresses a review body comment, start with commit messages. Only read the full diff (`git show <oid>`) when the message alone is ambiguous. A commit addresses a comment when its changes clearly resolve the specific issue described — not merely when it touches the same area.
+
+Classify each review body comment as:
+- **Addressed**: A subsequent commit clearly resolves the concern. Record the commit SHA.
+- **Unaddressed**: No subsequent commit resolves the concern. Requires manual attention.
+
+## Step 3: Evaluate
+
+Run the `/evaluate-findings` skill on the unresolved inline threads to assess each comment.
+
+## Step 4: Apply Findings
 
 Run the `/apply-findings` skill on the evaluated results.
 
-## Step 4: Finalize
+## Step 5: Finalize
 
-If any fixes were applied, run the `/finalize` skill to polish, test, review, and commit the changes. The commit SHA from finalize is needed for reply messages.
+If `/apply-findings` reported any changes were made, run the `/finalize` skill to polish, test, review, and commit the changes. The commit SHA from finalize is needed for reply messages.
 
-If no fixes were applied, skip to Step 5.
+If no changes were made, skip to Step 6.
 
-## Step 5: Reply to Each Thread
+## Step 6: Reply to Each Thread
 
 Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
 
-**Review body comments** (top-level review comments with non-empty body) cannot be replied to via thread replies — they are not threads. Do not attempt to reply to them. Instead, list them in the summary (Step 6) as requiring manual attention.
+**Review body comments** (top-level review comments with non-empty body) cannot be replied to via thread replies — they are not threads. Do not attempt to reply to them. Instead, report them in the summary (Step 7) with their triage status from Step 2.
 
 For each processed **inline thread**, check whether it was resolved between fetching and replying (e.g., CodeRabbit auto-resolves its own threads after a push). Skip resolved threads. Reply to every remaining thread using:
 
@@ -78,13 +95,14 @@ Only add a brief description after the SHA if the fix meaningfully diverges from
 
 **Reply format for skips:** Just state the reasoning for not changing it.
 
-## Step 6: Summary
+## Step 7: Summary
 
 After processing all threads, present a summary table:
 
 - Total unresolved inline threads found
 - Number fixed (high + medium confidence)
 - Number skipped (low confidence)
+- Review body comments already addressed by commits (list author, state, one-line summary, and the addressing commit SHA)
 - Review body comments requiring manual attention (list author, state, and a one-line summary of each)
 - List of files modified
 
