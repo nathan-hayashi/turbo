@@ -5,7 +5,7 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="2" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#f0fdf4;strokeColor=#22c55e;fontColor=#14532d;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="Planning Pipeline (Optional)" vertex="1">
-          <mxGeometry height="290" width="210" x="790" y="150" as="geometry" />
+          <mxGeometry height="370" width="210" x="790" y="70" as="geometry" />
         </mxCell>
         <mxCell id="3" parent="2" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dcfce7;strokeColor=#22c55e;fontColor=#14532d;fontSize=12;" value="/create-spec" vertex="1">
           <mxGeometry height="40" width="150" x="30" y="50" as="geometry" />
@@ -26,6 +26,12 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="143" edge="1" parent="2" source="5" style="endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#64748b;" target="142">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="240" parent="2" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#ffedd5;strokeColor=#f97316;fontColor=#7c2d12;fontSize=12;" value="/consult-codex" vertex="1">
+          <mxGeometry height="40" width="150" x="30" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="241" edge="1" parent="2" source="142" style="dashed=1;dashPattern=8 4;endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#94a3b8;fontSize=11;fontColor=#64748b;" target="240" value="non-trivial plans">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="8" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#f8fafc;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="/finalize" vertex="1">
@@ -267,13 +273,13 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="230" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="/apply-findings" vertex="1">
-          <mxGeometry height="170" width="210" x="180" y="1230" as="geometry" />
+          <mxGeometry height="190" width="210" x="180" y="1230" as="geometry" />
         </mxCell>
         <mxCell id="231" parent="230" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="Apply fixes" vertex="1">
           <mxGeometry height="40" width="150" x="30" y="50" as="geometry" />
         </mxCell>
         <mxCell id="232" parent="230" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#f3e8ff;strokeColor=#a855f7;fontColor=#581c87;fontSize=12;" value="/note-improvement" vertex="1">
-          <mxGeometry height="40" width="150" x="30" y="110" as="geometry" />
+          <mxGeometry height="40" width="150" x="30" y="130" as="geometry" />
         </mxCell>
         <mxCell id="233" edge="1" parent="230" source="231" style="dashed=1;dashPattern=8 4;endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#94a3b8;fontSize=11;fontColor=#64748b;" target="232" value="skipped findings">
           <mxGeometry relative="1" as="geometry" />

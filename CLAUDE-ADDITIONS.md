@@ -12,7 +12,7 @@ Each `##` section below maps to a `#` section in `~/.claude/CLAUDE.md`.
 
 ## Pre-Planning Prep
 
-Before writing a plan, use `AskUserQuestion` to ask whether to run `/plan-style`.
+Before writing a plan, use `AskUserQuestion` to ask whether to run `/plan-style`. Skip if `/plan-style` was already invoked in this conversation.
 
 ## Pre-Implementation Prep
 

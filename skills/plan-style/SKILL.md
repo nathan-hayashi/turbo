@@ -11,6 +11,8 @@ Use `EnterPlanMode` to enter plan mode if not already in it. When writing an imp
 2. **Skills line** — An instruction to load relevant skills before making edits
 3. **Finalize step** — A final step instructing to run the `/finalize` skill after implementation
 
+For non-trivial plans, a codex consultation step refines the plan before presenting it (see Plan Review below).
+
 ## Task Tracking
 
 Add a "Task Tracking" section near the top of the plan (after the title, before the first step).
@@ -46,6 +48,16 @@ Always include "Run the `/finalize` skill" as the last task.
 Identify currently available skills from the skill list in the system prompt. Determine which skills are relevant for this plan's work by comparing the work type against each skill's trigger description.
 
 Add an instruction to the plan: "After plan approval and before making edits, run `/skill-a`, `/skill-b`."
+
+## Plan Review
+
+After drafting the plan and before presenting it to the user, when the plan introduces new abstractions, changes interfaces between components, or spans 3+ files:
+
+1. Run the `/consult-codex` skill with the full plan text. Ask for critique of the plan.
+2. Run the `/evaluate-findings` skill on the codex response to triage the suggestions.
+3. Incorporate accepted findings into the plan.
+
+**Skip** codex consultation for simple plans (single-file changes, straightforward additions). When in doubt, skip.
 
 ## Finalize Step
 

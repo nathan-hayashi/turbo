@@ -45,15 +45,16 @@ Write a clear, specific problem description. Include what has already been tried
 
 ## Step 4: Run the Oracle
 
-Use a generous timeout (60 minutes / 3600000ms). The script loads `chatgptUrl` from `~/.turbo/config.json` automatically.
+Use a generous timeout (60 minutes / 3600000ms). The script loads `chatgptUrl` from `~/.turbo/config.json` automatically. Generate a random tag and persist the response:
 
 ```bash
-python3 scripts/run_oracle.py --prompt "<problem description>" --file <relevant files...>
+ORACLE_TAG=$(head -c 4 /dev/urandom | xxd -p) && mkdir -p .turbo/oracle
+python3 scripts/run_oracle.py --prompt "<problem description>" --file <relevant files...> --write-output ".turbo/oracle/$ORACLE_TAG.txt"
 ```
 
 ## Step 5: Evaluate the Response
 
-Run the `/evaluate-findings` skill on the oracle's response. Oracle suggestions are starting points — cross-reference with official docs and peer open-source implementations before accepting.
+Read the response from `.turbo/oracle/$ORACLE_TAG.txt`. Run the `/evaluate-findings` skill on it. Oracle suggestions are starting points — cross-reference with official docs and peer open-source implementations before accepting.
 
 ## Step 6: Apply Findings
 
