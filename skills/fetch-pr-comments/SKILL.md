@@ -5,11 +5,11 @@ description: "Fetch and summarize unresolved GitHub PR review comments without m
 
 # Fetch PR Comments
 
-Fetch unresolved review comments from a GitHub PR and present them in a readable summary. This is a read-only skill -- it does not evaluate, fix, or reply to any comments.
+Fetch unresolved review comments and top-level review body comments from a GitHub PR and present them in a readable summary. This is a read-only skill -- it does not evaluate, fix, or reply to any comments.
 
-## Step 1: Fetch Unresolved Threads
+## Step 1: Fetch Comments
 
-Fetch all review threads from the PR:
+Fetch review threads and top-level review body comments from the PR:
 
 ```bash
 gh api graphql -f query='
@@ -25,12 +25,18 @@ query($owner: String!, $repo: String!, $pr: Int!) {
           }
         }
       }
+      reviews(first: 50) {
+        nodes {
+          author { login }
+          body state
+        }
+      }
     }
   }
 }' -f owner='{owner}' -f repo='{repo}' -F pr={pr_number}
 ```
 
-Auto-detect owner, repo, and PR number from current branch if not provided. Filter to unresolved threads only.
+Auto-detect owner, repo, and PR number from current branch if not provided. Filter review threads to unresolved only. Filter reviews to those with a non-empty body, excluding `PENDING` state (unsubmitted drafts).
 
 ## Step 2: Present Results
 
@@ -42,7 +48,21 @@ Display a summary header followed by comments grouped by file.
 - Branch: `head` -> `base`
 - Total threads / unresolved threads
 
-**Comments grouped by file:**
+**Top-level review comments (if any):**
+
+Show reviews with non-empty body before the file-grouped threads:
+
+```
+## Review Comments
+
+### @reviewer (CHANGES_REQUESTED)
+> Review body text here
+
+### @another-reviewer (COMMENTED)
+> Another review body here
+```
+
+**Inline threads grouped by file:**
 
 For each file with unresolved threads, show:
 
@@ -59,13 +79,14 @@ For each file with unresolved threads, show:
 ```
 
 **Formatting rules:**
-- Group threads by file path, in the order they appear
+- Show top-level review body comments first, grouped under "Review Comments"
+- Then group threads by file path, in the order they appear
 - Within each file, order threads by line number
 - Show all comments in a thread (the first is the original review comment; subsequent ones are replies)
 - Mark outdated threads with `[outdated]`
 - Use blockquotes for comment bodies
 - For threads with multiple comments, show each comment with its author
-- If there are zero unresolved threads, say so and stop
+- If there are zero unresolved threads and zero review body comments, say so and stop
 
 ## Rules
 

@@ -7,9 +7,9 @@ description: "Evaluate, fix, and reply to GitHub pull request review comments. U
 
 Fetch unresolved review comments from a GitHub PR, critically evaluate each one, fix or skip based on confidence, and reply to each thread.
 
-## Step 1: Fetch Unresolved Threads
+## Step 1: Fetch Comments
 
-Fetch all review threads from the PR:
+Fetch review threads and top-level review body comments from the PR:
 
 ```bash
 gh api graphql -f query='
@@ -25,16 +25,22 @@ query($owner: String!, $repo: String!, $pr: Int!) {
           }
         }
       }
+      reviews(first: 50) {
+        nodes {
+          author { login }
+          body state
+        }
+      }
     }
   }
 }' -f owner='{owner}' -f repo='{repo}' -F pr={pr_number}
 ```
 
-Auto-detect owner, repo, and PR number from current branch if not provided. Filter to unresolved threads only.
+Auto-detect owner, repo, and PR number from current branch if not provided. Filter review threads to unresolved only. Filter reviews to those with a non-empty body, excluding `PENDING` state (unsubmitted drafts).
 
 ## Step 2: Evaluate
 
-Run the `/evaluate-findings` skill on the unresolved threads to assess each comment.
+Run the `/evaluate-findings` skill on the unresolved inline threads to assess each comment. Review body comments are not evaluated here — they are surfaced in Step 6 for manual attention.
 
 ## Step 3: Apply Findings
 
@@ -50,7 +56,9 @@ If no fixes were applied, skip to Step 5.
 
 Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
 
-For each processed thread, check whether it was resolved between fetching and replying (e.g., CodeRabbit auto-resolves its own threads after a push). Skip resolved threads. Reply to every remaining thread using:
+**Review body comments** (top-level review comments with non-empty body) cannot be replied to via thread replies — they are not threads. Do not attempt to reply to them. Instead, list them in the summary (Step 6) as requiring manual attention.
+
+For each processed **inline thread**, check whether it was resolved between fetching and replying (e.g., CodeRabbit auto-resolves its own threads after a push). Skip resolved threads. Reply to every remaining thread using:
 
 ```bash
 gh api graphql -f query='
@@ -74,9 +82,10 @@ Only add a brief description after the SHA if the fix meaningfully diverges from
 
 After processing all threads, present a summary table:
 
-- Total unresolved threads found
+- Total unresolved inline threads found
 - Number fixed (high + medium confidence)
 - Number skipped (low confidence)
+- Review body comments requiring manual attention (list author, state, and a one-line summary of each)
 - List of files modified
 
 ## Rules
