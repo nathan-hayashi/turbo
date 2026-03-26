@@ -9,7 +9,7 @@ Update the Unreleased section of CHANGELOG.md based on the current changes.
 
 ## Step 1: Check for CHANGELOG.md
 
-Look for CHANGELOG.md in the project root. If it does not exist, stop silently without output. Do not create it.
+Use `git rev-parse --show-toplevel` to find the repository root. Look for CHANGELOG.md there. If it does not exist, stop silently without output. Do not create it.
 
 ## Step 2: Analyze the Changes
 

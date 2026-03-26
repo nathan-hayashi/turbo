@@ -21,7 +21,7 @@ query($owner: String!, $repo: String!, $pr: Int!) {
         nodes {
           id isResolved isOutdated
           comments(first: 50) {
-            nodes { author { login } body path position line }
+            nodes { author { login } body path line }
           }
         }
       }

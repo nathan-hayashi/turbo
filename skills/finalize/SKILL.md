@@ -65,13 +65,6 @@ If the commit fails due to a pre-commit hook (formatter, linter), fix the issues
 - **Update PR** — push and run the `/update-pr` skill
 - **Skip** — end the workflow (do not push)
 
-### Step 6: Resolve PR Comments
-
-Use `AskUserQuestion` to ask if the user wants to wait for automated reviewers to finish and resolve comments.
-
-- **Skip** — end the workflow
-- **Resolve comments** — run the `/resolve-pr-comments` skill
-
 ## Rules
 
 - Diff size, number of files changed, passing tests, perceived user urgency, or context window concerns are not reasons to skip a phase. Each phase does work beyond what those signals cover.

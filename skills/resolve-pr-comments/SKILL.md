@@ -1,6 +1,6 @@
 ---
 name: resolve-pr-comments
-description: "Evaluate, fix, and reply to GitHub pull request review comments. Use when the user asks to \"resolve PR comments\", \"fix review comments\", \"address PR feedback\", \"handle review comments\", or \"address review feedback\"."
+description: "Evaluate, fix, and reply to GitHub pull request review comments. Use when the user asks to \"resolve PR comments\", \"fix review comments\", \"address PR feedback\", \"handle review comments\", \"address review feedback\", \"respond to PR comments\", or \"address code review\"."
 ---
 
 # Resolve PR Review Comments
@@ -21,7 +21,7 @@ query($owner: String!, $repo: String!, $pr: Int!) {
         nodes {
           id isResolved isOutdated
           comments(first: 50) {
-            nodes { author { login } body path position line }
+            nodes { author { login } body path line }
           }
         }
       }
@@ -40,22 +40,17 @@ Run the `/evaluate-findings` skill on the unresolved threads to assess each comm
 
 Run the `/apply-findings` skill on the evaluated results.
 
-## Step 4: Self-Improve
+## Step 4: Finalize
 
-Run the `/self-improve` skill.
+If any fixes were applied, run the `/finalize` skill to polish, test, review, and commit the changes. The commit SHA from finalize is needed for reply messages.
 
-## Step 5: Stage, Commit, and Push
+If no fixes were applied, skip to Step 5.
 
-If any fixes were applied, use `AskUserQuestion` to ask if the user wants to stage, commit, and push the changes now.
-
-- **Yes** — run the `/stage-commit-push` skill
-- **No** — leave changes unstaged, proceed to replies
-
-## Step 6: Reply to Each Thread
+## Step 5: Reply to Each Thread
 
 Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
 
-Reply to every processed thread using:
+For each processed thread, check whether it was resolved between fetching and replying (e.g., CodeRabbit auto-resolves its own threads after a push). Skip resolved threads. Reply to every remaining thread using:
 
 ```bash
 gh api graphql -f query='
@@ -75,7 +70,7 @@ Only add a brief description after the SHA if the fix meaningfully diverges from
 
 **Reply format for skips:** Just state the reasoning for not changing it.
 
-## Step 7: Summary
+## Step 6: Summary
 
 After processing all threads, present a summary table:
 
@@ -91,4 +86,3 @@ After processing all threads, present a summary table:
 - Stale references and default-to-skip policy are handled by the `/evaluate-findings` skill.
 - When a thread has multiple comments (discussion), read the full thread before deciding.
 - The first comment in each thread is the original review comment; subsequent comments are replies.
-- CodeRabbit may auto-resolve its own review comments after a push. Skip any threads that were resolved between fetching and replying.
