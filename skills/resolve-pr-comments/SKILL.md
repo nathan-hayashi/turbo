@@ -7,6 +7,19 @@ description: "Evaluate, fix, and reply to GitHub pull request review comments. U
 
 Fetch unresolved review comments from a GitHub PR, critically evaluate each one, fix or skip based on confidence, and reply to each thread.
 
+## Task Tracking
+
+At the start, use `TaskCreate` to create a task for each step:
+
+1. Fetch comments
+2. Triage review body comments
+3. Evaluate
+4. Apply findings
+5. Finalize
+6. Draft replies
+7. Post replies
+8. Summary
+
 ## Step 1: Fetch Comments
 
 Fetch review threads, top-level review body comments, and PR commits from the PR:
