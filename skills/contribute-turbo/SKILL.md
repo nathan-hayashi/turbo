@@ -134,7 +134,15 @@ Report the PR URL.
 
 ### Source mode
 
-Push directly:
+Pull and rebase before pushing to incorporate any upstream changes:
+
+```bash
+git -C ~/.turbo/repo pull --rebase origin main
+```
+
+If the rebase pulled in new commits, run `/update-turbo` to apply upstream changes (skill updates, migrations, config changes) to the local installation before pushing.
+
+Then push:
 
 ```bash
 git -C ~/.turbo/repo push origin main
