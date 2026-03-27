@@ -18,6 +18,7 @@ At the start, use `TaskCreate` to create a task for each step:
 5. Evaluate findings
 6. Apply findings
 7. Smoke test
+8. Re-run if changed
 
 ## Step 1: Stage
 
@@ -57,9 +58,7 @@ Stage all changes made in this step before continuing.
 
 ## Step 7: Smoke Test
 
-Run the `/smoke-test` skill.
-
-Use the Agent tool (`model: "opus"`, do not set `run_in_background`) to execute the smoke test steps in a subagent. Pass the diff command (`git diff --cached`) to the subagent.
+Run the `/smoke-test` skill to produce the smoke test plan. Delegate test execution to a subagent using the Agent tool (`model: "opus"`, do not set `run_in_background`). Pass the plan and the diff command (`git diff --cached`) to the subagent.
 
 If any test fails, fix the issues and stage the fixes.
 
