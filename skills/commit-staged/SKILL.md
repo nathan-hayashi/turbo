@@ -5,7 +5,7 @@ description: "Commit already-staged changes with a message matching existing com
 
 # Commit Staged Changes
 
-## Step 1: Commit Rules
+## Step 1: Run `/commit-rules` Skill
 
 Run `/commit-rules` to load commit message rules and technical constraints.
 

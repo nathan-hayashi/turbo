@@ -101,7 +101,7 @@ After writing, spawn a subagent (`model: "opus"`, do not set `run_in_background`
 
 After the subagent returns its review report, run the `/evaluate-findings` skill on the recommendations to triage issues.
 
-## Step 5: Apply Findings
+## Step 5: Run `/apply-findings` Skill
 
 Run the `/apply-findings` skill on the evaluated results to fix `.turbo/prompts.md`.
 

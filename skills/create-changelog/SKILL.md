@@ -7,7 +7,7 @@ description: "Create a CHANGELOG.md following keepachangelog.com conventions wit
 
 Create a changelog backfilled with version history.
 
-## Step 1: Load Changelog Rules
+## Step 1: Run `/changelog-rules` Skill
 
 Run `/changelog-rules` to load shared changelog conventions.
 

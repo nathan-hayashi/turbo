@@ -11,20 +11,20 @@ Post-implementation QA workflow: tests, code polishing, commit, and self-improve
 
 At the start, use `TaskCreate` to create a task for each phase:
 
-1. Polish code
-2. Update changelog
-3. Self-improve
+1. Run `/polish-code` skill
+2. Run `/update-changelog` skill
+3. Run `/self-improve` skill
 4. Commit and PR
 
-## Phase 1: Polish Code
+## Phase 1: Run `/polish-code` Skill
 
 Run the `/polish-code` skill for the current changes.
 
-## Phase 2: Update Changelog
+## Phase 2: Run `/update-changelog` Skill
 
 Run the `/update-changelog` skill.
 
-## Phase 3: Self-Improve
+## Phase 3: Run `/self-improve` Skill
 
 Run the `/self-improve` skill for the current session. Always run this phase even if the session seemed routine.
 
@@ -52,7 +52,7 @@ If the user wants a PR and the current branch is the default branch:
 
 Run `git status` to check for unstaged changes. If any exist, stage them. This catches files modified by auto-formatters that were not re-staged.
 
-### Step 4: Commit
+### Step 4: Run `/commit-staged` Skill
 
 Run the `/commit-staged` skill.
 

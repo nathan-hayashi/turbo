@@ -5,7 +5,7 @@ description: "Commit already-staged changes and push in one step. Use when the u
 
 # Commit and Push
 
-## Step 1: Commit
+## Step 1: Run `/commit-staged` Skill
 
 Run the `/commit-staged` skill.
 

@@ -25,7 +25,7 @@ If the plan has few steps or each step is small (e.g., one edit per file), use a
 At the start, use `TaskCreate` to create a task for each item:
 
 1. Implement the plan
-2. Run the `/finalize` skill
+2. Run `/finalize` skill
 ```
 
 If the plan has substantial, distinct steps, create a task per step:
@@ -38,10 +38,10 @@ At the start, use `TaskCreate` to create a task for each step:
 1. [Step 1 label]
 2. [Step 2 label]
 3. ...
-N. Run the `/finalize` skill
+N. Run `/finalize` skill
 ```
 
-Always include "Run the `/finalize` skill" as the last task.
+Always include "Run `/finalize` skill" as the last task.
 
 ## Skills Line
 

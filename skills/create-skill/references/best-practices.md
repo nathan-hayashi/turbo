@@ -387,10 +387,10 @@ When SKILL.md links to sub-files, each layer must own exactly one concern:
 
 ### Cross-skill dependencies
 
-When a skill depends on another skill, make it an explicit numbered step. Use plain descriptive text in the heading and "Run the `/skill-name` skill" in the step body. Including "skill" signals to invoke via the Skill tool rather than treating it as a general reference.
+When a skill depends on another skill, make it an explicit numbered step. Use "Run `/skill-name` Skill" as the heading and "Run the `/skill-name` skill" in the step body. Including "skill" signals to invoke via the Skill tool rather than treating it as a general reference.
 
 ```markdown
-## Step 1: Commit Rules
+## Step 1: Run `/commit-rules` Skill
 
 Run the `/commit-rules` skill to load commit message rules and technical constraints.
 

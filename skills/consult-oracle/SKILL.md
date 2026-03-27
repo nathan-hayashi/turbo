@@ -52,10 +52,10 @@ ORACLE_TAG=$(head -c 4 /dev/urandom | xxd -p) && mkdir -p .turbo/oracle
 python3 scripts/run_oracle.py --prompt "<problem description>" --file <relevant files...> --write-output ".turbo/oracle/$ORACLE_TAG.txt"
 ```
 
-## Step 5: Evaluate the Response
+## Step 5: Run `/evaluate-findings` Skill
 
 Read the response from `.turbo/oracle/$ORACLE_TAG.txt`. Run the `/evaluate-findings` skill on it. Oracle suggestions are starting points — cross-reference with official docs and peer open-source implementations before accepting.
 
-## Step 6: Apply Findings
+## Step 6: Run `/apply-findings` Skill
 
 Run the `/apply-findings` skill on the evaluated results.

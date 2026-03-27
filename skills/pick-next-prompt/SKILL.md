@@ -7,7 +7,7 @@ description: "Pick the next prompt from .turbo/prompts.md and plan its implement
 
 Pick the next prompt from `.turbo/prompts.md` and plan its implementation.
 
-## Step 1: Plan Style
+## Step 1: Run `/plan-style` Skill
 
 Run the `/plan-style` skill to load planning conventions.
 

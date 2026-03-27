@@ -7,7 +7,7 @@ description: "Plan and implement improvements from the .turbo/improvements.md ba
 
 Validate and implement improvements from `.turbo/improvements.md`.
 
-## Step 1: Plan Style
+## Step 1: Run `/plan-style` Skill
 
 Run the `/plan-style` skill to load planning conventions.
 

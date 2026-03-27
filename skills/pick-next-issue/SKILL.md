@@ -7,7 +7,7 @@ description: "Fetch and rank open GitHub issues by community engagement, present
 
 Rank open GitHub issues by engagement and plan the selected issue.
 
-## Step 1: Plan Style
+## Step 1: Run `/plan-style` Skill
 
 Run the `/plan-style` skill to load planning conventions.
 

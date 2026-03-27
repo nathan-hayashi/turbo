@@ -5,7 +5,7 @@ description: "Stage files, create a commit, and push in one step. Use when the u
 
 # Stage, Commit, and Push
 
-## Step 1: Stage and Commit
+## Step 1: Run `/stage-commit` Skill
 
 Run the `/stage-commit` skill.
 

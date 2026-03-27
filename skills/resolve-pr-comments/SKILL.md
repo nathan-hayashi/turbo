@@ -13,9 +13,9 @@ At the start, use `TaskCreate` to create a task for each step:
 
 1. Fetch comments
 2. Triage review body comments
-3. Evaluate
-4. Apply findings
-5. Finalize
+3. Run `/evaluate-findings` skill
+4. Run `/apply-findings` skill
+5. Run `/finalize` skill
 6. Draft replies
 7. Post replies
 8. Summary
@@ -68,15 +68,15 @@ Classify each review body comment as:
 - **Addressed**: A subsequent commit clearly resolves the concern. Record the commit SHA.
 - **Unaddressed**: No subsequent commit resolves the concern. Requires manual attention.
 
-## Step 3: Evaluate
+## Step 3: Run `/evaluate-findings` Skill
 
 Run the `/evaluate-findings` skill on the unresolved inline threads to assess each comment.
 
-## Step 4: Apply Findings
+## Step 4: Run `/apply-findings` Skill
 
 Run the `/apply-findings` skill on the evaluated results.
 
-## Step 5: Finalize
+## Step 5: Run `/finalize` Skill
 
 If `/apply-findings` reported any changes were made, run the `/finalize` skill to polish, test, review, and commit the changes. The commit SHA from finalize is needed for reply messages.
 

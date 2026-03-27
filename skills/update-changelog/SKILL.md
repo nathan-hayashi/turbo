@@ -7,7 +7,7 @@ description: "Update the Unreleased section of CHANGELOG.md based on current cha
 
 Update the Unreleased section of the changelog based on the current changes.
 
-## Step 1: Load Changelog Rules
+## Step 1: Run `/changelog-rules` Skill
 
 Run `/changelog-rules` to load shared changelog conventions.
 

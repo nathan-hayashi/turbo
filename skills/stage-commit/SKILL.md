@@ -5,10 +5,10 @@ description: "Stage files and create a commit in one step with a message matchin
 
 # Stage and Commit Changes
 
-## Step 1: Stage Changes
+## Step 1: Run `/stage` Skill
 
 Run the `/stage` skill.
 
-## Step 2: Commit
+## Step 2: Run `/commit-staged` Skill
 
 Run the `/commit-staged` skill.

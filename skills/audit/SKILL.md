@@ -14,7 +14,7 @@ At the start, use `TaskCreate` to create a task for each phase:
 1. Scope and partition
 2. Threat model
 3. Run analysis skills
-4. Evaluate findings
+4. Run `/evaluate-findings` skill
 5. Generate markdown report
 6. Generate HTML report
 
@@ -71,7 +71,7 @@ Launch one agent each:
 | `/review-tooling` | Project-wide |
 | `/find-dead-code` | Has its own partitioning |
 
-## Step 4: Evaluate Findings
+## Step 4: Run `/evaluate-findings` Skill
 
 Aggregate all findings from all agents. Run the `/evaluate-findings` skill once on the combined set.
 

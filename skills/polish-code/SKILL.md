@@ -11,16 +11,16 @@ Stage, clean up, simplify, review, smoke test, and re-run until stable.
 
 At the start, use `TaskCreate` to create a task for each step:
 
-1. Stage
+1. Run `/stage` skill
 2. Deterministic cleanup
-3. Simplify code
-4. Review code
-5. Evaluate findings
-6. Apply findings
-7. Smoke test
+3. Run `/simplify-code` skill
+4. Run `/review-code` skill
+5. Run `/evaluate-findings` skill
+6. Run `/apply-findings` skill
+7. Run `/smoke-test` skill
 8. Re-run if changed
 
-## Step 1: Stage
+## Step 1: Run `/stage` Skill
 
 Run the `/stage` skill.
 
@@ -32,31 +32,31 @@ Run the project's test suite to confirm nothing is broken. If tests fail, run th
 
 Stage all changes made in this step before continuing.
 
-## Step 3: Simplify Code
+## Step 3: Run `/simplify-code` Skill
 
 Run the `/simplify-code` skill. The diff command is `git diff --cached`.
 
 Stage all changes made in this step before continuing.
 
-## Step 4: Review Code
+## Step 4: Run `/review-code` Skill
 
 Run the `/review-code` skill. The diff command is `git diff --cached`.
 
 Always run this step even if Step 3 made no changes.
 
-## Step 5: Evaluate Findings
+## Step 5: Run `/evaluate-findings` Skill
 
 Run the `/evaluate-findings` skill on the results from Steps 3 and 4.
 
 If zero actionable findings survive evaluation, skip to Step 7.
 
-## Step 6: Apply Findings
+## Step 6: Run `/apply-findings` Skill
 
 Run the `/apply-findings` skill on the evaluated results.
 
 Stage all changes made in this step before continuing.
 
-## Step 7: Smoke Test
+## Step 7: Run `/smoke-test` Skill
 
 Run the `/smoke-test` skill to produce the smoke test plan. Delegate test execution to a subagent using the Agent tool (`model: "opus"`, do not set `run_in_background`). Pass the plan and the diff command (`git diff --cached`) to the subagent.
 
