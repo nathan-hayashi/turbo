@@ -68,7 +68,9 @@ Discard anything session-specific, speculative, one-off, or already resolved by 
 
 ## Step 4: Route Each Lesson
 
-Assign each surviving lesson to exactly one destination:
+Assign each surviving lesson to exactly one destination.
+
+**Skill-first rule (mandatory):** Before consulting the table below, check whether the lesson corrects, refines, or adds a guardrail to any existing skill's behavior — turbo or user/project. This includes lessons about skipping steps, wrong defaults, missing edge cases, or any "don't do X when running /skill-name" correction. If yes, route to that skill. Do not route skill corrections to auto memory or CLAUDE.md — they belong in the skill they correct. This rule is not a preference; it is a hard constraint that takes precedence over the table rows below.
 
 | Destination | Criteria |
 |---|---|
@@ -76,7 +78,7 @@ Assign each surviving lesson to exactly one destination:
 | **Existing user/project skill** | Same criteria as above, but for non-turbo skills. Changes go to the skill file directly. No contribution flow. |
 | **New skill** | A cohesive body of knowledge emerged that deserves its own on-demand context. The test: would this knowledge be too large for a CLAUDE.md section, and should it only be loaded when relevant? See the skill categories table below. |
 | **Project CLAUDE.md / AGENTS.md** | Intentional project decisions: conventions, architecture, stack choices, build setup, module boundaries. |
-| **Auto memory** | Discovered knowledge: API quirks, debugging workarounds, compiler gotchas, tool pitfalls, past mistakes, user preferences. |
+| **Auto memory** | Discovered knowledge with no skill home: API quirks, debugging workarounds, compiler gotchas, tool pitfalls, user preferences. Must not overlap with any existing skill's domain — if it does, route to the skill instead (see skill-first rule above). |
 | **Project improvements** | Actionable improvement to existing code: refactoring, performance, reliability, readability, testing, or DX. Not a lesson — a thing to *do*. Route to `.turbo/improvements.md` via the `/note-improvement` skill. |
 | **No destination** | Does not clearly fit any destination. Drop it. Routing a weak lesson is worse than losing it. |
 
@@ -93,12 +95,13 @@ Assign each surviving lesson to exactly one destination:
 
 **Splitting heuristic:** When a session creates scripts or multi-step procedures, split the lesson: a brief pointer goes to CLAUDE.md (script names, purpose), and the full workflow goes to a skill. Don't collapse them into a single CLAUDE.md entry.
 
-**Tiebreakers:**
-- Turbo skill vs. CLAUDE.md — prefer the turbo skill. Broader impact (benefits all turbo users), better scoped, loaded only when relevant.
-- Skill vs. CLAUDE.md — prefer the skill. Skills are more discoverable, better scoped, and loaded only when relevant.
-- Skill vs. auto memory — if a lesson falls within the domain of an existing skill, prefer the skill over auto memory.
-- CLAUDE.md vs. auto memory — intentional decisions go to CLAUDE.md. Discovered knowledge (gotchas, workarounds, quirks) goes to auto memory.
-- Lesson vs. improvement — if the item is *knowledge to remember*, it's a lesson. If it's *work to do later*, it's an improvement. They don't compete — the same session can produce both.
+**Tiebreakers (in priority order):**
+1. **Skill correction → skill (hard rule).** Any lesson that corrects, constrains, or refines a skill's behavior MUST route to that skill. Never to auto memory, never to CLAUDE.md. This is the highest-priority routing rule.
+2. **Turbo skill vs. CLAUDE.md → always the turbo skill.** Broader impact (benefits all turbo users), better scoped, loaded only when relevant.
+3. **Skill vs. CLAUDE.md → always the skill.** Skills are more discoverable, better scoped, and loaded only when relevant.
+4. **Skill vs. auto memory → always the skill.** If a lesson falls within the domain of an existing skill, it goes to the skill. Auto memory is for knowledge that has no skill home.
+5. **CLAUDE.md vs. auto memory** — intentional decisions go to CLAUDE.md. Discovered knowledge (gotchas, workarounds, quirks) goes to auto memory.
+6. **Lesson vs. improvement** — if the item is *knowledge to remember*, it's a lesson. If it's *work to do later*, it's an improvement. They don't compete — the same session can produce both.
 
 ## Step 5: Present Routing Plan
 
