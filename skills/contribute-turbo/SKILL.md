@@ -49,7 +49,13 @@ Present the changes in a summary table:
 
 Use `AskUserQuestion` to confirm which changes to include. If the user deselects some, unstage those files.
 
-## Step 3: Craft Contribution Context
+## Step 3: Validate Skill Quality
+
+Read `~/.turbo/repo/SKILL-CONVENTIONS.md` for the turbo project's skill conventions. These conventions supplement `/create-skill`'s general best practices with turbo-specific patterns.
+
+For each confirmed skill, if `/create-skill` has not been invoked for it in this session, run `/create-skill` to review and refine the skill. Any improvements from the review become part of the contribution.
+
+## Step 4: Craft Contribution Context
 
 For each change, construct a "why" explanation. The goal: the turbo maintainer should understand what happened and why the existing instructions were insufficient, without learning anything about the contributor's project.
 
@@ -74,11 +80,11 @@ Before finalizing, verify each "why" description contains none of the following:
 
 Output the drafted context as text. Then use `AskUserQuestion` for approval. The user must approve the contribution message before proceeding.
 
-## Step 4: Commit Rules
+## Step 5: Commit Rules
 
 Run `/commit-rules` to load commit message rules and technical constraints.
 
-## Step 5: Create Branch and Commit
+## Step 6: Create Branch and Commit
 
 When multiple skills were changed, batch related changes into a single branch and commit. Create separate branches only when changes are independent and unrelated.
 
@@ -96,7 +102,7 @@ Commit with a message matching the turbo repo style (check `git -C ~/.turbo/repo
 
 Stay on main. Commit directly with the same message style.
 
-## Step 6: Push
+## Step 7: Push
 
 ### Fork mode
 
@@ -121,7 +127,7 @@ PR body format:
 - [1-3 bullet points]
 
 ## Context
-[The crafted "why" explanation from Step 3]
+[The crafted "why" explanation from Step 4]
 ```
 
 Return to main after creating the PR:
@@ -150,7 +156,7 @@ git -C ~/.turbo/repo push origin main
 
 Report the pushed commit hash.
 
-## Step 7: Update Config
+## Step 8: Update Config
 
 In source mode, update `~/.turbo/config.json` so the next `/update-turbo` does not re-surface the just-pushed changes:
 
