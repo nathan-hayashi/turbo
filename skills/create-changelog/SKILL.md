@@ -7,20 +7,24 @@ description: "Create a CHANGELOG.md following keepachangelog.com conventions wit
 
 Create a CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) conventions, backfilled with version history.
 
-## Step 1: Backfill Version History
+## Step 1: Load Changelog Rules
+
+Run `/changelog-rules` to load shared changelog conventions.
+
+## Step 2: Backfill Version History
 
 Collect release history from the most authoritative source available:
 
 1. **GitHub releases** (preferred): Run `gh release list --limit 100 --json tagName,name,publishedAt,body` to get release notes. For each release, parse the body into changelog entries.
 2. **Git tags** (fallback): If no GitHub releases exist, run `git tag --sort=-v:refname` to list tags. For each consecutive tag pair, run `git log <older-tag>..<newer-tag> --oneline` to collect commit summaries.
 
-For each version, classify entries into the standard change types: Added, Changed, Deprecated, Removed, Fixed, Security. Omit empty sections. Use judgment to skip internal or trivial changes (CI config, formatting, dependency bumps with no behavior change).
+For each version, classify entries into the standard change types per `/changelog-rules`. Use judgment to skip internal or trivial changes (CI config, formatting, dependency bumps with no behavior change).
 
-## Step 2: Check for Existing CHANGELOG.md
+## Step 3: Check for Existing CHANGELOG.md
 
 If CHANGELOG.md already exists, warn the user and confirm before overwriting.
 
-## Step 3: Write CHANGELOG.md
+## Step 4: Write CHANGELOG.md
 
 Write the file at the project root using this format:
 
@@ -50,15 +54,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Format Rules
 
-- ISO 8601 dates (`YYYY-MM-DD`)
-- Reverse chronological order (newest first)
-- Version comparison links at the bottom, derived from the repository's remote URL
-- Unreleased section always present at the top
-- Each entry is a concise, human-readable bullet point (not a raw commit message)
-- Blank line between each section header and its content
-- Change type subsection order when present: Added, Changed, Deprecated, Removed, Fixed, Security
-- Detect whether the project uses `v`-prefixed tags (e.g., `v1.0.0`) or bare tags (e.g., `1.0.0`) and match that convention in comparison links
+Follow `/changelog-rules` conventions for entry format, change types, and section format. Additionally:
 
-## Step 4: Present the Result
+- Unreleased section always present at the top
+- Version comparison links at the bottom, derived from the repository's remote URL
+
+## Step 5: Present the Result
 
 Briefly summarize how many versions were backfilled and which source was used (GitHub releases or git tags).

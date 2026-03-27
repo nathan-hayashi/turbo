@@ -55,7 +55,7 @@ Every skill is a self-contained piece. Pipeline skills like [`/finalize`](skills
 Want to swap a piece? For example:
 
 - Replace [`/consult-oracle`](skills/consult-oracle/SKILL.md) with your own setup (it's macOS-only and has a cookies workaround)
-- Replace [`/commit-rules`](skills/commit-rules/SKILL.md) with your team's commit convention. The pipeline adapts.
+- Replace [`/commit-rules`](skills/commit-rules/SKILL.md) or [`/changelog-rules`](skills/changelog-rules/SKILL.md) with your team's conventions. The pipeline adapts.
 - Replace [`/code-style`](skills/code-style/SKILL.md) with your team's style guide. The built-in one teaches general principles rather than opinionated rules, so it's a natural swap point.
 
 This is also why analysis skills and workflow skills both exist. [`/review-correctness`](skills/review-correctness/SKILL.md) analyzes code and returns structured findings. [`/review-code`](skills/review-code/SKILL.md) composes [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), and [`/peer-review`](skills/peer-review/SKILL.md) into one aggregated review. Run the analysis skill when you want a single-concern scan. Run the workflow when you want the combined results.
@@ -211,8 +211,9 @@ Each session handles one prompt to keep context focused.
 | [`/note-improvement`](skills/note-improvement/SKILL.md) | Capture out-of-scope improvement ideas to `.turbo/improvements.md` | |
 | [`/implement-improvements`](skills/implement-improvements/SKILL.md) | Validate and implement improvements from the backlog | [`/plan-style`](skills/plan-style/SKILL.md) |
 | [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md) |
-| [`/create-changelog`](skills/create-changelog/SKILL.md) | Create a CHANGELOG.md with version history backfilled from GitHub releases or git tags | |
-| [`/update-changelog`](skills/update-changelog/SKILL.md) | Update the Unreleased section of CHANGELOG.md based on current changes (no-op if no changelog) | |
+| [`/create-changelog`](skills/create-changelog/SKILL.md) | Create a CHANGELOG.md with version history backfilled from GitHub releases or git tags | [`/changelog-rules`](skills/changelog-rules/SKILL.md) |
+| [`/update-changelog`](skills/update-changelog/SKILL.md) | Update the Unreleased section of CHANGELOG.md based on current changes (no-op if no changelog) | [`/changelog-rules`](skills/changelog-rules/SKILL.md) |
+| [`/changelog-rules`](skills/changelog-rules/SKILL.md) | Shared changelog conventions and formatting rules | |
 | [`/create-threat-model`](skills/create-threat-model/SKILL.md) | Analyze a codebase and produce a threat model at `.turbo/threat-model.md` | |
 | [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills with always-latest instructions fetched from GitHub | |
 | [`/contribute-turbo`](skills/contribute-turbo/SKILL.md) | Submit turbo skill improvements back to upstream | [`/commit-rules`](skills/commit-rules/SKILL.md), [`/github-voice`](skills/github-voice/SKILL.md) |
