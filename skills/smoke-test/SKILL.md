@@ -63,7 +63,7 @@ Close the browser session and stop the dev server when done.
 
 ### UI/Native App Path
 
-Launch the app. Run the project-specific UI testing skill if available, otherwise run `/peekaboo` skill.
+Launch the app. Use available platform-specific MCP tools if present, otherwise run the project-specific UI testing skill if available, or fall back to `/peekaboo` skill.
 
 Core verification loop per test:
 

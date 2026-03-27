@@ -43,7 +43,7 @@ Start the dev server if not already running. Wait for it to be ready. Run `/agen
 
 ### UI/Native App Path
 
-Launch the app. Run the project-specific UI testing skill if available, otherwise run `/peekaboo` skill.
+Launch the app. Use available platform-specific MCP tools if present, otherwise run the project-specific UI testing skill if available, or fall back to `/peekaboo` skill.
 
 ### CLI Path
 
