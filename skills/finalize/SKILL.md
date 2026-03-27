@@ -26,7 +26,7 @@ Run the `/update-changelog` skill.
 
 ## Phase 3: Self-Improve
 
-Run the `/self-improve` skill for the current session.
+Run the `/self-improve` skill for the current session. Always run this phase even if the session seemed routine.
 
 ## Phase 4: Commit and PR
 
