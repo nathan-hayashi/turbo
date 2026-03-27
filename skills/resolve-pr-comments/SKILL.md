@@ -69,22 +69,13 @@ If `/apply-findings` reported any changes were made, run the `/finalize` skill t
 
 If no changes were made, skip to Step 6.
 
-## Step 6: Reply to Each Thread
+## Step 6: Draft Replies
 
 Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
 
-**Review body comments** (top-level review comments with non-empty body) cannot be replied to via thread replies — they are not threads. Do not attempt to reply to them. Instead, report them in the summary (Step 7) with their triage status from Step 2.
+**Review body comments** (top-level review comments with non-empty body) cannot be replied to via thread replies — they are not threads. Do not attempt to reply to them. Instead, report them in the summary (Step 8) with their triage status from Step 2.
 
-For each processed **inline thread**, check whether it was resolved between fetching and replying (e.g., CodeRabbit auto-resolves its own threads after a push). Skip resolved threads. Reply to every remaining thread using:
-
-```bash
-gh api graphql -f query='
-mutation($threadId: ID!, $body: String!) {
-  addPullRequestReviewThreadReply(input: {pullRequestReviewThreadId: $threadId, body: $body}) {
-    comment { id }
-  }
-}' -f threadId="THREAD_ID" -f body="REPLY_BODY"
-```
+For each processed **inline thread**, draft a reply.
 
 **Reply format for fixes:**
 ```
@@ -95,7 +86,22 @@ Only add a brief description after the SHA if the fix meaningfully diverges from
 
 **Reply format for skips:** Just state the reasoning for not changing it.
 
-## Step 7: Summary
+Output all drafted replies as text, grouped by file, showing the reviewer's comment and the drafted reply for each thread. Then use `AskUserQuestion` to confirm before posting.
+
+## Step 7: Post Replies
+
+After confirmation, check whether each thread was resolved between fetching and posting (e.g., CodeRabbit auto-resolves its own threads after a push). Skip resolved threads. Post each confirmed reply using:
+
+```bash
+gh api graphql -f query='
+mutation($threadId: ID!, $body: String!) {
+  addPullRequestReviewThreadReply(input: {pullRequestReviewThreadId: $threadId, body: $body}) {
+    comment { id }
+  }
+}' -f threadId="THREAD_ID" -f body="REPLY_BODY"
+```
+
+## Step 8: Summary
 
 After processing all threads, present a summary table:
 
