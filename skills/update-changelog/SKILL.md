@@ -13,7 +13,7 @@ Run `/changelog-rules` to load shared changelog conventions.
 
 ## Step 2: Check for Changelog
 
-Use `git rev-parse --show-toplevel` to find the repository root. Look for the changelog file per `/changelog-rules`. If it does not exist, stop silently without output. Do not create it.
+Use `git rev-parse --show-toplevel` to find the repository root. Look for the changelog file per `/changelog-rules`. If it does not exist, skip this skill. Do not create it.
 
 ## Step 3: Analyze the Changes
 
@@ -27,7 +27,7 @@ Determine what changed:
 
 Apply the `/changelog-rules` changelog-worthiness criteria. Also skip fixes to code introduced by the same branch/PR, as these are refinements of the in-progress feature, not separate changelog events.
 
-If no changes are changelog-worthy, stop silently.
+If no changes are changelog-worthy, skip this skill.
 
 ## Step 5: Check Existing Unreleased Entries
 
