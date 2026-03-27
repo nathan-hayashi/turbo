@@ -32,6 +32,7 @@ Not every change belongs in a changelog. Changelogs are for humans, not machines
 - Developer tooling (linters, editor config)
 - Documentation updates (README, comments, docstrings)
 - Dependency bumps with no behavior change
+- Fixes to code introduced by the same branch/PR — these are refinements of the in-progress feature, not separate changelog events
 
 **Include** changes that affect users:
 
