@@ -19,7 +19,7 @@ Draft a title and description, embedding any diagrams in the body. Output the dr
 
 ## Step 3: Confirm and Create
 
-Use `AskUserQuestion` for confirmation only. Create the PR with `gh pr create`.
+Use `AskUserQuestion` for confirmation only. Create the PR with `gh pr create`. Do not set `--assignee` unless the user explicitly asks to assign someone.
 
 ## Diagrams
 
