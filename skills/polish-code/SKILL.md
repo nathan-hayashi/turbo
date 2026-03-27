@@ -18,7 +18,7 @@ At the start, use `TaskCreate` to create a task for each step:
 5. Run `/evaluate-findings` skill
 6. Run `/apply-findings` skill
 7. Run `/smoke-test` skill
-8. Re-run if changed
+8. Re-run `/polish-code` skill if changed
 
 ## Step 1: Run `/stage` Skill
 
@@ -62,7 +62,7 @@ Run the `/smoke-test` skill to produce the smoke test plan. Delegate test execut
 
 If any test fails, fix the issues and stage the fixes.
 
-## Step 8: Re-run if Changed
+## Step 8: Re-run `/polish-code` Skill if Changed
 
 Check whether any file was edited during Steps 3-7. Any edit counts, regardless of how small or mechanical it seems. A one-line doc comment fix, a renamed variable, a reformatted import, a smoke test fix — all count.
 
