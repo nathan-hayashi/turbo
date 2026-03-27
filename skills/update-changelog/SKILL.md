@@ -5,15 +5,15 @@ description: "Update the Unreleased section of CHANGELOG.md based on current cha
 
 # Update Changelog
 
-Update the Unreleased section of CHANGELOG.md based on the current changes.
+Update the Unreleased section of the changelog based on the current changes.
 
 ## Step 1: Load Changelog Rules
 
 Run `/changelog-rules` to load shared changelog conventions.
 
-## Step 2: Check for CHANGELOG.md
+## Step 2: Check for Changelog
 
-Use `git rev-parse --show-toplevel` to find the repository root. Look for CHANGELOG.md there. If it does not exist, stop silently without output. Do not create it.
+Use `git rev-parse --show-toplevel` to find the repository root. Look for the changelog file per `/changelog-rules`. If it does not exist, stop silently without output. Do not create it.
 
 ## Step 3: Analyze the Changes
 
@@ -25,32 +25,13 @@ Determine what changed:
 
 ## Step 4: Assess Changelog-Worthiness
 
-Not every change belongs in a changelog. Changelogs are for humans, not machines.
-
-**Skip** changes that are purely internal:
-
-- Refactoring with no user-facing impact
-- Code formatting, linting, whitespace
-- Test additions or modifications (unless they indicate a fixed bug)
-- CI/CD configuration
-- Developer tooling (linters, editor config)
-- Documentation updates (README, comments, docstrings)
-- Dependency bumps with no behavior change
-- Fixes to code introduced by the same branch/PR — these are refinements of the in-progress feature, not separate changelog events
-
-**Include** changes that affect users:
-
-- New features or capabilities
-- Changes to existing behavior
-- Deprecated or removed functionality
-- Bug fixes
-- Security patches
+Apply the `/changelog-rules` changelog-worthiness criteria. Also skip fixes to code introduced by the same branch/PR, as these are refinements of the in-progress feature, not separate changelog events.
 
 If no changes are changelog-worthy, stop silently.
 
 ## Step 5: Check Existing Unreleased Entries
 
-Read the current Unreleased section of CHANGELOG.md. Look for entries that relate to the same feature or fix. This prevents duplicates across multiple commits for the same body of work.
+Read the current Unreleased section of the changelog. Look for entries that relate to the same feature or fix. This prevents duplicates across multiple commits for the same body of work.
 
 - If an existing entry covers the same change, update its wording only if the current commit meaningfully extends or refines the feature. Do not add a duplicate entry.
 
