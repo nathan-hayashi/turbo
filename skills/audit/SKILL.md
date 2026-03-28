@@ -55,7 +55,7 @@ For each skill below, launch **one agent per partition** with the partition's fi
 | `/review-correctness` | File list |
 | `/review-security` | File list |
 | `/review-api-usage` | File list |
-| `/peer-review` | File list |
+| `/peer-review-code` | File list |
 | `/review-quality` | File list |
 
 Each agent runs its assigned skill with the file scope and returns findings.
@@ -157,5 +157,5 @@ Convert the markdown report into a styled, interactive HTML page.
 ## Rules
 
 - If any skill is unavailable or fails, proceed with findings from the remaining skills and note the failure in the report.
-- Correctness findings include results from both `/review-correctness` and `/peer-review`. Deduplicate overlapping findings.
+- Correctness findings include results from both `/review-correctness` and `/peer-review-code`. Deduplicate overlapping findings.
 - Does not modify source code, stage files, or commit.

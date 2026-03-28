@@ -1,9 +1,9 @@
 ---
-name: peer-review
-description: "Run code review using the codex CLI as an independent reviewer. Returns structured findings without applying fixes. Use when the user asks to \"peer review\", \"get a second opinion on my code\", \"run codex review\", \"codex peer review\", \"run codex on my diff\", or \"review against main\"."
+name: peer-review-code
+description: "Run code review using the codex CLI as an independent reviewer. Returns structured findings without applying fixes. Use when the user asks to \"peer review code\", \"peer review my code\", \"get a second opinion on my code\", \"run codex review\", \"codex peer review\", \"run codex on my diff\", or \"review against main\"."
 ---
 
-# Peer Review
+# Peer Review Code
 
 AI-powered code review of changes. Delegates to `/codex-review` by default.
 

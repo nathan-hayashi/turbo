@@ -1,6 +1,6 @@
 ---
 name: review-code
-description: "Full code review: launches `/review-test-coverage`, `/review-correctness`, `/review-security`, `/review-quality`, `/review-api-usage`, and `/peer-review` in parallel and returns combined findings. Use when the user asks to \"review my code\", \"full code review\", \"review my changes\", or wants a comprehensive code review."
+description: "Full code review: launches `/review-test-coverage`, `/review-correctness`, `/review-security`, `/review-quality`, `/review-api-usage`, and `/peer-review-code` in parallel and returns combined findings. Use when the user asks to \"review my code\", \"full code review\", \"review my changes\", or wants a comprehensive code review."
 ---
 
 # Review Code
@@ -24,7 +24,7 @@ Launch one agent per skill in a single message so they run concurrently (`model:
 - `/review-security`
 - `/review-quality`
 - `/review-api-usage`
-- `/peer-review`
+- `/peer-review-code`
 
 ## Step 3: Return Combined Findings
 

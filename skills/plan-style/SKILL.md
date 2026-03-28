@@ -5,13 +5,27 @@ description: "Planning conventions for task tracking, skill loading, and finaliz
 
 # Plan Style
 
-Use `EnterPlanMode` to enter plan mode if not already in it. When writing an implementation plan, include these three elements:
+Use `EnterPlanMode` to enter plan mode if not already in it. When writing an implementation plan, include these four elements:
 
 1. **Task tracking** — A section at the top so the implementation session can track progress via `TaskCreate`
-2. **Skills line** — An instruction to load relevant skills before making edits
-3. **Finalize step** — A final step instructing to run the `/finalize` skill after implementation
+2. **Existing patterns** — A note listing analogous features found in the codebase and whether the approach follows or deviates from them
+3. **Skills line** — An instruction to load relevant skills before making edits
+4. **Finalize step** — A final step instructing to run the `/finalize` skill after implementation
 
-For non-trivial plans, a pattern survey grounds the approach in existing code, and a codex consultation refines the plan before presenting it (see Pattern Survey and Plan Review below).
+## Pattern Survey
+
+Before drafting the plan, spawn a subagent (`model: "opus"`, do not set `run_in_background`) to search the codebase for analogous features. Provide:
+
+1. A summary of what the plan will add or change
+2. Instructions to find all existing instances of similar behavior (e.g., if adding a new validation, find all existing validations; if adding a new endpoint, find all existing endpoints)
+
+The subagent should return:
+
+- **Patterns found** — List of analogous features with file paths and a brief description of how each works
+- **Proposed alignment** — Whether the new work should follow or deviate from these patterns, and why
+- **No patterns** — If no analogous features exist, state that explicitly
+
+Include the subagent's findings as an "Existing patterns" note in the plan.
 
 ## Task Tracking
 
@@ -49,24 +63,6 @@ Identify currently available skills from the skill list in the system prompt. De
 
 Add an instruction to the plan: "After plan approval and before making edits, run `/skill-a`, `/skill-b`."
 
-## Pattern Survey
-
-Before proposing an implementation approach, search the codebase for analogous features. If the plan adds behavior similar to something that already exists (e.g., a new validation, a new endpoint, a new query), find all existing instances and study how they work.
-
-Include a brief "Existing patterns" note in the plan that lists what was found and states whether the proposed approach follows or deviates from them. If it deviates, explain why.
-
-**Skip** when the change has no clear analogue in the codebase (greenfield feature, new integration, unique logic).
-
-## Plan Review
-
-After drafting the plan and before presenting it to the user, when the plan introduces new abstractions, changes interfaces between components, or spans 3+ files:
-
-1. Run the `/consult-codex` skill with the full plan text. Ask for critique of the plan.
-2. Run the `/evaluate-findings` skill on the codex response to triage the suggestions.
-3. Incorporate accepted findings into the plan.
-
-**Skip** codex consultation for simple plans (single-file changes, straightforward additions). When in doubt, skip.
-
 ## Finalize Step
 
 Add a final step to the plan:
@@ -76,3 +72,12 @@ Add a final step to the plan:
 
 Run the `/finalize` skill to run tests, simplify code, review, and commit.
 ```
+
+## Plan Review
+
+After drafting the plan and before presenting it to the user:
+
+1. Run the `/review-plan` skill with the full plan text
+2. Run the `/evaluate-findings` skill on the combined review findings
+3. Incorporate accepted findings into the plan
+4. For medium-confidence findings that require user judgment, use `AskUserQuestion` to present the trade-offs and let the user decide

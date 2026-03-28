@@ -27,7 +27,7 @@ for skill in $(ls ~/.turbo/repo/skills/); do
 done
 ```
 
-Many skills depend on each other (e.g., `/finalize` composes `/simplify-code`, `/peer-review`, `/evaluate-findings`, and more), so installing only a subset will leave gaps in the workflows.
+Many skills depend on each other (e.g., `/finalize` composes `/simplify-code`, `/peer-review-code`, `/evaluate-findings`, and more), so installing only a subset will leave gaps in the workflows.
 
 ## 3. Initialize Config
 
@@ -68,7 +68,7 @@ Install it from [cli.github.com](https://cli.github.com/), then authenticate:
 gh auth login
 ```
 
-[Codex CLI](https://github.com/openai/codex) is used by `/peer-review` for AI-powered code review during `/finalize`. Requires ChatGPT Plus or higher:
+[Codex CLI](https://github.com/openai/codex) is used by `/peer-review-code` for AI-powered code review during `/finalize`. Requires ChatGPT Plus or higher:
 
 ```bash
 npm install -g @openai/codex

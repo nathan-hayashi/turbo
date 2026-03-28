@@ -128,7 +128,7 @@ Verify: `gh auth status` should show the user is logged in.
 
 ### Codex CLI (Required for `/finalize`)
 
-The `/peer-review` skill (used during `/finalize` Phase 3) delegates to codex for AI code review.
+The `/peer-review-code` skill (used during `/finalize` Phase 3) delegates to codex for AI code review.
 
 ```bash
 npm install -g @openai/codex
