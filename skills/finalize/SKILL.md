@@ -67,7 +67,7 @@ If the commit fails due to a pre-commit hook (formatter, linter), fix the issues
 
 ## Rules
 
-- Diff size, number of files changed, passing tests, perceived user urgency, or context window concerns are not reasons to skip a phase. Each phase does work beyond what those signals cover.
+- Diff size, number of files changed, passing tests, perceived user urgency, or context window concerns are not reasons to skip a phase. Each phase does work beyond what those signals cover. "The session was long" or "a prior phase was thorough" are never valid reasons to skip a later phase.
 - Never stage or commit files containing secrets (`.env`, credentials, API keys). Warn if detected.
 - Do not present diffs to the user — the user reviews diffs in an external git client. Use `git diff` internally as needed.
 - If a non-test step fails (polish, review), stop and report the failure. Do not skip ahead.

@@ -70,5 +70,5 @@ If any file was edited, run `/polish-code` again using the Skill tool. This invo
 
 ## Rules
 
-- Every step must run. No change is "self-evidently correct" or "mechanical" enough to skip review. Simplify findings do not substitute for review. Passing tests do not substitute for lint. Each step catches different issues. Context window concerns are not a reason to skip steps.
+- Every step must run. No change is "self-evidently correct" or "mechanical" enough to skip review. Simplify findings do not substitute for review. Passing tests do not substitute for lint. Each step catches different issues. Context window concerns are not a reason to skip steps. Never rationalize skipping a later step because an earlier step produced thorough results — each step uses distinct agents with non-overlapping review criteria, and "the prior step covered it" is always wrong.
 - Never collapse steps 3–6 into fewer steps. `/simplify-code` and `/review-code` use different review agents with different focus areas — running one does NOT cover the other. `/evaluate-findings` is a judgment gate that must run before `/apply-findings` applies any changes. Each step must invoke its designated skill via the Skill tool, not be replaced by inline reasoning or agent calls that "seem equivalent."
