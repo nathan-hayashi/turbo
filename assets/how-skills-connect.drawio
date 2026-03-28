@@ -446,6 +446,24 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="262" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="/review-prompt-plan" vertex="1">
+          <mxGeometry height="170" width="380" x="1080" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="263" parent="262" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="Internal review" vertex="1">
+          <mxGeometry height="40" width="150" x="30" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="264" parent="262" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/peer-review-prompt-plan" vertex="1">
+          <mxGeometry height="40" width="150" x="200" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="265" parent="262" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/codex-exec" vertex="1">
+          <mxGeometry height="40" width="150" x="200" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="266" edge="1" parent="262" source="264" style="endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#64748b;" target="265" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="267" edge="1" parent="1" source="4" style="dashed=1;dashPattern=8 4;endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#94a3b8;fontSize=11;fontColor=#64748b;" target="262" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

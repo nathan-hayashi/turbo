@@ -91,21 +91,16 @@ Reference to spec sections if helpful.]
 ```
 ````
 
-## Step 4: Review Against Spec
+## Step 4: Run `/review-prompt-plan` Skill
 
-After writing, spawn a subagent (`model: "opus"`, do not set `run_in_background`) to review the prompt plan against the source spec. The subagent should:
+After writing the prompt plan and before presenting it to the user:
 
-1. Read [references/prompt-plan-reviewer.md](references/prompt-plan-reviewer.md) for review guidelines
-2. Read the prompt plan (`.turbo/prompts.md`) and the source spec in full
-3. Produce a review report following the format in the guidelines
+1. Run the `/review-prompt-plan` skill with the prompt plan text
+2. Run the `/evaluate-findings` skill on the combined review findings
+3. Incorporate accepted findings into the prompt plan
+4. For medium-confidence findings that require user judgment, use `AskUserQuestion` to present the trade-offs and let the user decide
 
-After the subagent returns its review report, run the `/evaluate-findings` skill on the recommendations to triage issues.
-
-## Step 5: Run `/apply-findings` Skill
-
-Run the `/apply-findings` skill on the evaluated results to fix `.turbo/prompts.md`.
-
-## Step 6: Present Summary
+## Step 5: Present Summary
 
 After writing and verification, present a brief summary: number of prompts, one-line description of each prompt's scope, and any assumptions made about ambiguities.
 
