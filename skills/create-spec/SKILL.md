@@ -56,7 +56,16 @@ Synthesize the entire discussion into `.turbo/spec.md`. Structure the document o
 
 Create the `.turbo/` directory if it does not exist. Accept a different output path if the user provides one.
 
-## Step 4: Review and Finalize
+## Step 4: Run `/review-spec` Skill
+
+After drafting the spec and before presenting it to the user:
+
+1. Run the `/review-spec` skill with the full spec text
+2. Run the `/evaluate-findings` skill on the combined review findings
+3. Incorporate accepted findings into the spec
+4. For medium-confidence findings that require user judgment, use `AskUserQuestion` to present the trade-offs and let the user decide
+
+## Step 5: Review and Finalize
 
 Present the draft to the user. Use `AskUserQuestion` to offer three paths:
 
