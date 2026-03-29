@@ -62,7 +62,7 @@ After drafting the spec and before presenting it to the user:
 
 1. Run the `/review-spec` skill with the full spec text
 2. Run the `/evaluate-findings` skill on the combined review findings
-3. Incorporate accepted findings into the spec
+3. Run the `/apply-findings` skill on the evaluated findings to incorporate accepted changes into the spec
 4. For medium-confidence findings that require user judgment, use `AskUserQuestion` to present the trade-offs and let the user decide
 
 ## Step 5: Review and Finalize
