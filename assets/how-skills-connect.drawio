@@ -1,10 +1,10 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
   <diagram id="turbo-flow" name="How Skills Connect">
-    <mxGraphModel dx="1878" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1800" math="0" shadow="0">
+    <mxGraphModel dx="2755" dy="1613" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1800" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="2" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#f0fdf4;strokeColor=#22c55e;fontColor=#14532d;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="Planning Pipeline (Optional)" vertex="1">
+        <mxCell id="2" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#f0fdf4;strokeColor=#22c55e;fontColor=#14532d;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="Planning Pipeline" vertex="1">
           <mxGeometry height="350" width="210" x="790" y="90" as="geometry" />
         </mxCell>
         <mxCell id="3" parent="2" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dcfce7;strokeColor=#22c55e;fontColor=#14532d;fontSize=12;" value="/create-spec" vertex="1">
@@ -400,31 +400,16 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="250" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="/review-plan" vertex="1">
-          <mxGeometry height="170" width="380" x="1080" y="320" as="geometry" />
-        </mxCell>
-        <mxCell id="251" parent="250" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="Internal review" vertex="1">
-          <mxGeometry height="40" width="150" x="30" y="50" as="geometry" />
-        </mxCell>
-        <mxCell id="252" parent="250" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/peer-review-plan" vertex="1">
-          <mxGeometry height="40" width="150" x="200" y="50" as="geometry" />
-        </mxCell>
-        <mxCell id="254" parent="250" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/codex-exec" vertex="1">
-          <mxGeometry height="40" width="150" x="200" y="110" as="geometry" />
-        </mxCell>
-        <mxCell id="255" edge="1" parent="250" source="252" style="endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#64748b;" target="254" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="253" edge="1" parent="1" source="240" style="dashed=1;dashPattern=8 4;endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#94a3b8;fontSize=11;fontColor=#64748b;" target="250" value="">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1040" y="400" />
-              <mxPoint x="1040" y="400" />
+              <mxPoint x="1040" y="555" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="256" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="/review-spec" vertex="1">
-          <mxGeometry height="170" width="380" x="1080" y="80" as="geometry" />
+          <mxGeometry height="170" width="380" x="1080" y="10" as="geometry" />
         </mxCell>
         <mxCell id="257" parent="256" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="Internal review" vertex="1">
           <mxGeometry height="40" width="150" x="30" y="50" as="geometry" />
@@ -442,12 +427,12 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1040" y="160" />
-              <mxPoint x="1040" y="160" />
+              <mxPoint x="1040" y="95" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="262" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="/review-prompt-plan" vertex="1">
-          <mxGeometry height="170" width="380" x="1080" y="550" as="geometry" />
+          <mxGeometry height="170" width="380" x="1080" y="240" as="geometry" />
         </mxCell>
         <mxCell id="263" parent="262" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="Internal review" vertex="1">
           <mxGeometry height="40" width="150" x="30" y="50" as="geometry" />
@@ -462,6 +447,26 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="267" edge="1" parent="1" source="4" style="dashed=1;dashPattern=8 4;endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#94a3b8;fontSize=11;fontColor=#64748b;" target="262" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1040" y="220" />
+              <mxPoint x="1040" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="250" parent="1" style="swimlane;startSize=28;rounded=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=13;collapsible=0;swimlaneLine=0;" value="/review-plan" vertex="1">
+          <mxGeometry height="170" width="380" x="1080" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="251" parent="250" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="Internal review" vertex="1">
+          <mxGeometry height="40" width="150" x="30" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="252" parent="250" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/peer-review-plan" vertex="1">
+          <mxGeometry height="40" width="150" x="200" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="254" parent="250" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontSize=12;" value="/codex-exec" vertex="1">
+          <mxGeometry height="40" width="150" x="200" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="255" edge="1" parent="250" source="252" style="endArrow=block;endFill=1;rounded=1;edgeStyle=orthogonalEdgeStyle;strokeColor=#64748b;" target="254" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>

@@ -8,7 +8,7 @@ A composable dev process for [Claude Code](https://docs.anthropic.com/en/docs/cl
 2. **Implement** — Build it with Claude
 3. **Run [`/finalize`](skills/finalize/SKILL.md)** — Tests, iterative code polishing, commit, and PR. One command.
 
-Everything else in Turbo builds on this loop: planning pipelines for large projects, a [project-wide audit](#project-wide-audit) for assessing codebase health, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [50+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
+Everything else in Turbo builds on this loop: a [planning pipeline](#the-planning-pipeline) that produces better plans than raw plan mode, a [project-wide audit](#project-wide-audit) for assessing codebase health, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [60+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
 
 ## What Is This?
 
@@ -101,6 +101,8 @@ The recommended way to use Turbo:
 2. **Approve the plan**
 3. **Run [`/finalize`](skills/finalize/SKILL.md)** when you're done implementing
 
+Planning is up to you. You can use Turbo's [planning pipeline](#the-planning-pipeline), your own process, or skip planning entirely and jump straight to implementation. Turbo's core focus is making sure the implementation is as clean as possible for the commit.
+
 [`/finalize`](skills/finalize/SKILL.md) runs through these phases automatically:
 
 1. **Polish Code** — Iterative loop: stage → format → lint → test → simplify → review → evaluate → apply → smoke test → re-run until stable
@@ -120,9 +122,13 @@ The recommended way to use Turbo:
 
 [`/audit`](skills/audit/SKILL.md) is analysis-only: it produces the report and stops there. When you're ready to act on findings, use [`/apply-findings`](skills/apply-findings/SKILL.md) or address them manually.
 
-## The Planning Pipeline (Optional)
+## The Planning Pipeline
 
-For larger projects, Turbo offers a full spec-to-implementation pipeline. You can skip this entirely and jump straight to implementation + [`/finalize`](skills/finalize/SKILL.md).
+Claude Code's built-in plan mode is a starting point, but on its own it tends to produce plans that miss existing patterns, skip edge cases, or propose approaches that don't hold up under scrutiny. Turbo's planning pipeline adds structure around plan mode: pattern surveys that ground the approach in your codebase, peer reviews via codex, and spec reviews that catch gaps before they cascade into implementation. The result is plans that survive contact with reality.
+
+You don't have to use Turbo's pipeline. Any structured planning process that goes beyond raw plan mode will improve your results. [`/plan-style`](skills/plan-style/SKILL.md) is a swappable piece, like [`/code-style`](skills/code-style/SKILL.md). Replace it with your own conventions if you have a planning process that works for you.
+
+For larger projects, the full spec-to-implementation pipeline:
 
 1. **Run [`/create-spec`](skills/create-spec/SKILL.md)** — Guided discussion that produces a spec at `.turbo/spec.md`
 2. **Run [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md)** — Breaks the spec into context-sized prompts at `.turbo/prompts.md`
