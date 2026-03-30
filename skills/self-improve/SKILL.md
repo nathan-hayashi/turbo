@@ -77,9 +77,9 @@ Assign each surviving lesson to exactly one destination.
 | **Existing turbo skill** | Lesson would improve a turbo skill's instructions, supporting files, or reference materials, add a missing edge case, correct its workflow, or refine its trigger conditions. Route to any turbo skill whose *domain* covers the lesson — not just the skill worked on in this session. Changes go to the installed copy at `~/.claude/skills/`. If `repoMode` is `"fork"` or `"source"`, also apply to `~/.turbo/repo/` and flag for contribution (see Step 6). |
 | **Existing user/project skill** | Same criteria as above, but for non-turbo skills. Changes go to the skill file directly. No contribution flow. |
 | **New skill** | A cohesive body of knowledge emerged that deserves its own on-demand context. The test: would this knowledge be too large for a CLAUDE.md section, and should it only be loaded when relevant? See the skill categories table below. |
-| **Project CLAUDE.md / AGENTS.md** | Intentional project decisions: conventions, architecture, stack choices, build setup, module boundaries. |
+| **Project CLAUDE.md / AGENTS.md** | Intentional project decisions: conventions, architecture, stack choices, build setup, module boundaries. Also factual corrections to CLAUDE.md content (wrong commands, outdated paths, incorrect conventions) — fix these directly, do not defer to Project improvements. |
 | **Auto memory** | Discovered knowledge with no skill home: API quirks, debugging workarounds, compiler gotchas, tool pitfalls, user preferences. Must not overlap with any existing skill's domain — if it does, route to the skill instead (see skill-first rule above). |
-| **Project improvements** | Actionable improvement to existing code: refactoring, performance, reliability, readability, testing, or DX. Not a lesson — a thing to *do*. Route to `.turbo/improvements.md` via the `/note-improvement` skill. |
+| **Project improvements** | Actionable improvement to existing **code**: refactoring, performance, reliability, readability, testing, or DX. Not for documentation fixes — factual errors in CLAUDE.md belong in the row above. Route to `.turbo/improvements.md` via the `/note-improvement` skill. |
 | **No destination** | Does not clearly fit any destination. Drop it. Routing a weak lesson is worse than losing it. |
 
 **Skill categories:**
