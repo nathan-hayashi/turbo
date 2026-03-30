@@ -5,11 +5,9 @@ description: "Stage, format, lint, test, simplify, review, smoke test, and re-ru
 
 # Polish Code
 
-Stage, clean up, simplify, review, smoke test, and re-run until stable.
-
 ## Task Tracking
 
-At the start, use `TaskCreate` to create a task for each step:
+At the start of every invocation (including re-runs from Step 8), use `TaskCreate` to create a task for each step:
 
 1. Run `/stage` skill
 2. Deterministic cleanup
@@ -66,9 +64,18 @@ If any test fails, fix the issues and stage the fixes.
 
 Check whether any file was edited during Steps 3-7. Any edit counts, regardless of how small or mechanical it seems. A one-line doc comment fix, a renamed variable, a reformatted import, a smoke test fix — all count.
 
-If any file was edited, run `/polish-code` again using the Skill tool. This invocation must not be skipped. Scope to only the files modified in the previous iteration. Use `git diff --cached -- <file1> <file2> ...` as the diff command for `/simplify-code` and `/review-code`. Smoke test scope remains unchanged (full feature scope, not file-narrowed). Cap at 3 total iterations (the initial run plus up to 2 additional runs) to prevent runaway loops.
+If any file was edited, run `/polish-code` again using the Skill tool. Scope the diff command to only the files modified in the previous iteration: use `git diff --cached -- <file1> <file2> ...` as the diff command for `/simplify-code` and `/review-code`. Smoke test scope remains unchanged (full feature scope, not file-narrowed). Cap at 3 total iterations (the initial run plus up to 2 additional runs) to prevent runaway loops.
+
+The re-invocation is a full, fresh run of this skill. Every step (1-8) executes with its own task tracking and skill invocations. "Scoped to modified files" only affects the diff command passed to `/simplify-code` and `/review-code`. It does not affect which steps run or whether skills are invoked.
+
+Do NOT:
+- Skip steps because the changes are "minor", "mechanical", or "cleanup"
+- Use the Agent tool to substitute for `/simplify-code`, `/review-code`, or any other skill
+- Skip task tracking because "this is just iteration 2"
+- Rationalize that review "would produce the same findings" or "has already been addressed"
 
 ## Rules
 
-- Every step must run. No change is "self-evidently correct" or "mechanical" enough to skip review. Simplify findings do not substitute for review. Passing tests do not substitute for lint. Each step catches different issues. Context window concerns are not a reason to skip steps. Never rationalize skipping a later step because an earlier step produced thorough results — each step uses distinct agents with non-overlapping review criteria, and "the prior step covered it" is always wrong.
+- Every step must run in every iteration. No change is "self-evidently correct" or "mechanical" enough to skip review. Simplify findings do not substitute for review. Passing tests do not substitute for lint. Each step catches different issues. Context window concerns are not a reason to skip steps. Never rationalize skipping a later step because an earlier step produced thorough results — each step uses distinct agents with non-overlapping review criteria, and "the prior step covered it" is always wrong. This applies equally to iteration 1 and all subsequent iterations.
 - Never collapse steps 3–6 into fewer steps. `/simplify-code` and `/review-code` use different review agents with different focus areas — running one does NOT cover the other. `/evaluate-findings` is a judgment gate that must run before `/apply-findings` applies any changes. Each step must invoke its designated skill via the Skill tool, not be replaced by inline reasoning or agent calls that "seem equivalent."
+- Re-invocations from Step 8 are full runs, not lighter-weight passes. See Step 8 for the anti-patterns that must be avoided.
