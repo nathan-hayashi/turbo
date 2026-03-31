@@ -19,9 +19,18 @@ Also read the source spec (path listed in the prompt plan's `Source:` field).
 
 ## Step 2: Run `/codex-exec` Skill
 
-Run the `/codex-exec` skill in read-only mode with the full prompt plan text, the source spec, and these review instructions:
+Run the `/codex-exec` skill in read-only mode with the full prompt plan text, the source spec, and this prompt:
 
-> Review the following prompt plan against its source spec. Check for: (1) spec requirements not covered by any prompt, (2) dead ends where a prompt creates something no later prompt consumes, (3) missing prerequisites where a prompt assumes something no prior prompt creates, (4) duplicated requirements across prompts, and (5) incorrect dependency ordering. For each issue found, state: the problem, which prompt(s) are affected, the impact, a suggested fix, and priority: P0 (spec requirement missing or system broken), P1 (significant gap), P2 (moderate issue), or P3 (minor improvement). Ignore stylistic preferences. If no issues are found, state that the prompt plan looks sound.
+```
+<task>
+Review the following prompt plan against its source spec. Check for: spec requirements not covered by any prompt, dead ends where a prompt creates something no later prompt consumes, missing prerequisites where a prompt assumes something no prior prompt creates, duplicated requirements across prompts, and incorrect dependency ordering.
+</task>
+
+<structured_output_contract>
+For each issue, state: the problem, which prompt(s) are affected, the impact, a suggested fix, and priority: P0 (spec requirement missing or system broken), P1 (significant gap), P2 (moderate issue), P3 (minor improvement).
+Ignore stylistic preferences. If no issues are found, state that the prompt plan looks sound.
+</structured_output_contract>
+```
 
 ## Step 3: Return Findings
 

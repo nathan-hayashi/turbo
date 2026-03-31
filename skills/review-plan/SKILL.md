@@ -43,7 +43,7 @@ Flag an issue only when ALL of these hold:
 1. It would cause an implementer to build the wrong thing or get stuck
 2. The issue is discrete and actionable (not a vague concern or general suggestion)
 3. The author would likely fix the issue if made aware of it
-4. The issue is clearly not an intentional design choice
+4. The issue is clearly not an intentional design choice, OR it challenges a design choice with evidence of concrete failure modes or a simpler alternative
 
 ### What to Review
 
@@ -53,11 +53,13 @@ Flag an issue only when ALL of these hold:
 - **Ordering** — Step dependency issues, missing prerequisites, circular dependencies
 - **Buildability** — Steps specific enough to execute without getting stuck. No logical gaps between steps
 - **Pattern Alignment** — Proposed approach follows existing codebase patterns where applicable. Deviations from established patterns are justified
+- **Design Direction** — Whether the chosen approach is the simplest safe option. Challenge assumptions the plan depends on and flag when a different approach would be safer or simpler
+- **Failure Modes** — How the design handles partial failure, race conditions, stale state, rollback, data loss, and degraded dependencies
 
 ### What to Ignore
 
 - Wording, stylistic, or cosmetic preferences that don't affect buildability
-- Alternative approaches that aren't clearly better
+- Alternative approaches without evidence of concrete advantages over the chosen one
 - Suggestions that add complexity without clear implementation value
 
 ## Priority Levels

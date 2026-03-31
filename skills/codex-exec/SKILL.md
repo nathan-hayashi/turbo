@@ -20,6 +20,8 @@ codex exec "task description"
 | Full access | `--sandbox danger-full-access` | Installing packages, running tests, system operations |
 | Full auto | `--full-auto` | Combined with a sandbox level for unattended execution |
 
+For fix or implementation tasks, default to `--sandbox workspace-write --full-auto` so Codex can edit files without confirmation prompts. Use read-only for analysis or research tasks.
+
 ## Options
 
 | Option | Description |
@@ -32,6 +34,19 @@ codex exec "task description"
 | `--ephemeral` | No persisted session files |
 | `--skip-git-repo-check` | Bypass git repository requirement |
 | `-m, --model <MODEL>` | Specify the model to use |
+
+## Prompt Shaping
+
+Codex uses XML tags in its own context scaffolding, so the model parses them natively. Structure prompts with XML tags for clearer responses:
+
+- `<task>`: The concrete job and relevant context.
+- `<structured_output_contract>`: Required output shape, ordering, and format.
+- `<compact_output_contract>`: Same purpose but for concise prose responses.
+- `<grounding_rules>`: When claims must be evidence-based.
+- `<dig_deeper_nudge>`: Push past surface-level findings to check for second-order failures.
+- `<verification_loop>`: When correctness matters — ask Codex to verify before finalizing.
+
+Keep prompts compact. Prefer tighter output contracts over raising reasoning effort. One clear task per exec call.
 
 ## Interpreting Results
 
