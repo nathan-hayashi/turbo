@@ -36,7 +36,7 @@ This diagram shows how [`/finalize`](skills/finalize/SKILL.md) composes its pipe
 
 Turbo amplifies your existing process. It shines when your project has the right infrastructure in place:
 
-- **Tests** — [`/finalize`](skills/finalize/SKILL.md) runs your test suite and reviews test coverage gaps. Without tests, there's no safety net. If your project doesn't have automated tests, [`/smoke-test`](skills/smoke-test/SKILL.md) can fill the gap by launching your app and verifying changes manually (it's part of the [`/polish-code`](skills/polish-code/SKILL.md) loop), but real tests are always better.
+- **Tests** — [`/finalize`](skills/finalize/SKILL.md) runs your test suite and reviews test coverage gaps. Without tests, there's no safety net. If your project doesn't have automated tests, [`/smoke-test`](skills/smoke-test/SKILL.md) can fill the gap by launching your app and verifying changes manually (it's part of the [`/polish-code`](skills/polish-code/SKILL.md) loop), but real tests are always better. See [Browser and UI Testing](#browser-and-ui-testing) for the tools that power browser and native app verification.
 - **Linters and formatters** — [`/finalize`](skills/finalize/SKILL.md) runs your formatter and linter before code review. If you don't have one, style issues slip through.
 - **Pre-commit hooks** — [`/finalize`](skills/finalize/SKILL.md) commits your changes, which triggers any pre-commit hooks you have configured. Claude Code respects hook failures and fixes issues before retrying. If your project uses tools like `husky`, `lint-staged`, or `pre-commit`, Turbo works with them automatically.
 - **Dead code analysis** — [`/find-dead-code`](skills/find-dead-code/SKILL.md) (standalone skill, not part of [`/finalize`](skills/finalize/SKILL.md)) identifies unused code via parallel analysis, but it's even better when your project already has tools like `knip`, `vulture`, or `periphery` integrated.
@@ -138,6 +138,14 @@ For larger projects, the full spec-to-implementation pipeline:
 
 Each session handles one prompt to keep context focused.
 
+## Browser and UI Testing
+
+[`/smoke-test`](skills/smoke-test/SKILL.md) and [`/comprehensive-test`](skills/comprehensive-test/SKILL.md) automate manual testing — the kind of hands-on verification you'd normally do yourself. These tools determine how Claude interacts with your app:
+
+- **[agent-browser](https://github.com/vercel-labs/agent-browser)** — Companion skill for browser automation. Provides the most control for web app testing.
+- **`claude-in-chrome` MCP** — Built-in Claude Code browser automation using your real Chrome browser. Falls back to this when agent-browser is not installed.
+- **`computer-use` MCP** — Built-in Claude Code screen control for native app and UI testing on macOS.
+
 ## All Skills
 
 ### Pipelines
@@ -179,8 +187,8 @@ Each session handles one prompt to keep context focused.
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback | |
 | [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/consult-codex`](skills/consult-codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/consult-oracle`](skills/consult-oracle/SKILL.md) |
-| [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually | [`/investigate`](skills/investigate/SKILL.md) |
-| [`/comprehensive-test`](skills/comprehensive-test/SKILL.md) | Multi-level testing: basic, complex, adversarial, and cross-cutting scenarios | [`/create-test-plan`](skills/create-test-plan/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
+| [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually | [`/agent-browser`](https://github.com/vercel-labs/agent-browser), [`/investigate`](skills/investigate/SKILL.md) |
+| [`/comprehensive-test`](skills/comprehensive-test/SKILL.md) | Multi-level testing: basic, complex, adversarial, and cross-cutting scenarios | [`/create-test-plan`](skills/create-test-plan/SKILL.md), [`/agent-browser`](https://github.com/vercel-labs/agent-browser), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/codex-review`](skills/codex-review/SKILL.md) | AI code review via codex CLI | [Codex CLI](https://github.com/openai/codex) |
 | [`/codex-exec`](skills/codex-exec/SKILL.md) | Autonomous task execution via codex CLI | [Codex CLI](https://github.com/openai/codex) |
 | [`/consult-codex`](skills/consult-codex/SKILL.md) | Multi-turn consultation with codex CLI | [Codex CLI](https://github.com/openai/codex) |

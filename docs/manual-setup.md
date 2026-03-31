@@ -76,14 +76,15 @@ npm install -g @openai/codex
 
 ## 6. Install Companion Skills (Recommended)
 
-The `/smoke-test` skill uses external skills for browser and UI automation:
+The `/smoke-test` skill uses external skills for browser automation:
 
 | Skill | What it's for | Install |
 |---|---|---|
 | [agent-browser](https://github.com/vercel-labs/agent-browser) | Browser automation for web app smoke testing (highly recommended) | `npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser --agent claude-code -y -g` |
-| [peekaboo](https://github.com/openclaw/openclaw) | macOS UI automation for native app smoke testing | `npx skills add https://github.com/openclaw/openclaw --skill peekaboo --agent claude-code -y -g` |
 
-Without these, `/smoke-test` falls back to terminal-based verification.
+Without agent-browser, Turbo's testing skills fall back to [Claude in Chrome](https://code.claude.com/docs/en/chrome) for browser automation. Start Claude Code with `--chrome` or run `/chrome` to connect. If neither is available, interactive testing is limited to CLI tools.
+
+For native app and UI testing on macOS, enable the built-in `computer-use` MCP server via `/mcp`. See the [computer use docs](https://code.claude.com/docs/en/computer-use) for details.
 
 ## 7. Configure Context Tracking
 

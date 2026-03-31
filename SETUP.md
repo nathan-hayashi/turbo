@@ -61,7 +61,7 @@ For clone mode, add `contribute-turbo` to `excludeSkills` since it requires a fo
 
 ### Copy Skills
 
-Copy each skill directory from the local repo to the global skills directory:
+Copy each skill directory from the local repo to the global skills directory, skipping any skills in `excludeSkills`:
 
 ```bash
 mkdir -p ~/.claude/skills
@@ -70,11 +70,9 @@ for skill in $(ls ~/.turbo/repo/skills/); do
 done
 ```
 
-Skip any skills in `excludeSkills`.
-
 Many skills depend on each other, so installing only a subset will leave gaps in pipelines like `/finalize`.
 
-Verify skills are available by trying a command like `/finalize`. It should be recognized (don't run it yet, just check it's there).
+Verify installation by confirming the skill directories exist in `~/.claude/skills/`.
 
 ### Initialize Config
 
@@ -138,21 +136,13 @@ Verify: `codex --help` should show usage info.
 
 ### Companion Skills (Recommended)
 
-The `/smoke-test` skill uses external skills for browser and UI automation. Install them via the skills CLI:
+Use `AskUserQuestion` to ask whether the user wants to install agent-browser for browser automation. Explain that without it, testing skills fall back to the `claude-in-chrome` MCP, and without that, interactive testing is limited to CLI tools. If the user declines, skip the install.
 
 **agent-browser** (highly recommended) — browser automation for web app smoke testing:
 
 ```bash
 npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser --agent claude-code -y -g
 ```
-
-**peekaboo** (macOS only) — UI automation for native app smoke testing:
-
-```bash
-npx skills add https://github.com/openclaw/openclaw --skill peekaboo --agent claude-code -y -g
-```
-
-Both are optional. Without them, `/smoke-test` falls back to terminal-based verification.
 
 ## Step 4: Configure Context Tracking
 
@@ -181,7 +171,7 @@ These additions are kept in sync by `/update-turbo` for future updates.
 
 ## Step 6: Oracle Setup
 
-The `/consult-oracle` skill consults ChatGPT when completely stuck on a problem. If not set up, everything still works. `/investigate` offers oracle escalation via a prompt, and the user can simply decline.
+Use `AskUserQuestion` to ask whether the user wants to set up oracle. Explain that `/consult-oracle` consults ChatGPT when completely stuck on a problem, but everything works without it. If the user declines, skip this step.
 
 It requires:
 
@@ -210,3 +200,4 @@ Present the user with a summary of how to get started:
 4. **Self-improvement:** Run `/self-improve` before context runs out to capture lessons for future sessions.
 5. **Track improvements:** When noticing something out of scope, run `/note-improvement` so it doesn't get lost.
 6. **Updating:** Run `/update-turbo` to update all skills from the local repo with conflict detection and changelog.
+7. **Browser and UI testing:** For web app testing, enable the `claude-in-chrome` MCP via `/mcp` or start Claude Code with `--chrome`. For native app testing on macOS, enable the `computer-use` MCP via `/mcp`. Both are per-project settings. See [Browser and UI Testing](README.md#browser-and-ui-testing) for details.
