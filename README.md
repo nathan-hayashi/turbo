@@ -8,7 +8,7 @@ A composable dev process for [Claude Code](https://docs.anthropic.com/en/docs/cl
 2. **Implement** — Build it with Claude
 3. **Run [`/finalize`](skills/finalize/SKILL.md)** — Tests, iterative code polishing, commit, and PR. One command.
 
-Everything else in Turbo builds on this loop: a [planning pipeline](#the-planning-pipeline) that produces better plans than raw plan mode, a [project-wide audit](#project-wide-audit) for assessing codebase health, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [60+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
+Everything else in Turbo builds on this loop: a [planning pipeline](#the-planning-pipeline) that produces better plans than raw plan mode, a [project-wide audit](#project-wide-audit) for assessing codebase health, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [60+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). See the [prompt examples](#prompt-examples) for how they look in practice, or read on for the full picture.
 
 ## What Is This?
 
@@ -145,6 +145,47 @@ Each session handles one prompt to keep context focused.
 - **[agent-browser](https://github.com/vercel-labs/agent-browser)** — Companion skill for browser automation. Provides the most control for web app testing.
 - **`claude-in-chrome` MCP** — Built-in Claude Code browser automation using your real Chrome browser. Falls back to this when agent-browser is not installed.
 - **`computer-use` MCP** — Built-in Claude Code screen control for native app and UI testing on macOS.
+
+## Prompt Examples
+
+These are prompts you can type directly into Claude Code. Skill names work as natural words in your sentences.
+
+```
+# Investigating bugs
+tests are failing in the auth module, can you please /investigate?
+/investigate the app crashes when i click "save" after editing a profile
+
+# Reviewing code
+/review-code
+/review-pr for PR #42
+
+# Auditing project health
+/audit
+read @.turbo/audit.md and /apply-findings  ← follow-up session
+
+# Resolving PR feedback
+/resolve-pr-comments
+
+# Updating dependencies
+/update-dependencies
+
+# Working through the improvements backlog
+the error messages in this module are inconsistent, /note-improvement
+/implement-improvements  ← dedicated session
+
+# Testing manually
+/smoke-test
+/comprehensive-test
+
+# Picking the next issue to work on
+/pick-next-issue
+
+# Extracting session learnings
+/self-improve
+
+# Creating a new skill
+/create-skill for a skill that <description>
+```
 
 ## All Skills
 
