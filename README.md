@@ -202,9 +202,9 @@ the error messages in this module are inconsistent, /note-improvement
 |---|---|---|
 | [`/polish-code`](skills/polish-code/SKILL.md) | Iterative quality loop: stage → format → lint → test → simplify → review → evaluate → apply → smoke test → re-run until stable | [`/stage`](skills/stage/SKILL.md), [`/simplify-code`](skills/simplify-code/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md), [`/smoke-test`](skills/smoke-test/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/review-code`](skills/review-code/SKILL.md) | AI code review: 6 parallel reviewers | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review-code`](skills/peer-review-code/SKILL.md) |
-| [`/review-plan`](skills/review-plan/SKILL.md) | AI plan review: internal review and codex peer review in parallel | [`/peer-review-plan`](skills/peer-review-plan/SKILL.md) |
-| [`/review-spec`](skills/review-spec/SKILL.md) | AI spec review: internal review and codex peer review in parallel | [`/peer-review-spec`](skills/peer-review-spec/SKILL.md) |
-| [`/review-prompt-plan`](skills/review-prompt-plan/SKILL.md) | AI prompt plan review: internal review and codex peer review in parallel | [`/peer-review-prompt-plan`](skills/peer-review-prompt-plan/SKILL.md) |
+| [`/review-plan`](skills/review-plan/SKILL.md) | AI plan review: internal review and peer review in parallel | [`/peer-review-plan`](skills/peer-review-plan/SKILL.md) |
+| [`/review-spec`](skills/review-spec/SKILL.md) | AI spec review: internal review and peer review in parallel | [`/peer-review-spec`](skills/peer-review-spec/SKILL.md) |
+| [`/review-prompt-plan`](skills/review-prompt-plan/SKILL.md) | AI prompt plan review: internal review and peer review in parallel | [`/peer-review-prompt-plan`](skills/peer-review-prompt-plan/SKILL.md) |
 | [`/review-pr`](skills/review-pr/SKILL.md) | PR review: fetch comments, detect base branch, run code review, evaluate findings | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) |
 | [`/simplify-code`](skills/simplify-code/SKILL.md) | Review code quality and fix issues | |
 | [`/apply-findings`](skills/apply-findings/SKILL.md) | Apply findings from evaluations or reviews | [`/note-improvement`](skills/note-improvement/SKILL.md) |
@@ -221,10 +221,10 @@ the error messages in this module are inconsistent, /note-improvement
 | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md) | Analyze code for test coverage gaps and missing edge cases | |
 | [`/review-dependencies`](skills/review-dependencies/SKILL.md) | Detect outdated or vulnerable dependencies | |
 | [`/review-tooling`](skills/review-tooling/SKILL.md) | Detect dev tooling gaps across linters, formatters, hooks, test runners, and CI/CD | |
-| [`/peer-review-code`](skills/peer-review-code/SKILL.md) | AI code review via codex | [`/codex-review`](skills/codex-review/SKILL.md) |
-| [`/peer-review-plan`](skills/peer-review-plan/SKILL.md) | AI plan review via codex | [`/codex-exec`](skills/codex-exec/SKILL.md) |
-| [`/peer-review-spec`](skills/peer-review-spec/SKILL.md) | AI spec review via codex | [`/codex-exec`](skills/codex-exec/SKILL.md) |
-| [`/peer-review-prompt-plan`](skills/peer-review-prompt-plan/SKILL.md) | AI prompt plan review via codex | [`/codex-exec`](skills/codex-exec/SKILL.md) |
+| [`/peer-review-code`](skills/peer-review-code/SKILL.md) | Independent code peer review | [`/codex-review`](skills/codex-review/SKILL.md) |
+| [`/peer-review-plan`](skills/peer-review-plan/SKILL.md) | Independent plan peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
+| [`/peer-review-spec`](skills/peer-review-spec/SKILL.md) | Independent spec peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
+| [`/peer-review-prompt-plan`](skills/peer-review-prompt-plan/SKILL.md) | Independent prompt plan peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback | |
 | [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/consult-codex`](skills/consult-codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/consult-oracle`](skills/consult-oracle/SKILL.md) |

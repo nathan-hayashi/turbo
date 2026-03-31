@@ -1,6 +1,6 @@
 ---
 name: peer-review-plan
-description: "Run plan review using the codex CLI as an independent reviewer. Returns structured findings without applying fixes. Use when the user asks to \"peer review my plan\", \"get a second opinion on my plan\", \"codex review my plan\", or \"run codex on my plan\"."
+description: "Run an independent peer review of an implementation plan. Returns structured findings without applying fixes. Use when the user asks to \"peer review my plan\", \"get a second opinion on my plan\", or \"review my plan independently\"."
 ---
 
 # Peer Review Plan

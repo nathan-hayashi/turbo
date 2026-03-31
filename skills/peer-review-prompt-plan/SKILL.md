@@ -1,6 +1,6 @@
 ---
 name: peer-review-prompt-plan
-description: "Run prompt plan review using the codex CLI as an independent reviewer. Returns structured findings without applying fixes. Use when the user asks to \"peer review my prompt plan\", \"get a second opinion on my prompts\", \"codex review my prompt plan\", or \"run codex on my prompts\"."
+description: "Run an independent peer review of a prompt plan. Returns structured findings without applying fixes. Use when the user asks to \"peer review my prompt plan\", \"get a second opinion on my prompts\", or \"review my prompts independently\"."
 ---
 
 # Peer Review Prompt Plan

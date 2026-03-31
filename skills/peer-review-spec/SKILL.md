@@ -1,6 +1,6 @@
 ---
 name: peer-review-spec
-description: "Run spec review using the codex CLI as an independent reviewer. Returns structured findings without applying fixes. Use when the user asks to \"peer review my spec\", \"get a second opinion on my spec\", \"codex review my spec\", or \"run codex on my spec\"."
+description: "Run an independent peer review of a specification document. Returns structured findings without applying fixes. Use when the user asks to \"peer review my spec\", \"get a second opinion on my spec\", or \"review my spec independently\"."
 ---
 
 # Peer Review Spec
