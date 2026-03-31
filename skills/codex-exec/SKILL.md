@@ -11,6 +11,12 @@ Autonomous task execution via the codex CLI. Runs non-interactively. Progress st
 codex exec "task description"
 ```
 
+For large context, pipe it via stdin. The prompt stays as the argument, context is passed as `<stdin>` automatically:
+
+```bash
+cat context.txt | codex exec "question about the context"
+```
+
 ## Permission Levels
 
 | Level | Flag | When to Use |

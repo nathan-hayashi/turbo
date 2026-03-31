@@ -47,13 +47,13 @@ For correctness-critical questions, add `<verification_loop>` asking Codex to ve
 
 Keep prompts compact. Prefer tighter output contracts over raising reasoning effort. One clear task per Codex turn.
 
-For long context that won't fit inline, write a context file first, then pass it:
+For long context that won't fit inline, write a context file and pipe it via stdin. The prompt stays as the argument, context pipes in as `<stdin>` automatically:
 
 ```bash
 cat > ".turbo/codex/$CODEX_TAG-ctx.txt" << 'EOF'
 <long context here>
 EOF
-codex exec -s read-only -o ".turbo/codex/$CODEX_TAG.txt" "$(cat ".turbo/codex/$CODEX_TAG-ctx.txt")"
+cat ".turbo/codex/$CODEX_TAG-ctx.txt" | codex exec -s read-only -o ".turbo/codex/$CODEX_TAG.txt" "<question>"
 ```
 
 Parse the `session id:` line from the CLI output. This UUID is needed for follow-up turns.
