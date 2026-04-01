@@ -16,9 +16,10 @@ At the start, use `TaskCreate` to create a task for each step:
 3. Run `/evaluate-findings` skill
 4. Run `/apply-findings` skill
 5. Run `/finalize` skill
-6. Draft replies
-7. Post replies
-8. Summary
+6. Verify fixes
+7. Draft replies
+8. Post replies
+9. Summary
 
 ## Step 1: Fetch Comments
 
@@ -80,13 +81,23 @@ Run the `/apply-findings` skill on the evaluated results.
 
 If `/apply-findings` reported any changes were made, run the `/finalize` skill to polish, test, review, and commit the changes. The commit SHA from finalize is needed for reply messages.
 
-If no changes were made, skip to Step 6.
+If no changes were made, skip to Step 7.
 
-## Step 6: Draft Replies
+## Step 6: Verify Fixes
+
+For each finding that was fixed in Step 4, verify the fix actually addresses the reviewer's concern:
+
+1. Read the current code at the relevant file and location
+2. Compare against the reviewer's comment and `diffHunk` (the code the reviewer was looking at)
+3. Confirm the specific concern is resolved
+
+If the fix did not address the concern (wrong location, incomplete change, or the issue is still present), downgrade it from fixed to skipped. Use the skip reason: the attempted fix did not resolve the reviewer's concern, with a brief explanation of what remains.
+
+## Step 7: Draft Replies
 
 Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
 
-**Review body comments** (top-level review comments with non-empty body) cannot be replied to via thread replies — they are not threads. Do not attempt to reply to them. Instead, report them in the summary (Step 8) with their triage status from Step 2.
+**Review body comments** (top-level review comments with non-empty body) cannot be replied to via thread replies — they are not threads. Do not attempt to reply to them. Instead, report them in the summary (Step 9) with their triage status from Step 2.
 
 For each processed **inline thread**, draft a reply.
 
@@ -101,7 +112,7 @@ Only add a brief description after the SHA if the fix meaningfully diverges from
 
 Output all drafted replies as text, grouped by file, showing the reviewer's comment and the drafted reply for each thread. Then use `AskUserQuestion` to confirm before posting.
 
-## Step 7: Post Replies
+## Step 8: Post Replies
 
 After confirmation, check whether each thread was resolved between fetching and posting (e.g., CodeRabbit auto-resolves its own threads after a push). Skip resolved threads. Post each confirmed reply using:
 
@@ -114,7 +125,7 @@ mutation($threadId: ID!, $body: String!) {
 }' -f threadId="THREAD_ID" -f body="REPLY_BODY"
 ```
 
-## Step 8: Summary
+## Step 9: Summary
 
 After processing all threads, present a summary table:
 
