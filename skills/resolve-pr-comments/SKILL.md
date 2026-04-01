@@ -34,7 +34,7 @@ query($owner: String!, $repo: String!, $pr: Int!) {
         nodes {
           id isResolved isOutdated
           comments(first: 50) {
-            nodes { author { login } body path line }
+            nodes { author { login } body path line originalLine diffHunk }
           }
         }
       }
@@ -70,7 +70,7 @@ Classify each review body comment as:
 
 ## Step 3: Run `/evaluate-findings` Skill
 
-Run the `/evaluate-findings` skill on the unresolved inline threads to assess each comment.
+Run the `/evaluate-findings` skill on the unresolved inline threads to assess each comment. Include each thread's `diffHunk` so the evaluator can see the code context the reviewer commented on. For outdated comments where `line` is null, use `originalLine` as the line reference.
 
 ## Step 4: Run `/apply-findings` Skill
 
