@@ -225,7 +225,8 @@ the error messages in this module are inconsistent, /note-improvement
 | [`/peer-review-plan`](skills/peer-review-plan/SKILL.md) | Independent plan peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
 | [`/peer-review-spec`](skills/peer-review-spec/SKILL.md) | Independent spec peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
 | [`/peer-review-prompt-plan`](skills/peer-review-prompt-plan/SKILL.md) | Independent prompt plan peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
-| [`/interpret-feedback`](skills/interpret-feedback/SKILL.md) | Parallel internal + codex interpretation of third-party feedback | [`/codex-exec`](skills/codex-exec/SKILL.md) |
+| [`/interpret-feedback`](skills/interpret-feedback/SKILL.md) | Parallel internal + codex interpretation of third-party feedback | [`/peer-interpret-feedback`](skills/peer-interpret-feedback/SKILL.md) |
+| [`/peer-interpret-feedback`](skills/peer-interpret-feedback/SKILL.md) | Independent feedback interpretation via codex | [`/codex-exec`](skills/codex-exec/SKILL.md) |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback | |
 | [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/consult-codex`](skills/consult-codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/consult-oracle`](skills/consult-oracle/SKILL.md) |

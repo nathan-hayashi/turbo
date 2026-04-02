@@ -32,13 +32,9 @@ Spawn a subagent with the feedback items and all available context. Instruct it 
    - **Ambiguity**: Note where the intent is unclear or where multiple valid readings exist
 3. Return structured results per item
 
-### Run `/codex-exec` Skill
+### Run `/peer-interpret-feedback` Skill
 
-Spawn a subagent to run the `/codex-exec` skill as a read-only analysis task. Pass the feedback items and their context, instructing codex to independently interpret each feedback item, focusing on:
-
-- What the author likely wants changed
-- Whether the suggestion is technically correct
-- Any alternative readings of ambiguous phrasing
+Spawn a subagent to run the `/peer-interpret-feedback` skill with the feedback items and all available context.
 
 ## Step 3: Reconciliation
 
