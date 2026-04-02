@@ -13,13 +13,14 @@ At the start, use `TaskCreate` to create a task for each step:
 
 1. Fetch comments
 2. Triage review body comments
-3. Run `/evaluate-findings` skill
-4. Run `/apply-findings` skill
-5. Run `/finalize` skill
-6. Verify fixes
-7. Draft replies
-8. Post replies
-9. Summary
+3. Run `/interpret-feedback` skill
+4. Run `/evaluate-findings` skill
+5. Run `/apply-findings` skill
+6. Run `/finalize` skill
+7. Verify fixes
+8. Draft replies
+9. Post replies
+10. Summary
 
 ## Step 1: Fetch Comments
 
@@ -69,23 +70,29 @@ Classify each review body comment as:
 - **Addressed**: A subsequent commit clearly resolves the concern. Record the commit SHA.
 - **Unaddressed**: No subsequent commit resolves the concern. Requires manual attention.
 
-## Step 3: Run `/evaluate-findings` Skill
+## Step 3: Run `/interpret-feedback` Skill
 
-Run the `/evaluate-findings` skill on the unresolved inline threads to assess each comment. Include each thread's `diffHunk` so the evaluator can see the code context the reviewer commented on. For outdated comments where `line` is null, use `originalLine` as the line reference.
+Run the `/interpret-feedback` skill on unresolved inline threads authored by humans. Skip threads from bot accounts (e.g., CodeRabbit, Copilot). AI reviewer feedback is structured and explicit enough for `/evaluate-findings` to handle directly.
 
-## Step 4: Run `/apply-findings` Skill
+Include each thread's `diffHunk` so the interpreters can see the code context the reviewer commented on. For outdated comments where `line` is null, use `originalLine` as the line reference.
+
+## Step 4: Run `/evaluate-findings` Skill
+
+Run the `/evaluate-findings` skill on the interpreted results to triage each comment.
+
+## Step 5: Run `/apply-findings` Skill
 
 Run the `/apply-findings` skill on the evaluated results.
 
-## Step 5: Run `/finalize` Skill
+## Step 6: Run `/finalize` Skill
 
 If `/apply-findings` reported any changes were made, run the `/finalize` skill to polish, test, review, and commit the changes. The commit SHA from finalize is needed for reply messages.
 
-If no changes were made, skip to Step 7.
+If no changes were made, skip to Step 8.
 
-## Step 6: Verify Fixes
+## Step 7: Verify Fixes
 
-For each finding that was fixed in Step 4, verify the fix actually addresses the reviewer's concern:
+For each finding that was fixed in Step 5, verify the fix actually addresses the reviewer's concern:
 
 1. Read the current code at the relevant file and location
 2. Compare against the reviewer's comment and `diffHunk` (the code the reviewer was looking at)
@@ -93,7 +100,7 @@ For each finding that was fixed in Step 4, verify the fix actually addresses the
 
 If the fix did not address the concern (wrong location, incomplete change, or the issue is still present), downgrade it from fixed to skipped. Use the skip reason: the attempted fix did not resolve the reviewer's concern, with a brief explanation of what remains.
 
-## Step 7: Draft Replies
+## Step 8: Draft Replies
 
 Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
 
@@ -112,7 +119,7 @@ Only add a brief description after the SHA if the fix meaningfully diverges from
 
 Output all drafted replies as text, grouped by file, showing the reviewer's comment and the drafted reply for each thread. Then use `AskUserQuestion` to confirm before posting.
 
-## Step 8: Post Replies
+## Step 9: Post Replies
 
 After confirmation, check whether each thread was resolved between fetching and posting (e.g., CodeRabbit auto-resolves its own threads after a push). Skip resolved threads. Post each confirmed reply using:
 
@@ -125,7 +132,7 @@ mutation($threadId: ID!, $body: String!) {
 }' -f threadId="THREAD_ID" -f body="REPLY_BODY"
 ```
 
-## Step 9: Summary
+## Step 10: Summary
 
 After processing all threads, present a summary table:
 

@@ -1,0 +1,84 @@
+---
+name: interpret-feedback
+description: "Interpret third-party feedback by running parallel internal and peer interpretations to surface intent, correctness concerns, and ambiguities. Use when the user asks to \"interpret feedback\", \"interpret comments\", \"what does this feedback mean\", \"clarify reviewer intent\", \"understand this review\", or \"interpret these suggestions\"."
+---
+
+# Interpret Feedback
+
+Run two independent interpretations of third-party feedback in parallel (internal + codex peer), then reconcile into enriched items with clear intent summaries. Designed for feedback where the author's intent is ambiguous or the correctness of suggestions is uncertain.
+
+## Step 1: Identify Feedback Items
+
+Determine the feedback to interpret:
+
+- If feedback items are in conversation context, use them
+- If a file path or URL was provided, read or fetch the content
+- If called by another skill, use the items passed in
+
+For each item, collect whatever context is available: code snippets, diffs, surrounding discussion, file paths, line numbers. More context produces better interpretation.
+
+## Step 2: Run Two Interpretations in Parallel
+
+Launch two agents in a single message (`model: "opus"`, do not set `run_in_background`):
+
+### Internal Interpretation
+
+Spawn a subagent with the feedback items and all available context. Instruct it to:
+
+1. Read all referenced code and surrounding context
+2. For each feedback item, produce:
+   - **Intent**: What the feedback author most likely wants changed and why (one to two sentences)
+   - **Correctness**: Whether the suggestion is technically sound — flag concerns if the reviewer may be mistaken, with evidence
+   - **Ambiguity**: Note where the intent is unclear or where multiple valid readings exist
+3. Return structured results per item
+
+### Run `/codex-exec` Skill
+
+Spawn a subagent to run the `/codex-exec` skill as a read-only analysis task. Pass the feedback items and their context, instructing codex to independently interpret each feedback item, focusing on:
+
+- What the author likely wants changed
+- Whether the suggestion is technically correct
+- Any alternative readings of ambiguous phrasing
+
+## Step 3: Reconciliation
+
+Merge the two interpretations for each feedback item:
+
+| Agreement | Action |
+|-----------|--------|
+| **Both agree** on intent and correctness | High confidence. Use the shared interpretation. |
+| **Intent agrees, correctness differs** | Flag the correctness concern with both perspectives. |
+| **Intent disagrees** | Flag as ambiguous. Present both readings and note which has stronger evidence. |
+
+## Step 4: Output Enriched Items
+
+For each feedback item, output the original feedback followed by the interpretation:
+
+```
+### Item <N>: <short label>
+
+**Original:** <feedback text, truncated if long>
+**File:** <path:line if applicable>
+
+**Intent:** <reconciled interpretation of what the author wants>
+**Correctness:** <sound | concern: <explanation>>
+**Confidence:** <high | medium | low>
+**Ambiguity:** <none | <description of unclear aspects>>
+
+<If interpreters disagreed, show both perspectives>
+```
+
+After all items, add a summary:
+
+```
+## Interpretation Summary
+
+- Total items: <N>
+- High confidence: <N>
+- Correctness concerns: <N>
+- Ambiguous intent: <N>
+```
+
+## Rules
+
+- If either interpretation agent is unavailable or returns malformed output, proceed with results from the remaining agent.
