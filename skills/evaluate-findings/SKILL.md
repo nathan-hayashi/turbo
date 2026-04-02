@@ -12,14 +12,29 @@ Confidence-based framework for evaluating external feedback (code reviews, AI su
 For each finding:
 
 1. **Read the referenced code** at the mentioned location — include the full function or logical block, not just the flagged line
-2. **Verify the claim** against the actual code — does the issue genuinely exist?
-3. **Assign confidence**:
+2. **Check for early exits:**
+   - If the finding references code that no longer exists or has since changed, skip it and note that the code has diverged.
+   - If two findings conflict with each other, skip both and document the conflict.
+3. **Determine scope** — clarify whether the issue was introduced by the PR/changeset or is pre-existing. Present this distinction explicitly so the user can decide whether it belongs in this PR's scope.
+   - Pre-existing issues in earlier commits on the same feature branch are in-scope by default — the entire branch is one coherent unit of work. Do not auto-skip findings just because they touch code from a prior commit in the branch.
+   - Out-of-scope findings that are genuinely useful and have low blast radius (small, contained changes) should be accepted. Only skip out-of-scope findings when the change is disproportionate to the current work.
+4. **Verify the claim** against the actual code — does the issue genuinely exist?
+5. **Assign confidence and verdict:**
 
 | Level | Criteria | Verdict |
 |-------|----------|---------|
 | **High** (>80%) | Clear bug, typo, missing check, obvious improvement, style violation matching project conventions | Accept |
 | **Medium** (50-80%) | Likely valid but involves judgment calls or unclear project intent | Accept with caveats |
 | **Low** (<50%) | Subjective preference, requires domain knowledge, might break things, reviewer may be wrong | Skip |
+
+**Escalate override:** When a finding questions whether behavior is intentional and neither docs, specs, nor code comments clarify the intent, assign an **Escalate** verdict instead of Accept or Skip. Do not autonomously accept or reject findings that hinge on product intent — the code might be correct by design. If a counterpart implementation exists elsewhere, suggest checking it for consistency.
+
+**Scoring guidance:**
+
+- Never auto-dismiss findings about security defaults, permission escalation, or fail-open vs fail-closed behavior just because a plan or implementation intent specifies different behavior. Plans can have incorrect assumptions about what the safe default should be. Always surface these findings to the user even if you believe the behavior was intentional.
+- Readability and clarity improvements that genuinely make code cleaner or more consistent are valid findings. Do not auto-classify cosmetic changes as subjective preference. Evaluate each on its merit.
+- Be skeptical of "defensive coding" suggestions that wrap natural code in verbose guards without evidence of real-world failures. These often reduce readability for marginal safety. Score as Low confidence unless the reviewer provides concrete evidence that the unguarded form actually fails.
+- Weight reviewer authority when scoring confidence. Feedback from trusted reviewers (repository maintainers or admins) should be scored Medium or higher even when phrased softly, as they often use indirect language for change requests.
 
 ## Step 2: Devil's Advocate
 
@@ -91,19 +106,9 @@ Where Investigated shows:
 - **Confirmed** (source) — subagent found supporting evidence
 - **Disputed: [reason]** — subagent found counter-evidence
 
-For disputed findings, add a callout below the table showing both perspectives.
+Escalate findings appear in the table with their assessed Confidence and **Escalate** as the Verdict.
+
+For disputed findings, add a callout below the table showing both perspectives. For each finding, indicate scope in the Issue column (e.g., "Pre-existing:" prefix) so the user can decide whether it belongs in the current PR.
 
 The caller determines what to do with the evaluated findings.
 
-## Rules
-
-- Never auto-dismiss findings about security defaults, permission escalation, or fail-open vs fail-closed behavior just because a plan or implementation intent specifies different behavior. Plans can have incorrect assumptions about what the safe default should be. Always surface these findings to the user even if you believe the behavior was intentional.
-- If a finding references code that no longer exists or has since changed, skip it and note that the code has diverged.
-- If two findings conflict with each other, skip both and document the conflict.
-- For each finding, clarify whether the issue was introduced by the PR/changeset or is pre-existing. Present this distinction explicitly so the user can decide whether it belongs in this PR's scope.
-- Pre-existing issues in earlier commits on the same feature branch are in-scope by default — the entire branch is one coherent unit of work. Do not auto-skip findings just because they touch code from a prior commit in the branch.
-- Out-of-scope findings that are genuinely useful and have low blast radius (small, contained changes) should be accepted. Only skip out-of-scope findings when the change is disproportionate to the current work.
-- Readability and clarity improvements that genuinely make code cleaner or more consistent are valid findings. Do not auto-classify cosmetic changes as subjective preference. Evaluate each on its merit.
-- Be skeptical of "defensive coding" suggestions that wrap natural code in verbose guards without evidence of real-world failures. These often reduce readability for marginal safety. Score as Low confidence unless the reviewer provides concrete evidence that the unguarded form actually fails.
-- Weight reviewer authority when scoring confidence. Feedback from trusted reviewers (repository maintainers or admins) should be scored Medium or higher even when phrased softly, as they often use indirect language for change requests.
-- **Escalate product and design decisions.** When a finding questions whether behavior is intentional and neither docs, specs, nor code comments clarify the intent, assign an **Escalate** verdict instead of Accept or Skip. Do not autonomously accept or reject findings that hinge on product intent — the code might be correct by design. If a counterpart implementation exists elsewhere, suggest checking it for consistency.
