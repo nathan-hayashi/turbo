@@ -209,6 +209,7 @@ the error messages in this module are inconsistent, /note-improvement
 | [`/simplify-code`](skills/simplify-code/SKILL.md) | Review code quality and fix issues | |
 | [`/apply-findings`](skills/apply-findings/SKILL.md) | Apply findings from evaluations or reviews | [`/note-improvement`](skills/note-improvement/SKILL.md) |
 | [`/update-dependencies`](skills/update-dependencies/SKILL.md) | Smart dependency upgrades with breaking change research | [`/review-dependencies`](skills/review-dependencies/SKILL.md) |
+| [`/map-codebase`](skills/map-codebase/SKILL.md) | Deep architecture report: parallel inspections across structure, stack, APIs, patterns, data flow, dependencies, testing | [`/frontend-design`](skills/frontend-design/SKILL.md) |
 
 ### Analysis
 
