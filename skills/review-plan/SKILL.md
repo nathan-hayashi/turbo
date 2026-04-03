@@ -16,7 +16,7 @@ Determine the plan to review:
 
 ## Step 2: Run Two Reviews in Parallel
 
-Launch two agents in a single message so they run concurrently (`model: "opus"`, do not set `run_in_background`):
+Launch two Agent tool calls in a single message so they run concurrently (`model: "opus"`, do not set `run_in_background`):
 
 ### Internal Plan Review
 
@@ -28,7 +28,7 @@ Spawn a subagent with the full plan text and instruct it to:
 
 ### Run `/peer-review-plan` Skill
 
-Spawn a subagent to run the `/peer-review-plan` skill with the plan text.
+Spawn a subagent whose prompt includes the full plan text and instructs it to invoke `/peer-review-plan` via the Skill tool.
 
 ## Step 3: Return Combined Findings
 

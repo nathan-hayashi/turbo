@@ -17,7 +17,7 @@ Determine what to review:
 
 ## Step 2: Run Six Reviews in Parallel
 
-Launch one agent per skill in a single message so they run concurrently (`model: "opus"`, do not set `run_in_background`). Each agent runs its assigned skill with the scope from Step 1:
+Launch six Agent tool calls in a single message so they run concurrently (`model: "opus"`, do not set `run_in_background`). Each agent's prompt includes the scope from Step 1 and instructs it to invoke its assigned skill via the Skill tool:
 
 - `/review-test-coverage`
 - `/review-correctness`

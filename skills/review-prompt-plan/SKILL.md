@@ -19,7 +19,7 @@ Also read the source spec (path listed in the prompt plan's `Source:` field).
 
 ## Step 2: Run Two Reviews in Parallel
 
-Launch two agents in a single message so they run concurrently (`model: "opus"`, do not set `run_in_background`):
+Launch two Agent tool calls in a single message so they run concurrently (`model: "opus"`, do not set `run_in_background`):
 
 ### Internal Prompt Plan Review
 
@@ -30,7 +30,7 @@ Spawn a subagent with the full prompt plan text and the source spec. Instruct it
 
 ### Run `/peer-review-prompt-plan` Skill
 
-Spawn a subagent to run the `/peer-review-prompt-plan` skill with the prompt plan text.
+Spawn a subagent whose prompt includes the full prompt plan text and instructs it to invoke `/peer-review-prompt-plan` via the Skill tool.
 
 ## Step 3: Return Combined Findings
 

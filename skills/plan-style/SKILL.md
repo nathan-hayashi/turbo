@@ -16,6 +16,18 @@ Use `EnterPlanMode` to enter plan mode if not already in it. When writing an imp
    - **Finalize step** — A final step instructing to run the `/finalize` skill after implementation
 4. **Review the plan** — Run the review pipeline before presenting to the user
 
+## Task Tracking
+
+At the start, use `TaskCreate` to create a task for each step:
+
+1. Survey patterns
+2. Escalate decisions
+3. Draft the plan
+4. Run `/review-plan` skill
+5. Run `/evaluate-findings` skill
+6. Run `/apply-findings` skill
+7. Present revised plan
+
 ## Pattern Survey
 
 Before drafting the plan, spawn a subagent (`model: "opus"`, do not set `run_in_background`) to search the codebase for analogous features. Provide:
@@ -46,7 +58,7 @@ Before drafting plan steps, identify product or design decisions that the user's
 
 Present each decision as a concise trade-off with options via `AskUserQuestion`. Draft plan steps that depend on these decisions only after the user responds.
 
-## Task Tracking
+## Plan Task Tracking
 
 Add a "Task Tracking" section near the top of the plan (after the title, before the first step).
 
@@ -99,5 +111,4 @@ After drafting the plan and before presenting it to the user:
 1. Run the `/review-plan` skill with the full plan text
 2. Run the `/evaluate-findings` skill on the combined review findings
 3. Run the `/apply-findings` skill on the evaluated findings to incorporate accepted changes into the plan
-4. For medium-confidence findings that require user judgment, use `AskUserQuestion` to present the trade-offs and let the user decide
-5. Present the revised plan to the user for approval
+4. Present the revised plan to the user for approval

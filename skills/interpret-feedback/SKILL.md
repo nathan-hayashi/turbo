@@ -19,7 +19,7 @@ For each item, collect whatever context is available: code snippets, diffs, surr
 
 ## Step 2: Run Two Interpretations in Parallel
 
-Launch two agents in a single message (`model: "opus"`, do not set `run_in_background`):
+Launch two Agent tool calls in a single message (`model: "opus"`, do not set `run_in_background`):
 
 ### Internal Interpretation
 
@@ -34,7 +34,7 @@ Spawn a subagent with the feedback items and all available context. Instruct it 
 
 ### Run `/peer-interpret-feedback` Skill
 
-Spawn a subagent to run the `/peer-interpret-feedback` skill with the feedback items and all available context.
+Spawn a subagent whose prompt includes the feedback items and all available context, and instructs it to invoke `/peer-interpret-feedback` via the Skill tool.
 
 ## Step 3: Reconciliation
 

@@ -17,7 +17,7 @@ Determine the spec to review:
 
 ## Step 2: Run Two Reviews in Parallel
 
-Launch two agents in a single message so they run concurrently (`model: "opus"`, do not set `run_in_background`):
+Launch two Agent tool calls in a single message so they run concurrently (`model: "opus"`, do not set `run_in_background`):
 
 ### Internal Spec Review
 
@@ -29,7 +29,7 @@ Spawn a subagent with the full spec text and instruct it to:
 
 ### Run `/peer-review-spec` Skill
 
-Spawn a subagent to run the `/peer-review-spec` skill with the spec text.
+Spawn a subagent whose prompt includes the full spec text and instructs it to invoke `/peer-review-spec` via the Skill tool.
 
 ## Step 3: Return Combined Findings
 
