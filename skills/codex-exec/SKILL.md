@@ -54,6 +54,10 @@ Codex uses XML tags in its own context scaffolding, so the model parses them nat
 
 Keep prompts compact. Prefer tighter output contracts over raising reasoning effort. One clear task per exec call.
 
+## Parallel Execution
+
+Codex supports parallel sub-agents via `spawn_agent` / `wait_agent`. The model will not fan out unless the prompt explicitly requests it. See [references/parallel-execution.md](references/parallel-execution.md) for patterns and limitations.
+
 ## Interpreting Results
 
 - Exec output is a starting point, not a guaranteed solution

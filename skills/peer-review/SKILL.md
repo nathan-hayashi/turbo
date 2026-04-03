@@ -31,6 +31,14 @@ If no issues, state that it looks sound.
 
 Run the `/codex-exec` skill in read-only mode with the review prompt.
 
+When the prompt covers **multiple review dimensions** (e.g., correctness, security, quality, API usage), wrap the task list with parallel fan-out instructions so codex delegates each dimension to a separate sub-agent. Add to the prompt:
+
+```
+Delegate each review dimension to a separate sub-agent using spawn_agent so they run in parallel. Wait for all agents to complete, then synthesize their findings into a unified report.
+```
+
+See `/codex-exec` [references/parallel-execution.md](../codex-exec/references/parallel-execution.md) for details on codex parallel execution.
+
 ## Step 3: Return Findings
 
 Return the codex output. The caller determines what to do with the findings.
