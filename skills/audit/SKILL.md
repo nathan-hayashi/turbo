@@ -60,7 +60,7 @@ For each skill below, launch **one agent per partition** with the partition's fi
 
 Each agent's prompt includes the partition's file list and instructs it to invoke its assigned skill via the Skill tool.
 
-For the `/peer-review` agent: read the SKILL.md of every other partitioned skill listed above, extract their review criteria and "what to look for" sections, and compose a single comprehensive review prompt covering all dimensions. Include the file list so the reviewer knows what to review. Be verbose about what to check. Then invoke `/peer-review` via the Skill tool with this composed prompt.
+For the `/peer-review` agent, the Agent tool call prompt instructs the subagent to: (1) read the SKILL.md of every other partitioned skill listed above, (2) extract their review criteria and "what to look for" sections, (3) compose a single comprehensive review prompt covering all dimensions with the file list, being verbose about what to check, and (4) invoke `/peer-review` via the Skill tool with the composed prompt.
 
 ### Project-Wide Skills
 

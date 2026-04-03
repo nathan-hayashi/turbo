@@ -24,7 +24,9 @@ Launch six Agent tool calls in a single message so they run concurrently (`model
 - `/review-security`
 - `/review-quality`
 - `/review-api-usage`
-- `/peer-review` — this agent reads the SKILL.md of every other review skill listed above, extracts their review criteria and "what to look for" sections, and composes a single comprehensive review prompt covering all dimensions. Include the diff command from Step 1 so the reviewer can access the changes. Be verbose about what to check. Then invoke `/peer-review` via the Skill tool with this composed prompt.
+- `/peer-review`
+
+For the `/peer-review` agent, the Agent tool call prompt instructs the subagent to: (1) read the SKILL.md of every other review skill listed above, (2) extract their review criteria and "what to look for" sections, (3) compose a single comprehensive review prompt covering all dimensions with the diff command from Step 1, being verbose about what to check, and (4) invoke `/peer-review` via the Skill tool with the composed prompt.
 
 ## Step 3: Return Combined Findings
 
