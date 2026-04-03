@@ -55,10 +55,12 @@ For each skill below, launch **one agent per partition** with the partition's fi
 | `/review-correctness` | File list |
 | `/review-security` | File list |
 | `/review-api-usage` | File list |
-| `/peer-review-code` | File list |
 | `/review-quality` | File list |
+| `/peer-review` | File list |
 
 Each agent's prompt includes the partition's file list and instructs it to invoke its assigned skill via the Skill tool.
+
+For the `/peer-review` agent: read the SKILL.md of every other partitioned skill listed above, extract their review criteria and "what to look for" sections, and compose a single comprehensive review prompt covering all dimensions. Include the file list so the reviewer knows what to review. Be verbose about what to check. Then invoke `/peer-review` via the Skill tool with this composed prompt.
 
 ### Project-Wide Skills
 
@@ -110,7 +112,7 @@ Write `.turbo/audit.md` using the template below. Populate the dashboard by coun
 ## Detailed Findings
 
 ### Correctness
-<findings from /review-correctness and /peer-review>
+<findings from /review-correctness>
 
 ### Security
 <findings from /review-security>
@@ -157,5 +159,5 @@ Convert the markdown report into a styled, interactive HTML page.
 ## Rules
 
 - If any skill is unavailable or fails, proceed with findings from the remaining skills and note the failure in the report.
-- Correctness findings include results from both `/review-correctness` and `/peer-review-code`. Deduplicate overlapping findings.
+- `/peer-review` covers all concerns (correctness, security, quality). Distribute its findings into their matching category sections. Deduplicate findings that overlap with the specialized reviewers.
 - Does not modify source code, stage files, or commit.

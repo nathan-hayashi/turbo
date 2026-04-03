@@ -58,7 +58,7 @@ Want to swap a piece? For example:
 - Replace [`/commit-rules`](skills/commit-rules/SKILL.md) or [`/changelog-rules`](skills/changelog-rules/SKILL.md) with your team's conventions. The pipeline adapts.
 - Replace [`/code-style`](skills/code-style/SKILL.md) with your team's style guide. The built-in one teaches general principles rather than opinionated rules, so it's a natural swap point.
 
-This is also why analysis skills and workflow skills both exist. [`/review-correctness`](skills/review-correctness/SKILL.md) analyzes code and returns structured findings. [`/review-code`](skills/review-code/SKILL.md) composes [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), and [`/peer-review-code`](skills/peer-review-code/SKILL.md) into one aggregated review. Run the analysis skill when you want a single-concern scan. Run the workflow when you want the combined results.
+This is also why analysis skills and workflow skills both exist. [`/review-correctness`](skills/review-correctness/SKILL.md) analyzes code and returns structured findings. [`/review-code`](skills/review-code/SKILL.md) composes [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), and [`/peer-review`](skills/peer-review/SKILL.md) into one aggregated review. Run the analysis skill when you want a single-concern scan. Run the workflow when you want the combined results.
 
 Skills communicate through standard interfaces: git staging area, PR state, and file conventions.
 
@@ -73,7 +73,7 @@ If Turbo has helped you ship faster and you're so inclined, I'd greatly apprecia
 
 Turbo requires [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Works best with Claude Code Max 5x, Max 20x, or Team plan with Premium seats (pipeline workflows are context-heavy). Additional tools are installed during setup.
 
-**External services:** ChatGPT Plus or higher (for codex review), and ChatGPT Pro or Business (for [`/consult-oracle`](skills/consult-oracle/SKILL.md), where Pro models are the only ones that reliably solve very hard problems). That said, [`/peer-review-code`](skills/peer-review-code/SKILL.md) and [`/consult-oracle`](skills/consult-oracle/SKILL.md) are designed as swappable puzzle pieces, so if you don't have access, replace them with alternatives that work for you.
+**External services:** ChatGPT Plus or higher (for codex peer review), and ChatGPT Pro or Business (for [`/consult-oracle`](skills/consult-oracle/SKILL.md), where Pro models are the only ones that reliably solve very hard problems). That said, [`/peer-review`](skills/peer-review/SKILL.md) and [`/consult-oracle`](skills/consult-oracle/SKILL.md) are designed as swappable puzzle pieces, so if you don't have access, replace them with alternatives that work for you.
 
 ### Automatic Setup (Recommended)
 
@@ -194,17 +194,17 @@ the error messages in this module are inconsistent, /note-improvement
 | Skill | What it does | Uses |
 |---|---|---|
 | [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: polish, changelog, commit, PR | [`/polish-code`](skills/polish-code/SKILL.md), [`/update-changelog`](skills/update-changelog/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/ship`](skills/ship/SKILL.md), [`/split-and-ship`](skills/split-and-ship/SKILL.md) |
-| [`/audit`](skills/audit/SKILL.md) | Project-wide health audit: all analysis skills, evaluation, markdown and HTML report | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review-code`](skills/peer-review-code/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-dependencies`](skills/review-dependencies/SKILL.md), [`/review-tooling`](skills/review-tooling/SKILL.md), [`/find-dead-code`](skills/find-dead-code/SKILL.md), [`/create-threat-model`](skills/create-threat-model/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/frontend-design`](skills/frontend-design/SKILL.md) |
+| [`/audit`](skills/audit/SKILL.md) | Project-wide health audit: all analysis skills, evaluation, markdown and HTML report | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-dependencies`](skills/review-dependencies/SKILL.md), [`/review-tooling`](skills/review-tooling/SKILL.md), [`/find-dead-code`](skills/find-dead-code/SKILL.md), [`/create-threat-model`](skills/create-threat-model/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/frontend-design`](skills/frontend-design/SKILL.md) |
 
 ### Workflows
 
 | Skill | What it does | Uses |
 |---|---|---|
 | [`/polish-code`](skills/polish-code/SKILL.md) | Iterative quality loop: stage → format → lint → test → simplify → review → evaluate → apply → smoke test → re-run until stable | [`/stage`](skills/stage/SKILL.md), [`/simplify-code`](skills/simplify-code/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/apply-findings`](skills/apply-findings/SKILL.md), [`/smoke-test`](skills/smoke-test/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
-| [`/review-code`](skills/review-code/SKILL.md) | AI code review: 6 parallel reviewers | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review-code`](skills/peer-review-code/SKILL.md) |
-| [`/review-plan`](skills/review-plan/SKILL.md) | AI plan review: internal review and peer review in parallel | [`/peer-review-plan`](skills/peer-review-plan/SKILL.md) |
-| [`/review-spec`](skills/review-spec/SKILL.md) | AI spec review: internal review and peer review in parallel | [`/peer-review-spec`](skills/peer-review-spec/SKILL.md) |
-| [`/review-prompt-plan`](skills/review-prompt-plan/SKILL.md) | AI prompt plan review: internal review and peer review in parallel | [`/peer-review-prompt-plan`](skills/peer-review-prompt-plan/SKILL.md) |
+| [`/review-code`](skills/review-code/SKILL.md) | AI code review: 6 parallel reviewers | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md) |
+| [`/review-plan`](skills/review-plan/SKILL.md) | AI plan review: internal review and peer review in parallel | [`/peer-review`](skills/peer-review/SKILL.md) |
+| [`/review-spec`](skills/review-spec/SKILL.md) | AI spec review: internal review and peer review in parallel | [`/peer-review`](skills/peer-review/SKILL.md) |
+| [`/review-prompt-plan`](skills/review-prompt-plan/SKILL.md) | AI prompt plan review: internal review and peer review in parallel | [`/peer-review`](skills/peer-review/SKILL.md) |
 | [`/review-pr`](skills/review-pr/SKILL.md) | PR review: fetch comments, detect base branch, run code review, evaluate findings | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md), [`/review-code`](skills/review-code/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) |
 | [`/simplify-code`](skills/simplify-code/SKILL.md) | Review code quality and fix issues | |
 | [`/apply-findings`](skills/apply-findings/SKILL.md) | Apply findings from evaluations or reviews | [`/note-improvement`](skills/note-improvement/SKILL.md) |
@@ -221,12 +221,8 @@ the error messages in this module are inconsistent, /note-improvement
 | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md) | Analyze code for test coverage gaps and missing edge cases | |
 | [`/review-dependencies`](skills/review-dependencies/SKILL.md) | Detect outdated or vulnerable dependencies | |
 | [`/review-tooling`](skills/review-tooling/SKILL.md) | Detect dev tooling gaps across linters, formatters, hooks, test runners, and CI/CD | |
-| [`/peer-review-code`](skills/peer-review-code/SKILL.md) | Independent code peer review | [`/codex-review`](skills/codex-review/SKILL.md) |
-| [`/peer-review-plan`](skills/peer-review-plan/SKILL.md) | Independent plan peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
-| [`/peer-review-spec`](skills/peer-review-spec/SKILL.md) | Independent spec peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
-| [`/peer-review-prompt-plan`](skills/peer-review-prompt-plan/SKILL.md) | Independent prompt plan peer review | [`/codex-exec`](skills/codex-exec/SKILL.md) |
-| [`/interpret-feedback`](skills/interpret-feedback/SKILL.md) | Parallel internal + codex interpretation of third-party feedback | [`/peer-interpret-feedback`](skills/peer-interpret-feedback/SKILL.md) |
-| [`/peer-interpret-feedback`](skills/peer-interpret-feedback/SKILL.md) | Independent feedback interpretation via codex | [`/codex-exec`](skills/codex-exec/SKILL.md) |
+| [`/peer-review`](skills/peer-review/SKILL.md) | Independent peer review via codex (code, plans, specs, prompt plans, feedback) | [`/codex-exec`](skills/codex-exec/SKILL.md) |
+| [`/interpret-feedback`](skills/interpret-feedback/SKILL.md) | Parallel internal + codex interpretation of third-party feedback | [`/peer-review`](skills/peer-review/SKILL.md) |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Triage review feedback with adversarial verification | |
 | [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
 | [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/consult-codex`](skills/consult-codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/consult-oracle`](skills/consult-oracle/SKILL.md) |

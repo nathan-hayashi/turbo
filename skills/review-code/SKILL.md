@@ -1,6 +1,6 @@
 ---
 name: review-code
-description: "Full code review: launches `/review-test-coverage`, `/review-correctness`, `/review-security`, `/review-quality`, `/review-api-usage`, and `/peer-review-code` in parallel and returns combined findings. Use when the user asks to \"review my code\", \"full code review\", \"review my changes\", or wants a comprehensive code review."
+description: "Full code review: launches `/review-test-coverage`, `/review-correctness`, `/review-security`, `/review-quality`, `/review-api-usage`, and `/peer-review` in parallel and returns combined findings. Use when the user asks to \"review my code\", \"full code review\", \"review my changes\", or wants a comprehensive code review."
 ---
 
 # Review Code
@@ -24,7 +24,7 @@ Launch six Agent tool calls in a single message so they run concurrently (`model
 - `/review-security`
 - `/review-quality`
 - `/review-api-usage`
-- `/peer-review-code`
+- `/peer-review` — this agent reads the SKILL.md of every other review skill listed above, extracts their review criteria and "what to look for" sections, and composes a single comprehensive review prompt covering all dimensions. Include the diff command from Step 1 so the reviewer can access the changes. Be verbose about what to check. Then invoke `/peer-review` via the Skill tool with this composed prompt.
 
 ## Step 3: Return Combined Findings
 

@@ -1,6 +1,6 @@
 ---
 name: review-plan
-description: "Review an implementation plan: launches an internal plan review and `/peer-review-plan` in parallel and returns combined findings. Use when the user asks to \"review my plan\", \"review this plan\", \"check my plan\", \"critique my plan\", or wants plan feedback before implementation."
+description: "Review an implementation plan: launches an internal plan review and `/peer-review` in parallel and returns combined findings. Use when the user asks to \"review my plan\", \"review this plan\", \"check my plan\", \"critique my plan\", or wants plan feedback before implementation."
 ---
 
 # Review Plan
@@ -26,9 +26,24 @@ Spawn a subagent with the full plan text and instruct it to:
 2. Apply the plan determination criteria below
 3. Return findings in the output format below
 
-### Run `/peer-review-plan` Skill
+### Run `/peer-review` Skill
 
-Spawn a subagent whose prompt includes the full plan text and instructs it to invoke `/peer-review-plan` via the Skill tool.
+Spawn a subagent whose prompt includes the full plan text and the following review prompt, and instructs it to invoke `/peer-review` via the Skill tool:
+
+```
+<task>
+Review the following implementation plan for issues that would cause an implementer to build the wrong thing or get stuck. Challenge the design direction: question whether the chosen approach is the simplest safe option and identify assumptions it depends on.
+</task>
+
+<dig_deeper_nudge>
+After surface-level issues, check for failure modes under stress: partial failure, race conditions, rollback safety, stale state, and data loss.
+</dig_deeper_nudge>
+
+<structured_output_contract>
+For each issue, state: (1) the problem, (2) where in the plan it occurs, (3) impact on implementation, (4) a suggested fix, and (5) priority: P0 (fundamentally flawed), P1 (significant gap), P2 (moderate issue), P3 (minor improvement).
+Ignore stylistic preferences and minor wording. If no issues are found, state that the plan looks sound.
+</structured_output_contract>
+```
 
 ## Step 3: Return Combined Findings
 

@@ -1,6 +1,6 @@
 ---
 name: review-spec
-description: "Review a specification document: launches an internal spec review and `/peer-review-spec` in parallel and returns combined findings. Use when the user asks to \"review my spec\", \"review this spec\", \"check my spec\", \"critique my spec\", or wants spec feedback before planning."
+description: "Review a specification document: launches an internal spec review and `/peer-review` in parallel and returns combined findings. Use when the user asks to \"review my spec\", \"review this spec\", \"check my spec\", \"critique my spec\", or wants spec feedback before planning."
 ---
 
 # Review Spec
@@ -27,9 +27,24 @@ Spawn a subagent with the full spec text and instruct it to:
 2. Apply the spec determination criteria below
 3. Return findings in the output format below
 
-### Run `/peer-review-spec` Skill
+### Run `/peer-review` Skill
 
-Spawn a subagent whose prompt includes the full spec text and instructs it to invoke `/peer-review-spec` via the Skill tool.
+Spawn a subagent whose prompt includes the full spec text and the following review prompt, and instructs it to invoke `/peer-review` via the Skill tool:
+
+```
+<task>
+Review the following specification document for issues that would cause problems during implementation planning. Challenge the design direction: question whether the proposed system design is the simplest safe option and identify assumptions about users, environment, or dependencies that could break.
+</task>
+
+<dig_deeper_nudge>
+After surface-level issues, check for failure scenarios the spec does not account for: partial failure, race conditions, rollback safety, stale state, and data loss.
+</dig_deeper_nudge>
+
+<structured_output_contract>
+For each issue, state: (1) the problem, (2) where in the spec it occurs, (3) impact on planning or implementation, (4) a suggested fix, and (5) priority: P0 (fundamentally flawed), P1 (significant gap), P2 (moderate issue), P3 (minor improvement).
+Ignore stylistic preferences and minor wording. If no issues are found, state that the spec looks sound.
+</structured_output_contract>
+```
 
 ## Step 3: Return Combined Findings
 
