@@ -26,9 +26,9 @@ If a finding references code that has changed since it was generated (e.g., by a
 
 ## Step 3: Offer Skipped Improvements
 
-Do not note findings skipped as false positives or subjective preferences. For findings skipped solely because they are pre-existing, out of scope, or out of proportion, use `AskUserQuestion` to ask whether the user wants to implement the improvement now or note it for later. Based on the response:
+Do not note findings skipped as false positives or subjective preferences. For findings skipped solely because they are pre-existing, out of scope, or out of proportion, use `AskUserQuestion` to ask whether the user wants to apply the improvement now or note it for later. Based on the response:
 
-- **Implement now**: Make the change inline.
+- **Apply now**: Make the change inline.
 - **Note for later**: Run the `/note-improvement` skill to capture it.
 
 ## Step 4: Report Results
