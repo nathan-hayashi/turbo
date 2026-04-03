@@ -1,6 +1,6 @@
 ---
 name: finalize
-description: "Run the post-implementation quality assurance workflow including tests, code polishing, review, and commit. Use when the user asks to \"finalize implementation\", \"finalize changes\", \"wrap up implementation\", \"finish up\", \"ready to commit\", \"run QA workflow\", or \"ship it\"."
+description: "Run the post-implementation quality assurance workflow including tests, code polishing, review, and commit. Use when the user asks to \"finalize implementation\", \"finalize changes\", \"wrap up implementation\", \"finish up\", \"ready to commit\", or \"run QA workflow\"."
 ---
 
 # Finalize Implementation
@@ -30,40 +30,34 @@ Run the `/self-improve` skill for the current session. Always run this phase eve
 
 ## Phase 4: Commit and PR
 
-### Step 1: Determine Intent
+### Step 1: Analyze Split Potential
 
-Detect the repository's default branch via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`. Check the current branch name and whether a PR already exists for it using `gh pr view`.
+Examine the staged changes and evaluate whether they should be split into multiple commits, branches, and PRs for reviewability.
 
-Use `AskUserQuestion` to ask the user how to proceed. Present the options based on the current state:
+Run `git diff --cached --stat` and `git diff --cached` to understand the scope. Categorize changes along three dimensions:
 
-- **On a feature branch with an existing PR** — commit and push; or commit, push, and update the PR; or commit only
-- **On a feature branch without a PR** — commit and push; or commit, push, and create a PR; or commit only
-- **On the default branch** — commit and push; or create a feature branch, commit, push, and create a PR; or commit only
-- **Abort** — leave changes staged, do not commit
+- **Concern type**: refactoring, bug fix, new feature, cleanup, dependency update
+- **Layer/domain**: backend, frontend, database migrations, i18n, tests, configuration
+- **Logical unit**: files that form a coherent, independently reviewable change
 
-### Step 2: Branch (if Needed)
+A split is warranted when the staged changes contain multiple reviewable units. Each unit should be independently understandable, testable, and revertable. When deciding group boundaries, consider whether a reviewer could evaluate each group without needing context from the others.
 
-If the user wants a PR and the current branch is the default branch:
+### Step 2: Present Analysis and Choose Path
 
-1. Suggest a branch name based on the changes and use `AskUserQuestion` to confirm or adjust
-2. Create and switch to the new branch: `git checkout -b <branch-name>`
+Output the split analysis as text.
 
-### Step 3: Check for Unstaged Changes
+If changes form a single cohesive unit, note this and proceed to Step 3.
 
-Run `git status` to check for unstaged changes. If any exist, stage them. This catches files modified by auto-formatters that were not re-staged.
+If changes span multiple reviewable units, propose an ordered list of groups. For each group, specify:
 
-### Step 4: Run `/commit-staged` Skill
+- Name and one-line description
+- File list (flag files with mixed-concern hunks)
+- Branch topology: stacked on the previous group (when this group depends on it) or independent (when it can stand alone)
 
-Run the `/commit-staged` skill.
+Use `AskUserQuestion` to let the user choose: ship as a single commit/PR, or split.
 
-If the commit fails due to a pre-commit hook (formatter, linter), fix the issues — or run the project's format/lint script to auto-fix — then **re-stage all modified files** before retrying. Pre-commit hooks may modify files in the working tree without updating the staging area.
-
-### Step 5: Push and Create or Update PR (if Requested)
-
-- **Push only** — push (do not create or update a PR)
-- **Create PR** — push with `-u` and run the `/create-pr` skill
-- **Update PR** — push and run the `/update-pr` skill
-- **Skip** — end the workflow (do not push)
+- **Ship** — run the `/ship` skill
+- **Split** — run the `/split-and-ship` skill
 
 ## Rules
 

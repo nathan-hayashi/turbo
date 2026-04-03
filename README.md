@@ -193,7 +193,7 @@ the error messages in this module are inconsistent, /note-improvement
 
 | Skill | What it does | Uses |
 |---|---|---|
-| [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: polish, changelog, commit, PR | [`/polish-code`](skills/polish-code/SKILL.md), [`/update-changelog`](skills/update-changelog/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/commit-staged`](skills/commit-staged/SKILL.md), [`/create-pr`](skills/create-pr/SKILL.md), [`/update-pr`](skills/update-pr/SKILL.md) |
+| [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: polish, changelog, commit, PR | [`/polish-code`](skills/polish-code/SKILL.md), [`/update-changelog`](skills/update-changelog/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/ship`](skills/ship/SKILL.md), [`/split-and-ship`](skills/split-and-ship/SKILL.md) |
 | [`/audit`](skills/audit/SKILL.md) | Project-wide health audit: all analysis skills, evaluation, markdown and HTML report | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review-code`](skills/peer-review-code/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-dependencies`](skills/review-dependencies/SKILL.md), [`/review-tooling`](skills/review-tooling/SKILL.md), [`/find-dead-code`](skills/find-dead-code/SKILL.md), [`/create-threat-model`](skills/create-threat-model/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/frontend-design`](skills/frontend-design/SKILL.md) |
 
 ### Workflows
@@ -259,6 +259,8 @@ the error messages in this module are inconsistent, /note-improvement
 | [`/stage-commit-push`](skills/stage-commit-push/SKILL.md) | Stage, commit, and push in one step | [`/stage-commit`](skills/stage-commit/SKILL.md) |
 | [`/commit-staged`](skills/commit-staged/SKILL.md) | Commit already-staged files with good message | [`/commit-rules`](skills/commit-rules/SKILL.md) |
 | [`/commit-staged-push`](skills/commit-staged-push/SKILL.md) | Commit already-staged files and push | [`/commit-staged`](skills/commit-staged/SKILL.md) |
+| [`/ship`](skills/ship/SKILL.md) | Commit, push, and optionally create or update a PR | [`/commit-staged-push`](skills/commit-staged-push/SKILL.md), [`/create-pr`](skills/create-pr/SKILL.md), [`/update-pr`](skills/update-pr/SKILL.md) |
+| [`/split-and-ship`](skills/split-and-ship/SKILL.md) | Ship split plan as separate branches, commits, and PRs | [`/commit-staged-push`](skills/commit-staged-push/SKILL.md), [`/create-pr`](skills/create-pr/SKILL.md) |
 | [`/commit-rules`](skills/commit-rules/SKILL.md) | Shared commit message rules and technical constraints | |
 | [`/create-pr`](skills/create-pr/SKILL.md) | Draft and create a GitHub PR | [`/github-voice`](skills/github-voice/SKILL.md) |
 | [`/update-pr`](skills/update-pr/SKILL.md) | Update existing PR title and description | [`/github-voice`](skills/github-voice/SKILL.md) |
