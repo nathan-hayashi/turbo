@@ -1,6 +1,6 @@
 ---
 name: apply-findings
-description: "Apply findings by making the suggested code changes. Handles both evaluated findings (applies accepted verdicts) and unevaluated findings. Use when the user asks to \"apply findings\", \"apply fixes\", \"apply suggestions\", \"fix the findings\", or \"apply the review results\"."
+description: "Apply findings by making the suggested code changes. Handles both evaluated findings (applies accepted verdicts) and unevaluated findings. Use when the user asks to \"apply findings\", \"apply fixes\", \"apply suggestions\", \"apply accepted findings\", \"fix the findings\", or \"apply the review results\"."
 ---
 
 # Apply Findings
@@ -24,9 +24,12 @@ Group findings by file path and apply in file order to minimize context switchin
 
 If a finding references code that has changed since it was generated (e.g., by a prior fix in this same run), re-assess whether it still applies. Skip if the code has diverged.
 
-## Step 3: Note Skipped Improvements
+## Step 3: Offer Skipped Improvements
 
-For skipped findings that are genuinely useful but out of scope or out of proportion for the current work, run the `/note-improvement` skill to capture them for later.
+Do not note findings skipped as false positives or subjective preferences. For findings skipped solely because they are pre-existing, out of scope, or out of proportion, use `AskUserQuestion` to ask whether the user wants to implement the improvement now or note it for later. Based on the response:
+
+- **Implement now**: Make the change inline.
+- **Note for later**: Run the `/note-improvement` skill to capture it.
 
 ## Step 4: Report Results
 
