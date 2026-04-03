@@ -460,8 +460,6 @@ Break complex operations into clear, sequential steps. Use `## Step N:` headings
 
 **Avoid** wrapper sections like `## Process` with `### 1.` numbered subsections. Steps should be top-level, not nested under a generic heading.
 
-**Planning skills and context clearing:** When a skill produces a plan that gets approved and executed in a separate session (after context clear), any steps after plan approval are lost. Post-implementation work (cleanup, status updates) must be written into the plan itself, not as standalone skill steps.
-
 For particularly complex workflows, provide a checklist that Claude can copy into its response and check off as it progresses.
 
 **Example 1: Research synthesis workflow** (for Skills without code):

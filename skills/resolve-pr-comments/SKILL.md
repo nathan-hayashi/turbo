@@ -16,8 +16,8 @@ At the start, use `TaskCreate` to create a task for each step:
 3. Run `/interpret-feedback` skill
 4. Run `/evaluate-findings` skill
 5. Resolve ambiguities
-6. Run `/apply-findings` skill
-7. Run `/finalize` skill
+6. Choose implementation path
+7. Implement and finalize
 8. Verify fixes
 9. Draft replies
 10. Post replies
@@ -73,7 +73,7 @@ Classify each review body comment as:
 
 ## Step 3: Run `/interpret-feedback` Skill
 
-Run the `/interpret-feedback` skill on unresolved inline threads authored by humans. Skip threads from bot accounts (e.g., CodeRabbit, Copilot). AI reviewer feedback is structured and explicit enough for `/evaluate-findings` to handle directly.
+Run the `/interpret-feedback` skill on unresolved inline threads authored by humans. Skip threads from bot accounts (logins ending in `[bot]`, e.g., CodeRabbit, Copilot). AI reviewer feedback is structured and explicit enough for `/evaluate-findings` to handle directly.
 
 Include each thread's `diffHunk` so the interpreters can see the code context the reviewer commented on. For outdated comments where `line` is null, use `originalLine` as the line reference.
 
@@ -97,25 +97,38 @@ Then use `AskUserQuestion` to ask how to handle them. Per item, the options are:
 - **Ask the reviewer**: "Ask them Y" — queue a clarification question to be drafted in Step 9
 - **Skip**: Remove from processing
 
-## Step 6: Run `/apply-findings` Skill
+## Step 6: Choose Implementation Path
 
-Run the `/apply-findings` skill on the evaluated results, including any items reclassified in Step 5.
+Present a summary of accepted findings: count by complexity (mechanical fixes vs. architectural or design changes). Then use `AskUserQuestion` to let the user choose:
 
-## Step 7: Run `/finalize` Skill
+- **Full** — Enter plan mode via `/plan-style` for review, approval, implementation, and finalize
+- **Lightweight** — Apply directly via `/apply-findings`, then `/finalize`
 
-If `/apply-findings` reported any changes were made, run the `/finalize` skill to polish, test, review, and commit the changes. The commit SHA from finalize is needed for reply messages.
+Suggest Full when findings include complex or architectural changes. Suggest Lightweight when all findings are mechanical fixes.
 
-If no changes were made, skip to Step 9.
+If there are no accepted findings to implement, skip to Step 9.
+
+## Step 7: Implement and Finalize
+
+**Full path:**
+
+Run the `/plan-style` skill. The plan should address each accepted finding from the evaluation, including any items reclassified in Step 5. After plan approval, implement the changes. `/finalize` is included as the plan's final step. The commit SHA from finalize is needed for reply messages.
+
+**Lightweight path:**
+
+1. Run the `/apply-findings` skill on the evaluated results, including any items reclassified in Step 5.
+2. If changes were made, run the `/finalize` skill. The commit SHA from finalize is needed for reply messages.
+3. If no changes were made, skip to Step 9.
 
 ## Step 8: Verify Fixes
 
-For each finding that was fixed in Step 6, verify the fix actually addresses the reviewer's concern:
+For each finding that was fixed in Step 7, verify the fix actually addresses the reviewer's concern:
 
 1. Read the current code at the relevant file and location
 2. Compare against the reviewer's comment and `diffHunk` (the code the reviewer was looking at)
 3. Confirm the specific concern is resolved
 
-If the fix did not address the concern (wrong location, incomplete change, or the issue is still present), downgrade it from fixed to skipped. Use the skip reason: the attempted fix did not resolve the reviewer's concern, with a brief explanation of what remains.
+If the fix did not address the concern (wrong location, incomplete change, or the issue is still present), downgrade it to skipped. Draft a skip reply in Step 9 with the reason: the attempted fix did not resolve the reviewer's concern, with a brief explanation of what remains.
 
 ## Step 9: Draft Replies
 
