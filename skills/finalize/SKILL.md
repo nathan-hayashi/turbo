@@ -34,6 +34,8 @@ Run the `/self-improve` skill for the current session. Always run this phase eve
 
 Examine the staged changes and evaluate whether they should be split into multiple commits, branches, and PRs for reviewability.
 
+Detect the repository's default branch via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`. Check the current branch name and whether a PR already exists for it using `gh pr view`. If a PR exists, read its title and description to understand the branch's purpose. This context informs which changes belong on the current branch and which should be split off.
+
 Run `git diff --cached --stat` and `git diff --cached` to understand the scope. Categorize changes along three dimensions:
 
 - **Concern type**: refactoring, bug fix, new feature, cleanup, dependency update
@@ -46,7 +48,7 @@ A split is warranted when the staged changes contain multiple reviewable units. 
 
 Output the split analysis as text.
 
-If changes form a single cohesive unit, note this and proceed to Step 3.
+If changes form a single cohesive unit, note this and run the `/ship` skill.
 
 If changes span multiple reviewable units, propose an ordered list of groups. For each group, specify:
 
