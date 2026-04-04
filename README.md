@@ -8,7 +8,7 @@ A composable dev process for [Claude Code](https://docs.anthropic.com/en/docs/cl
 2. **Implement** — Build it with Claude
 3. **Run [`/finalize`](skills/finalize/SKILL.md)** — Tests, iterative code polishing, commit, and PR. One command.
 
-Everything else in Turbo builds on this loop: a [planning pipeline](#the-planning-pipeline) that produces better plans than raw plan mode, a [project-wide audit](#project-wide-audit) for assessing codebase health, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [60+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). See the [prompt examples](#prompt-examples) for how they look in practice, or read on for the full picture.
+Everything else in Turbo builds on this loop: a [planning pipeline](#the-planning-pipeline) that produces better plans than raw plan mode, a [project-wide audit](#project-wide-audit) for assessing codebase health, [developer onboarding](#developer-onboarding) for ramping up on new projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [60+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). See the [prompt examples](#prompt-examples) for how they look in practice, or read on for the full picture.
 
 ## What Is This?
 
@@ -122,6 +122,14 @@ Planning is up to you. You can use Turbo's [planning pipeline](#the-planning-pip
 
 [`/audit`](skills/audit/SKILL.md) is analysis-only: it produces the report and stops there. When you're ready to act on findings, use [`/apply-findings`](skills/apply-findings/SKILL.md) or address them manually.
 
+### Developer Onboarding
+
+[`/onboard`](skills/onboard/SKILL.md) generates a comprehensive onboarding guide for new developers joining a project. It composes [`/map-codebase`](skills/map-codebase/SKILL.md) (architecture), [`/review-tooling`](skills/review-tooling/SKILL.md) (development workflow), and [`/review-agentic-setup`](skills/review-agentic-setup/SKILL.md) (AI coding infrastructure) with inline agents for prerequisites, troubleshooting, and next steps (top GitHub issues). The result is `.turbo/onboarding.md` with an interactive HTML version.
+
+The guide covers both traditional onboarding (setup, build commands, tooling) and agentic onboarding (what CLAUDE.md/AGENTS.md cover, installed skills, MCP servers, Claude Code vs Codex CLI compatibility). If a [threat model](#project-wide-audit) exists, security considerations are included too.
+
+[`/map-codebase`](skills/map-codebase/SKILL.md) also works standalone when you just need the architecture report without the full onboarding guide.
+
 ## The Planning Pipeline
 
 Claude Code's built-in plan mode is a starting point, but on its own it tends to produce plans that miss existing patterns, skip edge cases, or propose approaches that don't hold up under scrutiny. Turbo's planning pipeline adds structure around plan mode: pattern surveys that ground the approach in your codebase, peer reviews via codex, and spec reviews that catch gaps before they cascade into implementation. The result is plans that survive contact with reality.
@@ -162,6 +170,10 @@ tests are failing in the auth module, can you please /investigate?
 # Auditing project health
 /audit
 read @.turbo/audit.md and /apply-findings  ← follow-up session
+
+# Onboarding to a new project
+/onboard
+/map-codebase  ← architecture report only
 
 # Resolving PR feedback
 /resolve-pr-comments
